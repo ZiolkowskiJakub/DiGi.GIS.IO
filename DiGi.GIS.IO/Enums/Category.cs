@@ -12,6 +12,7 @@ namespace DiGi.GIS.IO.Enums
         [Description("Occupancy")] Occupancy,
         [Description("Orthophotomap")] Orthophotomap,
         [Description("Year built")] YearBuit,
+        [Description("Shape prediction")] ShapePrediction,
         [Description("Thermal properties")] ThermalProperties,
         [Description("Other")] Other,
     }

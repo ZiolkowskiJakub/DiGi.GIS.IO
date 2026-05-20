@@ -6,6 +6,7 @@ using DiGi.Geometry.Planar.Classes;
 using DiGi.Geometry.Planar.Interfaces;
 using DiGi.GIS.Classes;
 using DiGi.GIS.Emgu.CV.Classes;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace DiGi.GIS.IO
 {
     public static partial class Modify
     {
-        public static void Update(this Table? table, int countyId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons)
+        public static void Update(this Table? table, int countyId, int subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds)
         {
             if (table is null)
             {
@@ -25,6 +26,7 @@ namespace DiGi.GIS.IO
             if (building2Ds is null || !building2Ds.Any())
             {
                 Update_Building2D(table, countyId, building2Ds);
+                Update_Building2D(table, countyId, subdivisionId, building2Ds, administrativeAreal2Ds);
             }
 
             if (building2DYearBuiltPredictions is null || !building2DYearBuiltPredictions.Any())
@@ -171,6 +173,40 @@ namespace DiGi.GIS.IO
                 column_ConvexHullThinnessRatio = table.AddColumn(Constants.Column.ConvexHullThinnessRatio);
             }
 
+            if (!table.TryGetColumn(Constants.Column.CalculatedBuildingShape.Name, out Column? column_CalculatedBuildingShape) || column_CalculatedBuildingShape is null)
+            {
+                column_CalculatedBuildingShape = table.AddColumn(Constants.Column.CalculatedBuildingShape);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.IsOccupied.Name, out Column? column_IsOccupied) || column_IsOccupied is null)
+            {
+                column_IsOccupied = table.AddColumn(Constants.Column.IsOccupied);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.IsResidential.Name, out Column? column_IsResidential) || column_IsResidential is null)
+            {
+                column_IsResidential = table.AddColumn(Constants.Column.IsResidential);
+            }
+
+            List<Tuple<int, int, Column>> tuples_GridCellCoverage = [];
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Column? column = Create.Column_GridCellCoverage(i, j);
+
+                    if (!table.TryGetColumn(column.Name, out column) || column is null)
+                    {
+                        column = table.AddColumn(column);
+                    }
+
+                    if(column is not null)
+                    {
+                        tuples_GridCellCoverage.Add(new Tuple<int, int, Column>(i, j, column));
+                    }
+                }
+            }
+
             List<Tuple<Row, Building2D>> tuples = [];
 
             int count = table.RowCount;
@@ -226,6 +262,8 @@ namespace DiGi.GIS.IO
                 tuples.Add(new Tuple<Row, Building2D>(row, building2D));
             }
 
+            BuildingShapeSolver buildingShapeSolver = new ();
+
             foreach (Tuple<Row, Building2D> tuple in tuples)
             {
                 Row row = tuple.Item1;
@@ -263,6 +301,16 @@ namespace DiGi.GIS.IO
                 if (column_CardinalDirection is not null && column_CardinalDirection.TryGetValidValue(Query.CardinalDirection(azimuth), out value))
                 {
                     row[column_CardinalDirection.Index] = value;
+                }
+
+                if (column_IsOccupied is not null && column_IsOccupied.TryGetValidValue(Query.IsOccupied(building2D), out value))
+                {
+                    row[column_IsOccupied.Index] = value;
+                }
+
+                if (column_IsResidential is not null && column_IsResidential.TryGetValidValue(Query.IsResidential(building2D), out value))
+                {
+                    row[column_IsResidential.Index] = value;
                 }
 
                 PolygonalFace2D? polygonalFace2D = building2D.PolygonalFace2D;
@@ -352,6 +400,50 @@ namespace DiGi.GIS.IO
                             {
                                 row[column_SquareThinnessRatio.Index] = value;
                             }
+
+                            Grid2D grid2D = new (rectangle2D, 5, 5);
+                            if(grid2D is not null)
+                            {
+                                for(int i =0; i < 5; i++)
+                                {
+                                    for (int j = 0; j < 5; j++)
+                                    {
+                                        Column? column = tuples_GridCellCoverage.Find(x => x.Item1 == i && x.Item2 == j)?.Item3;
+                                        if (column is null)
+                                        {
+                                            continue;
+                                        }
+                                        
+                                        Rectangle2D? rectangle2D_Grid = grid2D.GetRectangle(i, j);
+                                        if(rectangle2D_Grid is null)
+                                        {
+                                            continue;
+                                        }
+
+                                        double area_Grid = rectangle2D_Grid.GetArea();
+                                        if(double.IsNaN(area_Grid))
+                                        {
+                                            continue;
+                                        }
+
+                                        double factor = 0;
+
+                                        List<Polygon2D>? polygon2Ds = Geometry.Planar.Query.Intersection<Polygon2D, IPolygonal2D>([rectangle2D_Grid, externalEdge]);
+                                        if(polygon2Ds is not null && polygon2Ds.Count != 0)
+                                        {
+                                            double area_Intersection = polygon2Ds.ConvertAll(x => x.GetArea()).Sum();
+
+                                            factor = area_Intersection / area_Grid;
+
+                                            if (column is not null && column.TryGetValidValue(factor, out value))
+                                            {
+                                                row[column.Index] = value;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
                         }
 
                         List<Point2D>? point2Ds = externalEdge.ConvexHull();
@@ -369,6 +461,163 @@ namespace DiGi.GIS.IO
                             }
                         }
                     }
+                }
+
+                buildingShapeSolver.Input = building2D;
+                if (buildingShapeSolver.Solve())
+                {
+                    string? buildingShapeText = buildingShapeSolver.Output.Description();
+                    if(!string.IsNullOrWhiteSpace(buildingShapeText))
+                    {
+                        if (column_CalculatedBuildingShape is not null && column_CalculatedBuildingShape.TryGetValidValue(buildingShapeText, out value))
+                        {
+                            row[column_CalculatedBuildingShape.Index] = value;
+                        }
+                    }
+                }
+
+                table.AddRow(row, false);
+            }
+        }
+
+        public static void Update_Building2D(this Table? table, int countyId, int subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds)
+        {
+            if (table is null || building2Ds is null || !building2Ds.Any())
+            {
+                return;
+            }
+
+            if (!table.TryGetColumn(Constants.Column.Reference.Name, out Column? column_Reference) || column_Reference is null)
+            {
+                column_Reference = table.AddColumn(Constants.Column.Reference);
+            }
+
+            if (column_Reference is null)
+            {
+                return;
+            }
+
+            if (!table.TryGetColumn(Constants.Column.CountyId.Name, out Column? column_CountyId) || column_CountyId is null)
+            {
+                column_CountyId = table.AddColumn(Constants.Column.CountyId);
+            }
+
+            if (column_CountyId is null)
+            {
+                return;
+            }
+
+            Dictionary<string, Building2D> dictionary = [];
+            foreach (Building2D building2D in building2Ds)
+            {
+                if (building2D?.Reference is not string reference || string.IsNullOrWhiteSpace(reference))
+                {
+                    continue;
+                }
+
+                dictionary[reference] = building2D;
+            }
+
+            if (dictionary.Count == 0)
+            {
+                return;
+            }
+
+            if (!table.TryGetColumn(Constants.Column.SubdivisionId.Name, out Column? column_SubdivisionId) || column_SubdivisionId is null)
+            {
+                column_SubdivisionId = table.AddColumn(Constants.Column.SubdivisionId);
+            }
+
+            List<Tuple<Row, Building2D>> tuples = [];
+
+            int count = table.RowCount;
+            if (count != 0)
+            {
+                for (int i = count - 1; i >= 0; i--)
+                {
+                    Row? row = table.GetRow(i);
+                    if (row is null)
+                    {
+                        continue;
+                    }
+
+                    if (!row.TryGetValue(column_CountyId.Index, out int countyId_Row))
+                    {
+                        continue;
+                    }
+
+                    if (countyId_Row != countyId)
+                    {
+                        continue;
+                    }
+
+                    if (!row.TryGetValue(column_Reference.Index, out string? reference_Row) || string.IsNullOrWhiteSpace(reference_Row))
+                    {
+                        continue;
+                    }
+
+                    if (!dictionary.TryGetValue(reference_Row!, out Building2D building2D))
+                    {
+                        continue;
+                    }
+
+                    tuples.Add(new Tuple<Row, Building2D>(row, building2D));
+                    dictionary.Remove(reference_Row!);
+                }
+            }
+
+            foreach (Building2D building2D in dictionary.Values)
+            {
+                Row row = table.AddRow();
+
+                if (column_Reference.TryGetValidValue(building2D.Reference, out object? value))
+                {
+                    row[column_Reference.Index] = value;
+                }
+
+                if (column_Reference.TryGetValidValue(countyId, out value))
+                {
+                    row[column_CountyId.Index] = value;
+                }
+
+                tuples.Add(new Tuple<Row, Building2D>(row, building2D));
+            }
+
+            List<AdministrativeDivision> administrativeDivisions = [];
+            List<AdministrativeSubdivision> administrativeSubdivisions = [];
+
+            if(administrativeAreal2Ds is not null && administrativeAreal2Ds.Any())
+            {
+                foreach (AdministrativeAreal2D administrativeAreal2D in administrativeAreal2Ds)
+                {
+                    if(administrativeAreal2D is AdministrativeDivision administrativeDivision)
+                    {
+                        administrativeDivisions.Add(administrativeDivision);
+                    }
+                    else if(administrativeAreal2D is AdministrativeSubdivision administrativeSubdivision)
+                    {
+                        administrativeSubdivisions.Add(administrativeSubdivision);
+                    }
+                }
+            }
+
+            foreach (Tuple<Row, Building2D> tuple in tuples)
+            {
+                Row row = tuple.Item1;
+                Building2D building2D = tuple.Item2;
+
+                object? value = null;
+
+                if (column_SubdivisionId is not null && column_SubdivisionId.TryGetValidValue(subdivisionId, out value))
+                {
+                    row[column_SubdivisionId.Index] = value;
+                }
+
+                if(administrativeAreal2Ds is not null && administrativeAreal2Ds.Any())
+                {
+                    //TODO: Implement AdministrativeAreal2Ds parameters
+
+                    //administrativeAreal2Ds.FindAll(x => x is AdministrativeSubdivision)
                 }
 
                 table.AddRow(row, false);
