@@ -1,14 +1,11 @@
 ﻿using DiGi.Core;
-using DiGi.Core.Classes;
 using DiGi.Core.IO.Table.Classes;
 using DiGi.Geometry.Planar;
 using DiGi.Geometry.Planar.Classes;
 using DiGi.Geometry.Planar.Interfaces;
 using DiGi.GIS.Classes;
 using DiGi.GIS.Emgu.CV.Classes;
-using Microsoft.Win32.SafeHandles;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,18 +20,18 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            if (building2Ds is null || !building2Ds.Any())
+            if (building2Ds is not null && building2Ds.Any())
             {
                 Update_Building2D(table, countyId, building2Ds);
                 Update_Building2D(table, countyId, subdivisionId, building2Ds, administrativeAreal2Ds);
             }
 
-            if (building2DYearBuiltPredictions is null || !building2DYearBuiltPredictions.Any())
+            if (building2DYearBuiltPredictions is not null && building2DYearBuiltPredictions.Any())
             {
                 Update_Building2DYearBuiltPredictions(table, countyId, building2DYearBuiltPredictions);
             }
 
-            if (ortoDatasComparisons is null || !ortoDatasComparisons.Any())
+            if (ortoDatasComparisons is not null && ortoDatasComparisons.Any())
             {
                 Update_OrtoDatasComparison(table, countyId, ortoDatasComparisons);
             }
@@ -103,9 +100,14 @@ namespace DiGi.GIS.IO
                 column_Storeys = table.AddColumn(Constants.Column.Storeys);
             }
 
-            if (!table.TryGetColumn(Constants.Column.Area.Name, out Column? column_Area) || column_Area is null)
+            if (!table.TryGetColumn(Constants.Column.FloorArea.Name, out Column? column_FloorArea) || column_FloorArea is null)
             {
-                column_Area = table.AddColumn(Constants.Column.Area);
+                column_FloorArea = table.AddColumn(Constants.Column.FloorArea);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.TotalArea.Name, out Column? column_TotalArea) || column_TotalArea is null)
+            {
+                column_TotalArea = table.AddColumn(Constants.Column.TotalArea);
             }
 
             if (!table.TryGetColumn(Constants.Column.InternalPointX.Name, out Column? column_InternalPointX) || column_InternalPointX is null)
@@ -195,14 +197,14 @@ namespace DiGi.GIS.IO
                 {
                     Column? column = Create.Column_GridCellCoverage(i, j);
 
-                    if (!table.TryGetColumn(column.Name, out column) || column is null)
+                    if (!table.TryGetColumn(column.Name, out Column? column_Existing) || column_Existing is null)
                     {
-                        column = table.AddColumn(column);
+                        column_Existing = table.AddColumn(column);
                     }
 
-                    if(column is not null)
+                    if(column_Existing is not null)
                     {
-                        tuples_GridCellCoverage.Add(new Tuple<int, int, Column>(i, j, column));
+                        tuples_GridCellCoverage.Add(new Tuple<int, int, Column>(i, j, column_Existing));
                     }
                 }
             }
@@ -254,7 +256,7 @@ namespace DiGi.GIS.IO
                     row[column_Reference.Index] = value;
                 }
 
-                if (column_Reference.TryGetValidValue(countyId, out value))
+                if (column_CountyId.TryGetValidValue(countyId, out value))
                 {
                     row[column_CountyId.Index] = value;
                 }
@@ -276,7 +278,7 @@ namespace DiGi.GIS.IO
                     row[column_BuildingGeneralFunction.Index] = value;
                 }
 
-                if (column_BuildingSpecificFunctions is not null && column_BuildingSpecificFunctions.TryGetValidValue(building2D.BuildingSpecificFunctions?.ToList().ConvertAll(x => x.Description()), out value))
+                if (column_BuildingSpecificFunctions is not null && column_BuildingSpecificFunctions.TryGetValidValue(string.Join(", ", building2D.BuildingSpecificFunctions?.ToList().ConvertAll(x => x.Description())) ?? null, out value))
                 {
                     row[column_BuildingSpecificFunctions.Index] = value;
                 }
@@ -286,7 +288,9 @@ namespace DiGi.GIS.IO
                     row[column_BuildingPhase.Index] = value;
                 }
 
-                if (column_Storeys is not null && column_Storeys.TryGetValidValue(building2D.Storeys, out value))
+                ushort storeys = building2D.Storeys;
+
+                if (column_Storeys is not null && column_Storeys.TryGetValidValue(storeys, out value))
                 {
                     row[column_Storeys.Index] = value;
                 }
@@ -316,9 +320,19 @@ namespace DiGi.GIS.IO
                 PolygonalFace2D? polygonalFace2D = building2D.PolygonalFace2D;
                 if (polygonalFace2D is not null)
                 {
-                    if (column_Area is not null && column_Area.TryGetValidValue(polygonalFace2D.GetArea(), out value))
+                    double area = polygonalFace2D.GetArea();
+
+                    if(!double.IsNaN(area))
                     {
-                        row[column_Area.Index] = value;
+                        if (column_FloorArea is not null && column_FloorArea.TryGetValidValue(area, out value))
+                        {
+                            row[column_FloorArea.Index] = value;
+                        }
+
+                        if (column_TotalArea is not null && column_TotalArea.TryGetValidValue(area * storeys, out value))
+                        {
+                            row[column_TotalArea.Index] = value;
+                        }
                     }
 
                     if (polygonalFace2D.GetInternalPoint() is Point2D internalPoint)
@@ -362,10 +376,10 @@ namespace DiGi.GIS.IO
                     IPolygonal2D? externalEdge = polygonalFace2D.ExternalEdge;
                     if(externalEdge is not null)
                     {
-                        double area = externalEdge.GetArea();
+                        double externalEdgeArea = externalEdge.GetArea();
                         double perimeter = externalEdge.GetPerimeter();
 
-                        double isoperimetricRatio = Geometry.Core.Query.IsoperimetricRatio(area, perimeter);
+                        double isoperimetricRatio = Geometry.Core.Query.IsoperimetricRatio(externalEdgeArea, perimeter);
                         if(!double.IsNaN(isoperimetricRatio))
                         {
                             if (column_IsoperimetricRatio is not null && column_IsoperimetricRatio.TryGetValidValue(isoperimetricRatio, out value))
@@ -385,11 +399,11 @@ namespace DiGi.GIS.IO
                         {
                             double rectangleArea = rectangle2D.GetArea();
 
-                            double rectangleThinnesRatio = Geometry.Core.Query.RectangularThinnessRatio(area, rectangleArea);
+                            double rectangleThinnesRatio = Geometry.Core.Query.RectangularThinnessRatio(externalEdgeArea, rectangleArea);
 
                             double length = Math.Max(rectangle2D.Width, rectangle2D.Height);
 
-                            double squareThinnesRatio = Geometry.Core.Query.SquareThinnessRatio(area, length * length);
+                            double squareThinnesRatio = Geometry.Core.Query.SquareThinnessRatio(externalEdgeArea, length * length);
 
                             if (column_RectangularThinnessRatio is not null && column_RectangularThinnessRatio.TryGetValidValue(rectangleThinnesRatio, out value))
                             {
@@ -605,7 +619,7 @@ namespace DiGi.GIS.IO
                     row[column_Reference.Index] = value;
                 }
 
-                if (column_Reference.TryGetValidValue(countyId, out value))
+                if (column_CountyId.TryGetValidValue(countyId, out value))
                 {
                     row[column_CountyId.Index] = value;
                 }
@@ -871,7 +885,7 @@ namespace DiGi.GIS.IO
                     row[column_Reference.Index] = value;
                 }
 
-                if (column_Reference.TryGetValidValue(countyId, out value))
+                if (column_CountyId.TryGetValidValue(countyId, out value))
                 {
                     row[column_CountyId.Index] = value;
                 }
@@ -1182,7 +1196,7 @@ namespace DiGi.GIS.IO
                     row[column_Reference.Index] = value;
                 }
 
-                if (column_Reference.TryGetValidValue(countyId, out value))
+                if (column_CountyId.TryGetValidValue(countyId, out value))
                 {
                     row[column_CountyId.Index] = value;
                 }

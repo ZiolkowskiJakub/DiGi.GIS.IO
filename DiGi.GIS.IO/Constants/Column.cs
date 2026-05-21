@@ -7,7 +7,8 @@ namespace DiGi.GIS.IO.Constants
 {
     public static class Column
     {
-        public static UnitColumn Area = new("Area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ShapeDescriptors.Description(), "Calculated area based on geometry data from BDOO Geoportal *.gml file (ot:geometria node)");
+        public static UnitColumn FloorArea = new("Floor area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ShapeDescriptors.Description(), "Calculated floor area based on geometry data from BDOO Geoportal *.gml file (ot:geometria node)");
+        public static UnitColumn TotalArea = new("Total area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ShapeDescriptors.Description(), "Calculated total area (floor area * storeys) based on geometry data from BDOO Geoportal *.gml file (ot:geometria node)");
         public static UnitColumn Azimuth = new("Azimuth", (Unit.Classes.Unit?)Unit.Enums.AngleUnit.Degree, Category.Orientation.Description(), "Azimuth as an angle to north direction");
         public static UnitColumn BoundingBoxHeight = new("BoundingBox height", (Unit.Classes.Unit?)Unit.Enums.LengthUnit.Meter, Category.BoundingBox.Description(), "BoundingBox height calculated based on geometry data from BDOO Geoportal *.gml file (ot:geometria node)");
         public static UnitColumn BoundingBoxWidth = new("BoundingBox width", (Unit.Classes.Unit?)Unit.Enums.LengthUnit.Meter, Category.BoundingBox.Description(), "BoundingBox width calculated based on geometry data from BDOO Geoportal *.gml file (ot:geometria node)");
