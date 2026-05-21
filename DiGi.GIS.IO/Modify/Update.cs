@@ -16,7 +16,7 @@ namespace DiGi.GIS.IO
 {
     public static partial class Modify
     {
-        public static void Update(this Table? table, int countyId, int subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds)
+        public static void Update(this Table? table, int countyId, int? subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions = null, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons = null, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds = null)
         {
             if (table is null)
             {
@@ -480,7 +480,7 @@ namespace DiGi.GIS.IO
             }
         }
 
-        public static void Update_Building2D(this Table? table, int countyId, int subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds)
+        public static void Update_Building2D(this Table? table, int countyId, int? subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds)
         {
             if (table is null || building2Ds is null || !building2Ds.Any())
             {
@@ -526,6 +526,36 @@ namespace DiGi.GIS.IO
             if (!table.TryGetColumn(Constants.Column.SubdivisionId.Name, out Column? column_SubdivisionId) || column_SubdivisionId is null)
             {
                 column_SubdivisionId = table.AddColumn(Constants.Column.SubdivisionId);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.CountyName.Name, out Column? column_CountyName) || column_CountyName is null)
+            {
+                column_CountyName = table.AddColumn(Constants.Column.CountyName);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.MunicipalityName.Name, out Column? column_MunicipalityName) || column_MunicipalityName is null)
+            {
+                column_MunicipalityName = table.AddColumn(Constants.Column.MunicipalityName);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.SubdivisionOccupancy.Name, out Column? column_SubdivisionOccupancy) || column_SubdivisionOccupancy is null)
+            {
+                column_SubdivisionOccupancy = table.AddColumn(Constants.Column.SubdivisionOccupancy);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.SubdivisionName.Name, out Column? column_SubdivisionName) || column_SubdivisionName is null)
+            {
+                column_SubdivisionName = table.AddColumn(Constants.Column.SubdivisionName);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.VoivodeshipName.Name, out Column? column_VoivodeshipName) || column_VoivodeshipName is null)
+            {
+                column_VoivodeshipName = table.AddColumn(Constants.Column.VoivodeshipName);
+            }
+
+            if (!table.TryGetColumn(Constants.Column.SettlementType.Name, out Column? column_SettlementType) || column_SettlementType is null)
+            {
+                column_SettlementType = table.AddColumn(Constants.Column.SettlementType);
             }
 
             List<Tuple<Row, Building2D>> tuples = [];
@@ -613,11 +643,57 @@ namespace DiGi.GIS.IO
                     row[column_SubdivisionId.Index] = value;
                 }
 
-                if(administrativeAreal2Ds is not null && administrativeAreal2Ds.Any())
+                if(administrativeDivisions is not null && administrativeDivisions.Any())
                 {
-                    //TODO: Implement AdministrativeAreal2Ds parameters
+                    AdministrativeDivision administrativeDivision_County = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.county);
+                    if (administrativeDivision_County is not null)
+                    {
+                        if (column_CountyName is not null && column_CountyName.TryGetValidValue(administrativeDivision_County.Name, out value))
+                        {
+                            row[column_CountyName.Index] = value;
+                        }
+                    }
 
-                    //administrativeAreal2Ds.FindAll(x => x is AdministrativeSubdivision)
+                    AdministrativeDivision administrativeDivision_Voivodeship = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.voivodeship);
+                    if(administrativeDivision_Voivodeship is not null)
+                    {
+                        if (column_VoivodeshipName is not null && column_VoivodeshipName.TryGetValidValue(administrativeDivision_Voivodeship.Name, out value))
+                        {
+                            row[column_VoivodeshipName.Index] = value;
+                        }
+                    }
+
+                    AdministrativeDivision administrativeDivision_Municipality = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.municipality);
+                    if (administrativeDivision_Municipality is not null)
+                    {
+                        if (column_MunicipalityName is not null && column_MunicipalityName.TryGetValidValue(administrativeDivision_Municipality.Name, out value))
+                        {
+                            row[column_MunicipalityName.Index] = value;
+                        }
+                    }
+
+                    if(administrativeSubdivisions.Count > 0)
+                    {
+                        AdministrativeSubdivision administrativeSubdivision = administrativeSubdivisions[0];
+
+                        if (column_SubdivisionName is not null && column_SubdivisionName.TryGetValidValue(administrativeSubdivision.Name, out value))
+                        {
+                            row[column_SubdivisionName.Index] = value;
+                        }
+
+                        if (administrativeSubdivision.Occupancy is uint occupancy)
+                        {
+                            if (column_SubdivisionOccupancy is not null && column_SubdivisionOccupancy.TryGetValidValue(occupancy, out value))
+                            {
+                                row[column_SubdivisionOccupancy.Index] = value;
+                            }
+                        }
+
+                        if (column_SettlementType is not null && column_SettlementType.TryGetValidValue(administrativeSubdivision.AdministrativeSubdivisionType.SettlementType().Description(), out value))
+                        {
+                            row[column_SettlementType.Index] = value;
+                        }
+                    }
                 }
 
                 table.AddRow(row, false);
