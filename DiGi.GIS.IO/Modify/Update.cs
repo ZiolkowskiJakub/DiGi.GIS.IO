@@ -44,21 +44,13 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.Reference.Name, out Column? column_Reference) || column_Reference is null)
-            {
-                column_Reference = table.AddColumn(Constants.Column.Reference);
-            }
-
+            Column? column_Reference = table.UpdateColumn<Column>(Constants.Column.Reference);
             if (column_Reference is null)
             {
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.CountyId.Name, out Column? column_CountyId) || column_CountyId is null)
-            {
-                column_CountyId = table.AddColumn(Constants.Column.CountyId);
-            }
-
+            Column? column_CountyId = table.UpdateColumn<Column>(Constants.Column.CountyId);
             if (column_CountyId is null)
             {
                 return;
@@ -80,127 +72,35 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.BuildingGeneralFunction.Name, out Column? column_BuildingGeneralFunction) || column_BuildingGeneralFunction is null)
-            {
-                column_BuildingGeneralFunction = table.AddColumn(Constants.Column.BuildingGeneralFunction);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.BuildingSpecificFunctions.Name, out Column? column_BuildingSpecificFunctions) || column_BuildingSpecificFunctions is null)
-            {
-                column_BuildingSpecificFunctions = table.AddColumn(Constants.Column.BuildingSpecificFunctions);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.BuildingPhase.Name, out Column? column_BuildingPhase) || column_BuildingPhase is null)
-            {
-                column_BuildingPhase = table.AddColumn(Constants.Column.BuildingPhase);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.Storeys.Name, out Column? column_Storeys) || column_Storeys is null)
-            {
-                column_Storeys = table.AddColumn(Constants.Column.Storeys);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.FloorArea.Name, out Column? column_FloorArea) || column_FloorArea is null)
-            {
-                column_FloorArea = table.AddColumn(Constants.Column.FloorArea);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.TotalArea.Name, out Column? column_TotalArea) || column_TotalArea is null)
-            {
-                column_TotalArea = table.AddColumn(Constants.Column.TotalArea);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.InternalPointX.Name, out Column? column_InternalPointX) || column_InternalPointX is null)
-            {
-                column_InternalPointX = table.AddColumn(Constants.Column.InternalPointX);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.InternalPointY.Name, out Column? column_InternalPointY) || column_InternalPointY is null)
-            {
-                column_InternalPointY = table.AddColumn(Constants.Column.InternalPointY);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.BoundingBoxX.Name, out Column? column_BoundingBoxX) || column_BoundingBoxX is null)
-            {
-                column_BoundingBoxX = table.AddColumn(Constants.Column.BoundingBoxX);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.BoundingBoxY.Name, out Column? column_BoundingBoxY) || column_BoundingBoxY is null)
-            {
-                column_BoundingBoxY = table.AddColumn(Constants.Column.BoundingBoxY);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.BoundingBoxWidth.Name, out Column? column_BoundingBoxWidth) || column_BoundingBoxWidth is null)
-            {
-                column_BoundingBoxWidth = table.AddColumn(Constants.Column.BoundingBoxWidth);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.BoundingBoxHeight.Name, out Column? column_BoundingBoxHeight) || column_BoundingBoxHeight is null)
-            {
-                column_BoundingBoxHeight = table.AddColumn(Constants.Column.BoundingBoxHeight);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.CardinalDirection.Name, out Column? column_CardinalDirection) || column_CardinalDirection is null)
-            {
-                column_CardinalDirection = table.AddColumn(Constants.Column.CardinalDirection);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.Azimuth.Name, out Column? column_Azimuth) || column_Azimuth is null)
-            {
-                column_Azimuth = table.AddColumn(Constants.Column.Azimuth);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.IsoperimetricRatio.Name, out Column? column_IsoperimetricRatio) || column_IsoperimetricRatio is null)
-            {
-                column_IsoperimetricRatio = table.AddColumn(Constants.Column.IsoperimetricRatio);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.RectangularThinnessRatio.Name, out Column? column_RectangularThinnessRatio) || column_RectangularThinnessRatio is null)
-            {
-                column_RectangularThinnessRatio = table.AddColumn(Constants.Column.RectangularThinnessRatio);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.SquareThinnessRatio.Name, out Column? column_SquareThinnessRatio) || column_SquareThinnessRatio is null)
-            {
-                column_SquareThinnessRatio = table.AddColumn(Constants.Column.SquareThinnessRatio);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.ThinnessRatio.Name, out Column? column_ThinnessRatio) || column_ThinnessRatio is null)
-            {
-                column_ThinnessRatio = table.AddColumn(Constants.Column.ThinnessRatio);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.ConvexHullThinnessRatio.Name, out Column? column_ConvexHullThinnessRatio) || column_ConvexHullThinnessRatio is null)
-            {
-                column_ConvexHullThinnessRatio = table.AddColumn(Constants.Column.ConvexHullThinnessRatio);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.CalculatedBuildingShape.Name, out Column? column_CalculatedBuildingShape) || column_CalculatedBuildingShape is null)
-            {
-                column_CalculatedBuildingShape = table.AddColumn(Constants.Column.CalculatedBuildingShape);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.IsOccupied.Name, out Column? column_IsOccupied) || column_IsOccupied is null)
-            {
-                column_IsOccupied = table.AddColumn(Constants.Column.IsOccupied);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.IsResidential.Name, out Column? column_IsResidential) || column_IsResidential is null)
-            {
-                column_IsResidential = table.AddColumn(Constants.Column.IsResidential);
-            }
+            Column? column_BuildingGeneralFunction = table.UpdateColumn<Column>(Constants.Column.BuildingGeneralFunction);
+            Column? column_BuildingSpecificFunctions = table.UpdateColumn<Column>(Constants.Column.BuildingSpecificFunctions);
+            Column? column_BuildingPhase = table.UpdateColumn<Column>(Constants.Column.BuildingPhase);
+            Column? column_Storeys = table.UpdateColumn<Column>(Constants.Column.Storeys);
+            Column? column_FloorArea = table.UpdateColumn<Column>(Constants.Column.FloorArea);
+            Column? column_TotalArea = table.UpdateColumn<Column>(Constants.Column.TotalArea);
+            Column? column_InternalPointX = table.UpdateColumn<Column>(Constants.Column.InternalPointX);
+            Column? column_InternalPointY = table.UpdateColumn<Column>(Constants.Column.InternalPointY);
+            Column? column_BoundingBoxX = table.UpdateColumn<Column>(Constants.Column.BoundingBoxX);
+            Column? column_BoundingBoxY = table.UpdateColumn<Column>(Constants.Column.BoundingBoxY);
+            Column? column_BoundingBoxWidth = table.UpdateColumn<Column>(Constants.Column.BoundingBoxWidth);
+            Column? column_BoundingBoxHeight = table.UpdateColumn<Column>(Constants.Column.BoundingBoxHeight);
+            Column? column_CardinalDirection = table.UpdateColumn<Column>(Constants.Column.CardinalDirection);
+            Column? column_Azimuth = table.UpdateColumn<Column>(Constants.Column.Azimuth);
+            Column? column_IsoperimetricRatio = table.UpdateColumn<Column>(Constants.Column.IsoperimetricRatio);
+            Column? column_RectangularThinnessRatio = table.UpdateColumn<Column>(Constants.Column.RectangularThinnessRatio);
+            Column? column_SquareThinnessRatio = table.UpdateColumn<Column>(Constants.Column.SquareThinnessRatio);
+            Column? column_ThinnessRatio = table.UpdateColumn<Column>(Constants.Column.ThinnessRatio);
+            Column? column_ConvexHullThinnessRatio = table.UpdateColumn<Column>(Constants.Column.ConvexHullThinnessRatio);
+            Column? column_CalculatedBuildingShape = table.UpdateColumn<Column>(Constants.Column.CalculatedBuildingShape);
+            Column? column_IsOccupied = table.UpdateColumn<Column>(Constants.Column.IsOccupied);
+            Column? column_IsResidential = table.UpdateColumn<Column>(Constants.Column.IsResidential);
 
             List<Tuple<int, int, Column>> tuples_GridCellCoverage = [];
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    Column? column = Create.Column_GridCellCoverage(i, j);
-
-                    if (!table.TryGetColumn(column.Name, out Column? column_Existing) || column_Existing is null)
-                    {
-                        column_Existing = table.AddColumn(column);
-                    }
+                    Column? column_Existing = table.UpdateColumn(Create.Column_GridCellCoverage(i, j));
 
                     if(column_Existing is not null)
                     {
@@ -251,15 +151,8 @@ namespace DiGi.GIS.IO
             {
                 Row row = table.AddRow();
 
-                if (column_Reference.TryGetValidValue(building2D.Reference, out object? value))
-                {
-                    row[column_Reference.Index] = value;
-                }
-
-                if (column_CountyId.TryGetValidValue(countyId, out value))
-                {
-                    row[column_CountyId.Index] = value;
-                }
+                SetValue(row, column_Reference, building2D.Reference);
+                SetValue(row, column_CountyId, countyId);
 
                 tuples.Add(new Tuple<Row, Building2D>(row, building2D));
             }
@@ -271,51 +164,18 @@ namespace DiGi.GIS.IO
                 Row row = tuple.Item1;
                 Building2D building2D = tuple.Item2;
 
-                object? value = null;
-
-                if (column_BuildingGeneralFunction is not null && column_BuildingGeneralFunction.TryGetValidValue(building2D.BuildingGeneralFunction.Description(), out value))
-                {
-                    row[column_BuildingGeneralFunction.Index] = value;
-                }
-
-                if (column_BuildingSpecificFunctions is not null && column_BuildingSpecificFunctions.TryGetValidValue(string.Join(", ", building2D.BuildingSpecificFunctions?.ToList().ConvertAll(x => x.Description())) ?? null, out value))
-                {
-                    row[column_BuildingSpecificFunctions.Index] = value;
-                }
-
-                if (column_BuildingPhase is not null && column_BuildingPhase.TryGetValidValue(building2D.BuildingPhase?.Description(), out value))
-                {
-                    row[column_BuildingPhase.Index] = value;
-                }
-
                 ushort storeys = building2D.Storeys;
-
-                if (column_Storeys is not null && column_Storeys.TryGetValidValue(storeys, out value))
-                {
-                    row[column_Storeys.Index] = value;
-                }
-
                 double azimuth = building2D.Azimuth();
 
-                if (column_Azimuth is not null && column_Azimuth.TryGetValidValue(azimuth, out value))
-                {
-                    row[column_Azimuth.Index] = value;
-                }
+                SetValue(row, column_BuildingGeneralFunction, building2D.BuildingGeneralFunction.Description());
+                SetValue(row, column_BuildingSpecificFunctions, string.Join(", ", building2D.BuildingSpecificFunctions?.ToList().ConvertAll(x => x.Description())) ?? null);
+                SetValue(row, column_BuildingPhase, building2D.BuildingPhase?.Description());
+                SetValue(row, column_Storeys, storeys);
+                SetValue(row, column_Azimuth, azimuth);
+                SetValue(row, column_CardinalDirection, Query.CardinalDirection(azimuth));
+                SetValue(row, column_IsOccupied, Query.IsOccupied(building2D));
+                SetValue(row, column_IsResidential, Query.IsResidential(building2D));
 
-                if (column_CardinalDirection is not null && column_CardinalDirection.TryGetValidValue(Query.CardinalDirection(azimuth), out value))
-                {
-                    row[column_CardinalDirection.Index] = value;
-                }
-
-                if (column_IsOccupied is not null && column_IsOccupied.TryGetValidValue(Query.IsOccupied(building2D), out value))
-                {
-                    row[column_IsOccupied.Index] = value;
-                }
-
-                if (column_IsResidential is not null && column_IsResidential.TryGetValidValue(Query.IsResidential(building2D), out value))
-                {
-                    row[column_IsResidential.Index] = value;
-                }
 
                 PolygonalFace2D? polygonalFace2D = building2D.PolygonalFace2D;
                 if (polygonalFace2D is not null)
@@ -324,53 +184,24 @@ namespace DiGi.GIS.IO
 
                     if(!double.IsNaN(area))
                     {
-                        if (column_FloorArea is not null && column_FloorArea.TryGetValidValue(area, out value))
-                        {
-                            row[column_FloorArea.Index] = value;
-                        }
-
-                        if (column_TotalArea is not null && column_TotalArea.TryGetValidValue(area * storeys, out value))
-                        {
-                            row[column_TotalArea.Index] = value;
-                        }
+                        SetValue(row, column_FloorArea, area);
+                        SetValue(row, column_TotalArea, area * storeys);
                     }
 
                     if (polygonalFace2D.GetInternalPoint() is Point2D internalPoint)
                     {
-                        if (column_InternalPointX is not null && column_InternalPointX.TryGetValidValue(internalPoint.X, out value))
-                        {
-                            row[column_InternalPointX.Index] = value;
-                        }
-
-                        if (column_InternalPointY is not null && column_InternalPointY.TryGetValidValue(internalPoint.Y, out value))
-                        {
-                            row[column_InternalPointY.Index] = value;
-                        }
+                        SetValue(row, column_InternalPointX, internalPoint.X);
+                        SetValue(row, column_InternalPointY, internalPoint.Y);
                     }
 
                     BoundingBox2D? boundingBox2D = polygonalFace2D.GetBoundingBox();
 
                     if (boundingBox2D?.GetCentroid() is Point2D centroid)
                     {
-                        if (column_BoundingBoxX is not null && column_BoundingBoxX.TryGetValidValue(centroid.X, out value))
-                        {
-                            row[column_BoundingBoxX.Index] = value;
-                        }
-
-                        if (column_BoundingBoxY is not null && column_BoundingBoxY.TryGetValidValue(centroid.Y, out value))
-                        {
-                            row[column_BoundingBoxY.Index] = value;
-                        }
-
-                        if (column_BoundingBoxWidth is not null && column_BoundingBoxWidth.TryGetValidValue(boundingBox2D.Width, out value))
-                        {
-                            row[column_BoundingBoxWidth.Index] = value;
-                        }
-
-                        if (column_BoundingBoxHeight is not null && column_BoundingBoxHeight.TryGetValidValue(boundingBox2D.Height, out value))
-                        {
-                            row[column_BoundingBoxHeight.Index] = value;
-                        }
+                        SetValue(row, column_BoundingBoxX, centroid.X);
+                        SetValue(row, column_BoundingBoxY, centroid.Y);
+                        SetValue(row, column_BoundingBoxWidth, boundingBox2D.Width);
+                        SetValue(row, column_BoundingBoxHeight, boundingBox2D.Height);
                     }
 
                     IPolygonal2D? externalEdge = polygonalFace2D.ExternalEdge;
@@ -382,18 +213,12 @@ namespace DiGi.GIS.IO
                         double isoperimetricRatio = Geometry.Core.Query.IsoperimetricRatio(externalEdgeArea, perimeter);
                         if(!double.IsNaN(isoperimetricRatio))
                         {
-                            if (column_IsoperimetricRatio is not null && column_IsoperimetricRatio.TryGetValidValue(isoperimetricRatio, out value))
-                            {
-                                row[column_IsoperimetricRatio.Index] = value;
-                            }
+                            SetValue(row, column_IsoperimetricRatio, isoperimetricRatio);
                         }
 
                         double thinnessRatio = externalEdge.ThinnessRatio();
 
-                        if (column_ThinnessRatio is not null && column_ThinnessRatio.TryGetValidValue(thinnessRatio, out value))
-                        {
-                            row[column_ThinnessRatio.Index] = value;
-                        }
+                        SetValue(row, column_ThinnessRatio, thinnessRatio);
 
                         if (Geometry.Planar.Create.Rectangle2D(externalEdge) is Rectangle2D rectangle2D)
                         {
@@ -405,15 +230,8 @@ namespace DiGi.GIS.IO
 
                             double squareThinnesRatio = Geometry.Core.Query.SquareThinnessRatio(externalEdgeArea, length * length);
 
-                            if (column_RectangularThinnessRatio is not null && column_RectangularThinnessRatio.TryGetValidValue(rectangleThinnesRatio, out value))
-                            {
-                                row[column_RectangularThinnessRatio.Index] = value;
-                            }
-
-                            if (column_SquareThinnessRatio is not null && column_SquareThinnessRatio.TryGetValidValue(squareThinnesRatio, out value))
-                            {
-                                row[column_SquareThinnessRatio.Index] = value;
-                            }
+                            SetValue(row, column_RectangularThinnessRatio, rectangleThinnesRatio);
+                            SetValue(row, column_SquareThinnessRatio, squareThinnesRatio);
 
                             Grid2D grid2D = new (rectangle2D, 5, 5);
                             if(grid2D is not null)
@@ -447,13 +265,10 @@ namespace DiGi.GIS.IO
                                         {
                                             double area_Intersection = polygon2Ds.ConvertAll(x => x.GetArea()).Sum();
 
-                                            factor = area_Intersection / area_Grid;
-
-                                            if (column is not null && column.TryGetValidValue(factor, out value))
-                                            {
-                                                row[column.Index] = value;
-                                            }
+                                            factor = Core.Query.Clamp(area_Intersection / area_Grid, 0, 1);
                                         }
+
+                                        SetValue(row, column, factor);
                                     }
                                 }
                             }
@@ -468,10 +283,7 @@ namespace DiGi.GIS.IO
                             {
                                 double convexHullThinnesRatio = Geometry.Core.Query.RectangularThinnessRatio(area, convexHullArea);
 
-                                if (column_ConvexHullThinnessRatio is not null && column_ConvexHullThinnessRatio.TryGetValidValue(convexHullThinnesRatio, out value))
-                                {
-                                    row[column_ConvexHullThinnessRatio.Index] = value;
-                                }
+                                SetValue(row, column_ConvexHullThinnessRatio, convexHullThinnesRatio);
                             }
                         }
                     }
@@ -483,10 +295,7 @@ namespace DiGi.GIS.IO
                     string? buildingShapeText = buildingShapeSolver.Output.Description();
                     if(!string.IsNullOrWhiteSpace(buildingShapeText))
                     {
-                        if (column_CalculatedBuildingShape is not null && column_CalculatedBuildingShape.TryGetValidValue(buildingShapeText, out value))
-                        {
-                            row[column_CalculatedBuildingShape.Index] = value;
-                        }
+                        SetValue(row, column_CalculatedBuildingShape, buildingShapeText);
                     }
                 }
 
@@ -501,21 +310,13 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.Reference.Name, out Column? column_Reference) || column_Reference is null)
-            {
-                column_Reference = table.AddColumn(Constants.Column.Reference);
-            }
-
+            Column? column_Reference = table.UpdateColumn<Column>(Constants.Column.Reference);
             if (column_Reference is null)
             {
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.CountyId.Name, out Column? column_CountyId) || column_CountyId is null)
-            {
-                column_CountyId = table.AddColumn(Constants.Column.CountyId);
-            }
-
+            Column? column_CountyId = table.UpdateColumn<Column>(Constants.Column.CountyId);
             if (column_CountyId is null)
             {
                 return;
@@ -537,40 +338,13 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.SubdivisionId.Name, out Column? column_SubdivisionId) || column_SubdivisionId is null)
-            {
-                column_SubdivisionId = table.AddColumn(Constants.Column.SubdivisionId);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.CountyName.Name, out Column? column_CountyName) || column_CountyName is null)
-            {
-                column_CountyName = table.AddColumn(Constants.Column.CountyName);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.MunicipalityName.Name, out Column? column_MunicipalityName) || column_MunicipalityName is null)
-            {
-                column_MunicipalityName = table.AddColumn(Constants.Column.MunicipalityName);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.SubdivisionOccupancy.Name, out Column? column_SubdivisionOccupancy) || column_SubdivisionOccupancy is null)
-            {
-                column_SubdivisionOccupancy = table.AddColumn(Constants.Column.SubdivisionOccupancy);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.SubdivisionName.Name, out Column? column_SubdivisionName) || column_SubdivisionName is null)
-            {
-                column_SubdivisionName = table.AddColumn(Constants.Column.SubdivisionName);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.VoivodeshipName.Name, out Column? column_VoivodeshipName) || column_VoivodeshipName is null)
-            {
-                column_VoivodeshipName = table.AddColumn(Constants.Column.VoivodeshipName);
-            }
-
-            if (!table.TryGetColumn(Constants.Column.SettlementType.Name, out Column? column_SettlementType) || column_SettlementType is null)
-            {
-                column_SettlementType = table.AddColumn(Constants.Column.SettlementType);
-            }
+            Column? column_SubdivisionId = table.UpdateColumn<Column>(Constants.Column.SubdivisionId);
+            Column? column_CountyName = table.UpdateColumn<Column>(Constants.Column.CountyName);
+            Column? column_MunicipalityName = table.UpdateColumn<Column>(Constants.Column.MunicipalityName);
+            Column? column_SubdivisionOccupancy = table.UpdateColumn<Column>(Constants.Column.SubdivisionOccupancy);
+            Column? column_SubdivisionName = table.UpdateColumn<Column>(Constants.Column.SubdivisionName);
+            Column? column_VoivodeshipName = table.UpdateColumn<Column>(Constants.Column.VoivodeshipName);
+            Column? column_SettlementType = table.UpdateColumn<Column>(Constants.Column.SettlementType);
 
             List<Tuple<Row, Building2D>> tuples = [];
 
@@ -662,51 +436,33 @@ namespace DiGi.GIS.IO
                     AdministrativeDivision administrativeDivision_County = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.county);
                     if (administrativeDivision_County is not null)
                     {
-                        if (column_CountyName is not null && column_CountyName.TryGetValidValue(administrativeDivision_County.Name, out value))
-                        {
-                            row[column_CountyName.Index] = value;
-                        }
+                        SetValue(row, column_CountyName, administrativeDivision_County.Name);
                     }
 
                     AdministrativeDivision administrativeDivision_Voivodeship = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.voivodeship);
                     if(administrativeDivision_Voivodeship is not null)
                     {
-                        if (column_VoivodeshipName is not null && column_VoivodeshipName.TryGetValidValue(administrativeDivision_Voivodeship.Name, out value))
-                        {
-                            row[column_VoivodeshipName.Index] = value;
-                        }
+                        SetValue(row, column_VoivodeshipName, administrativeDivision_Voivodeship.Name);
                     }
 
                     AdministrativeDivision administrativeDivision_Municipality = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.municipality);
                     if (administrativeDivision_Municipality is not null)
                     {
-                        if (column_MunicipalityName is not null && column_MunicipalityName.TryGetValidValue(administrativeDivision_Municipality.Name, out value))
-                        {
-                            row[column_MunicipalityName.Index] = value;
-                        }
+                        SetValue(row, column_MunicipalityName, administrativeDivision_Municipality.Name);
                     }
 
                     if(administrativeSubdivisions.Count > 0)
                     {
                         AdministrativeSubdivision administrativeSubdivision = administrativeSubdivisions[0];
 
-                        if (column_SubdivisionName is not null && column_SubdivisionName.TryGetValidValue(administrativeSubdivision.Name, out value))
-                        {
-                            row[column_SubdivisionName.Index] = value;
-                        }
+                        SetValue(row, column_SubdivisionName, administrativeSubdivision.Name);
 
                         if (administrativeSubdivision.Occupancy is uint occupancy)
                         {
-                            if (column_SubdivisionOccupancy is not null && column_SubdivisionOccupancy.TryGetValidValue(occupancy, out value))
-                            {
-                                row[column_SubdivisionOccupancy.Index] = value;
-                            }
+                            SetValue(row, column_SubdivisionOccupancy, occupancy);
                         }
 
-                        if (column_SettlementType is not null && column_SettlementType.TryGetValidValue(administrativeSubdivision.AdministrativeSubdivisionType.SettlementType().Description(), out value))
-                        {
-                            row[column_SettlementType.Index] = value;
-                        }
+                        SetValue(row, column_SettlementType, administrativeSubdivision.AdministrativeSubdivisionType.SettlementType().Description());
                     }
                 }
 
@@ -721,20 +477,13 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.Reference.Name, out Column? column_Reference) || column_Reference is null)
-            {
-                column_Reference = table.AddColumn(Constants.Column.Reference);
-            }
-
+            Column? column_Reference = table.UpdateColumn<Column>(Constants.Column.Reference);
             if (column_Reference is null)
             {
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.CountyId.Name, out Column? column_CountyId) || column_CountyId is null)
-            {
-                column_CountyId = table.AddColumn(Constants.Column.CountyId);
-            }
+            Column? column_CountyId = table.UpdateColumn<Column>(Constants.Column.CountyId);
 
             if (column_CountyId is null)
             {
@@ -779,11 +528,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionConfidence, year);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_PredictionConfidence) || column_PredictionConfidence is null)
-                {
-                    column_PredictionConfidence = table.AddColumn(column);
-                }
-
+                Column? column_PredictionConfidence = table.UpdateColumn(column);
                 if(column_PredictionConfidence is not null)
                 {
                     dictionary_PredictionConfidence[year] = column_PredictionConfidence;
@@ -791,11 +536,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxX, year);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_PredictionBoundingBoxX) || column_PredictionBoundingBoxX is null)
-                {
-                    column_PredictionBoundingBoxX = table.AddColumn(column);
-                }
-
+                Column? column_PredictionBoundingBoxX = table.UpdateColumn(column);
                 if (column_PredictionBoundingBoxX is not null)
                 {
                     dictionary_PredictionBoundingBoxX[year] = column_PredictionBoundingBoxX;
@@ -803,11 +544,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxY, year);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_PredictionBoundingBoxY) || column_PredictionBoundingBoxY is null)
-                {
-                    column_PredictionBoundingBoxY = table.AddColumn(column);
-                }
-
+                Column? column_PredictionBoundingBoxY = table.UpdateColumn(column);
                 if (column_PredictionBoundingBoxY is not null)
                 {
                     dictionary_PredictionBoundingBoxY[year] = column_PredictionBoundingBoxY;
@@ -815,11 +552,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxWidth, year);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_PredictionBoundingBoxWidth) || column_PredictionBoundingBoxWidth is null)
-                {
-                    column_PredictionBoundingBoxWidth = table.AddColumn(column);
-                }
-
+                Column? column_PredictionBoundingBoxWidth = table.UpdateColumn(column);
                 if (column_PredictionBoundingBoxWidth is not null)
                 {
                     dictionary_PredictionBoundingBoxWidth[year] = column_PredictionBoundingBoxWidth;
@@ -827,11 +560,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxHeight, year);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_PredictionBoundingBoxHeight) || column_PredictionBoundingBoxHeight is null)
-                {
-                    column_PredictionBoundingBoxHeight = table.AddColumn(column);
-                }
-
+                Column? column_PredictionBoundingBoxHeight = table.UpdateColumn(column);
                 if (column_PredictionBoundingBoxHeight is not null)
                 {
                     dictionary_PredictionBoundingBoxHeight[year] = column_PredictionBoundingBoxHeight;
@@ -880,15 +609,8 @@ namespace DiGi.GIS.IO
             {
                 Row row = table.AddRow();
 
-                if (column_Reference.TryGetValidValue(building2DYearBuiltPredictions_Temp.Reference, out object? value))
-                {
-                    row[column_Reference.Index] = value;
-                }
-
-                if (column_CountyId.TryGetValidValue(countyId, out value))
-                {
-                    row[column_CountyId.Index] = value;
-                }
+                SetValue(row, column_Reference, building2DYearBuiltPredictions_Temp.Reference);
+                SetValue(row, column_CountyId, countyId);
 
                 tuples.Add(new Tuple<Row, Building2DYearBuiltPredictions>(row, building2DYearBuiltPredictions_Temp));
             }
@@ -912,31 +634,31 @@ namespace DiGi.GIS.IO
                     }
 
 
-                    if (dictionary_PredictionConfidence.TryGetValue(year, out Column column) && column is not null && column.TryGetValidValue(yearBuiltPrediction.Confidence, out object? value))
+                    if (dictionary_PredictionConfidence.TryGetValue(year, out Column column))
                     {
-                        row[column.Index] = value;
+                        SetValue(row, column, yearBuiltPrediction.Confidence);
                     }
 
                     if (yearBuiltPrediction.BoundingBox is BoundingBox2D boundingBox2D && boundingBox2D.GetCentroid() is Point2D centroid)
                     {
-                        if (dictionary_PredictionBoundingBoxX.TryGetValue(year, out column) && column is not null && column.TryGetValidValue(centroid.X, out value))
+                        if (dictionary_PredictionBoundingBoxX.TryGetValue(year, out column) && column is not null)
                         {
-                            row[column.Index] = value;
+                            SetValue(row, column, centroid.X);
                         }
 
-                        if (dictionary_PredictionBoundingBoxY.TryGetValue(year, out column) && column is not null && column.TryGetValidValue(centroid.Y, out value))
+                        if (dictionary_PredictionBoundingBoxY.TryGetValue(year, out column) && column is not null)
                         {
-                            row[column.Index] = value;
+                            SetValue(row, column, centroid.Y);
                         }
 
-                        if (dictionary_PredictionBoundingBoxWidth.TryGetValue(year, out column) && column is not null && column.TryGetValidValue(boundingBox2D.Width, out value))
+                        if (dictionary_PredictionBoundingBoxWidth.TryGetValue(year, out column) && column is not null)
                         {
-                            row[column.Index] = value;
+                            SetValue(row, column, boundingBox2D.Width);
                         }
 
-                        if (dictionary_PredictionBoundingBoxHeight.TryGetValue(year, out column) && column is not null && column.TryGetValidValue(boundingBox2D.Height, out value))
+                        if (dictionary_PredictionBoundingBoxHeight.TryGetValue(year, out column) && column is not null)
                         {
-                            row[column.Index] = value;
+                            SetValue(row, column, boundingBox2D.Height);
                         }
                     }
                 }
@@ -952,20 +674,14 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.Reference.Name, out Column? column_Reference) || column_Reference is null)
-            {
-                column_Reference = table.AddColumn(Constants.Column.Reference);
-            }
+            Column? column_Reference = table.UpdateColumn<Column>(Constants.Column.Reference);
 
             if (column_Reference is null)
             {
                 return;
             }
 
-            if (!table.TryGetColumn(Constants.Column.CountyId.Name, out Column? column_CountyId) || column_CountyId is null)
-            {
-                column_CountyId = table.AddColumn(Constants.Column.CountyId);
-            }
+            Column? column_CountyId = table.UpdateColumn<Column>(Constants.Column.CountyId);
 
             if (column_CountyId is null)
             {
@@ -1042,11 +758,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.AverageColorSimilarity);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_AverageColorSimilarity) || column_AverageColorSimilarity is null)
-                {
-                    column_AverageColorSimilarity = table.AddColumn(column);
-                }
-
+                Column? column_AverageColorSimilarity = table.UpdateColumn(column);
                 if (column_AverageColorSimilarity is not null)
                 {
                     tuples_AverageColorSimilarity.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_AverageColorSimilarity));
@@ -1054,11 +766,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.HammingDistance);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_HammingDistance) || column_HammingDistance is null)
-                {
-                    column_HammingDistance = table.AddColumn(column);
-                }
-
+                Column? column_HammingDistance = table.UpdateColumn(column);
                 if (column_HammingDistance is not null)
                 {
                     tuples_HammingDistance.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_HammingDistance));
@@ -1066,23 +774,15 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.GrayHistogramFactor);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_GrayHistogramFactor) || column_GrayHistogramFactor is null)
-                {
-                    column_GrayHistogramFactor = table.AddColumn(column);
-                }
-
+                Column? column_GrayHistogramFactor = table.UpdateColumn(column);
                 if (column_GrayHistogramFactor is not null)
                 {
                     tuples_GrayHistogramFactor.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_GrayHistogramFactor));
                 }
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ShapeComparisonFactor);
-
-                if (!table.TryGetColumn(column.Name, out Column? column_ShapeComparisonFactor) || column_ShapeComparisonFactor is null)
-                {
-                    column_ShapeComparisonFactor = table.AddColumn(column);
-                }
-
+                
+                Column? column_ShapeComparisonFactor = table.UpdateColumn(column);
                 if (column_ShapeComparisonFactor is not null)
                 {
                     tuples_ShapeComparisonFactor.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_ShapeComparisonFactor));
@@ -1090,23 +790,15 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.StructuralSimilarityIndex_AbsoluteDifference);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_StructuralSimilarityIndex_AbsoluteDifference) || column_StructuralSimilarityIndex_AbsoluteDifference is null)
-                {
-                    column_StructuralSimilarityIndex_AbsoluteDifference = table.AddColumn(column);
-                }
-
+                Column? column_StructuralSimilarityIndex_AbsoluteDifference = table.UpdateColumn(column);
                 if (column_StructuralSimilarityIndex_AbsoluteDifference is not null)
                 {
                     tuples_StructuralSimilarityIndex_AbsoluteDifference.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_StructuralSimilarityIndex_AbsoluteDifference));
                 }
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.StructuralSimilarityIndex_MatchTemplate);
-
-                if (!table.TryGetColumn(column.Name, out Column? column_StructuralSimilarityIndex_MatchTemplate) || column_StructuralSimilarityIndex_MatchTemplate is null)
-                {
-                    column_StructuralSimilarityIndex_MatchTemplate = table.AddColumn(column);
-                }
-
+                
+                Column? column_StructuralSimilarityIndex_MatchTemplate = table.UpdateColumn(column);
                 if (column_StructuralSimilarityIndex_MatchTemplate is not null)
                 {
                     tuples_StructuralSimilarityIndex_MatchTemplate.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_StructuralSimilarityIndex_MatchTemplate));
@@ -1114,11 +806,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ColorDistributionShift);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_ColorDistributionShift) || column_ColorDistributionShift is null)
-                {
-                    column_ColorDistributionShift = table.AddColumn(column);
-                }
-
+                Column? column_ColorDistributionShift = table.UpdateColumn(column);
                 if (column_ColorDistributionShift is not null)
                 {
                     tuples_ColorDistributionShift.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_ColorDistributionShift));
@@ -1126,11 +814,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.OpticalFlowAverageMagnitude);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_OpticalFlowAverageMagnitude) || column_OpticalFlowAverageMagnitude is null)
-                {
-                    column_OpticalFlowAverageMagnitude = table.AddColumn(column);
-                }
-
+                Column? column_OpticalFlowAverageMagnitude = table.UpdateColumn(column);
                 if (column_OpticalFlowAverageMagnitude is not null)
                 {
                     tuples_OpticalFlowAverageMagnitude.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_OpticalFlowAverageMagnitude));
@@ -1138,11 +822,7 @@ namespace DiGi.GIS.IO
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ORBFeatureMatchingFactor);
 
-                if (!table.TryGetColumn(column.Name, out Column? column_ORBFeatureMatchingFactor) || column_ORBFeatureMatchingFactor is null)
-                {
-                    column_ORBFeatureMatchingFactor = table.AddColumn(column);
-                }
-
+                Column? column_ORBFeatureMatchingFactor = table.UpdateColumn(column);
                 if (column_ORBFeatureMatchingFactor is not null)
                 {
                     tuples_ORBFeatureMatchingFactor.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_ORBFeatureMatchingFactor));
@@ -1191,15 +871,8 @@ namespace DiGi.GIS.IO
             {
                 Row row = table.AddRow();
 
-                if (column_Reference.TryGetValidValue(ortoDatasComparison.Reference, out object? value))
-                {
-                    row[column_Reference.Index] = value;
-                }
-
-                if (column_CountyId.TryGetValidValue(countyId, out value))
-                {
-                    row[column_CountyId.Index] = value;
-                }
+                SetValue(row, column_Reference, ortoDatasComparison.Reference);
+                SetValue(row, column_CountyId, countyId);
 
                 tuples_Row.Add(new Tuple<Row, OrtoDatasComparison>(row, ortoDatasComparison));
             }
@@ -1236,56 +909,55 @@ namespace DiGi.GIS.IO
                         {
                             int year_2 = ortoImageComparison.DateTime.Year;
 
-                            object? value;
-
-                            if (tuples_AverageColorSimilarity.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_AverageColorSimilarity && column_AverageColorSimilarity.TryGetValidValue(ortoImageComparison.AverageColorSimilarity, out value))
+                            if (tuples_AverageColorSimilarity.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_AverageColorSimilarity)
                             {
-                                row[column_AverageColorSimilarity.Index] = value;
+                                SetValue(row, column_AverageColorSimilarity, ortoImageComparison.AverageColorSimilarity);
                             }
 
-                            if (tuples_HammingDistance.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_HammingDistance && column_HammingDistance.TryGetValidValue(ortoImageComparison.HammingDistance, out value))
+                            if (tuples_HammingDistance.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_HammingDistance)
                             {
-                                row[column_HammingDistance.Index] = value;
+                                SetValue(row, column_HammingDistance, ortoImageComparison.HammingDistance);
                             }
 
-                            if (tuples_GrayHistogramFactor.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_GrayHistogramFactor && column_GrayHistogramFactor.TryGetValidValue(ortoImageComparison.GrayHistogramFactor, out value))
+                            if (tuples_GrayHistogramFactor.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_GrayHistogramFactor)
                             {
-                                row[column_GrayHistogramFactor.Index] = value;
+                                SetValue(row, column_GrayHistogramFactor, ortoImageComparison.GrayHistogramFactor);
                             }
 
-                            if (tuples_HistogramCorrelation.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_HistogramCorrelation && column_HistogramCorrelation.TryGetValidValue(ortoImageComparison.HistogramCorrelation, out value))
+                            if (tuples_HistogramCorrelation.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_HistogramCorrelation)
                             {
-                                row[column_HistogramCorrelation.Index] = value;
+                                SetValue(row, column_HistogramCorrelation, ortoImageComparison.HistogramCorrelation);
+ 
                             }
 
-                            if (tuples_ShapeComparisonFactor.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_ShapeComparisonFactor && column_ShapeComparisonFactor.TryGetValidValue(ortoImageComparison.ShapeComparisonFactor, out value))
+                            if (tuples_ShapeComparisonFactor.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_ShapeComparisonFactor)
                             {
-                                row[column_ShapeComparisonFactor.Index] = value;
+                                SetValue(row, column_ShapeComparisonFactor, ortoImageComparison.ShapeComparisonFactor);
                             }
 
-                            if (tuples_StructuralSimilarityIndex_AbsoluteDifference.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_StructuralSimilarityIndex_AbsoluteDifference && column_StructuralSimilarityIndex_AbsoluteDifference.TryGetValidValue(ortoImageComparison.StructuralSimilarityIndex_AbsoluteDifference, out value))
+                            if (tuples_StructuralSimilarityIndex_AbsoluteDifference.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_StructuralSimilarityIndex_AbsoluteDifference)
                             {
-                                row[column_StructuralSimilarityIndex_AbsoluteDifference.Index] = value;
+                                SetValue(row, column_StructuralSimilarityIndex_AbsoluteDifference, ortoImageComparison.StructuralSimilarityIndex_AbsoluteDifference);
                             }
 
-                            if (tuples_StructuralSimilarityIndex_MatchTemplate.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_StructuralSimilarityIndex_MatchTemplate && column_StructuralSimilarityIndex_MatchTemplate.TryGetValidValue(ortoImageComparison.StructuralSimilarityIndex_MatchTemplate, out value))
+                            if (tuples_StructuralSimilarityIndex_MatchTemplate.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_StructuralSimilarityIndex_MatchTemplate)
                             {
-                                row[column_StructuralSimilarityIndex_MatchTemplate.Index] = value;
+                                SetValue(row, column_StructuralSimilarityIndex_MatchTemplate, ortoImageComparison.StructuralSimilarityIndex_MatchTemplate);
                             }
 
-                            if (tuples_ColorDistributionShift.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_ColorDistributionShift && column_ColorDistributionShift.TryGetValidValue(ortoImageComparison.ColorDistributionShift, out value))
+                            if (tuples_ColorDistributionShift.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_ColorDistributionShift)
                             {
-                                row[column_ColorDistributionShift.Index] = value;
+                                SetValue(row, column_ColorDistributionShift, ortoImageComparison.ColorDistributionShift);
                             }
 
-                            if (tuples_OpticalFlowAverageMagnitude.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_OpticalFlowAverageMagnitude && column_OpticalFlowAverageMagnitude.TryGetValidValue(ortoImageComparison.OpticalFlowAverageMagnitude, out value))
+                            if (tuples_OpticalFlowAverageMagnitude.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_OpticalFlowAverageMagnitude)
                             {
-                                row[column_OpticalFlowAverageMagnitude.Index] = value;
+                                SetValue(row, column_OpticalFlowAverageMagnitude, ortoImageComparison.OpticalFlowAverageMagnitude);
                             }
 
-                            if (tuples_ORBFeatureMatchingFactor.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_ORBFeatureMatchingFactor && column_ORBFeatureMatchingFactor.TryGetValidValue(ortoImageComparison.ORBFeatureMatchingFactor, out value))
+                            if (tuples_ORBFeatureMatchingFactor.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_ORBFeatureMatchingFactor)
                             {
-                                row[column_ORBFeatureMatchingFactor.Index] = value;
+                                SetValue(row, column_ORBFeatureMatchingFactor, ortoImageComparison.ORBFeatureMatchingFactor);
                             }
                         }
                     }

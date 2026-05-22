@@ -31,7 +31,7 @@ namespace DiGi.GIS.IO
 
         public static Column Column_GridCellCoverage(int widthCount, int heightCount)
         {
-            return new ExtendedColumn($"Grid cell coverage [{widthCount}, {heightCount}]", typeof(float), Enums.Category.ShapePrediction.Description(), $"A normalized value between 0.0 (completely empty) and 1.0 (fully occupied) that represents the shape intersection area divided by the total area of an individual grid cell. The grid is created by taking the bounding rectangle of the shape and dividing its edges into 5 segments of equal length. Value represents cell [{widthCount}, {heightCount}]");
+            return new ExtendedColumn($"Grid cell coverage [{widthCount},{heightCount}]", typeof(float), Enums.Category.ShapePrediction.Description(), $"A normalized value between 0.0 (completely empty) and 1.0 (fully occupied) that represents the shape intersection area divided by the total area of an individual grid cell. The grid is created by taking the bounding rectangle of the shape and dividing its edges into 5 segments of equal length. Value represents cell [{widthCount},{heightCount}]");
         }
 
     }
