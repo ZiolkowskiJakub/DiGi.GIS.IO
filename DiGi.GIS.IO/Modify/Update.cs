@@ -102,7 +102,7 @@ namespace DiGi.GIS.IO
                 {
                     Column? column_Existing = table.UpdateColumn(Create.Column_GridCellCoverage(i, j));
 
-                    if(column_Existing is not null)
+                    if (column_Existing is not null)
                     {
                         tuples_GridCellCoverage.Add(new Tuple<int, int, Column>(i, j, column_Existing));
                     }
@@ -157,7 +157,7 @@ namespace DiGi.GIS.IO
                 tuples.Add(new Tuple<Row, Building2D>(row, building2D));
             }
 
-            BuildingShapeSolver buildingShapeSolver = new ();
+            BuildingShapeSolver buildingShapeSolver = new();
 
             foreach (Tuple<Row, Building2D> tuple in tuples)
             {
@@ -176,13 +176,12 @@ namespace DiGi.GIS.IO
                 SetValue(row, column_IsOccupied, Query.IsOccupied(building2D));
                 SetValue(row, column_IsResidential, Query.IsResidential(building2D));
 
-
                 PolygonalFace2D? polygonalFace2D = building2D.PolygonalFace2D;
                 if (polygonalFace2D is not null)
                 {
                     double area = polygonalFace2D.GetArea();
 
-                    if(!double.IsNaN(area))
+                    if (!double.IsNaN(area))
                     {
                         SetValue(row, column_FloorArea, area);
                         SetValue(row, column_TotalArea, area * storeys);
@@ -205,13 +204,13 @@ namespace DiGi.GIS.IO
                     }
 
                     IPolygonal2D? externalEdge = polygonalFace2D.ExternalEdge;
-                    if(externalEdge is not null)
+                    if (externalEdge is not null)
                     {
                         double externalEdgeArea = externalEdge.GetArea();
                         double perimeter = externalEdge.GetPerimeter();
 
                         double isoperimetricRatio = Geometry.Core.Query.IsoperimetricRatio(externalEdgeArea, perimeter);
-                        if(!double.IsNaN(isoperimetricRatio))
+                        if (!double.IsNaN(isoperimetricRatio))
                         {
                             SetValue(row, column_IsoperimetricRatio, isoperimetricRatio);
                         }
@@ -233,10 +232,10 @@ namespace DiGi.GIS.IO
                             SetValue(row, column_RectangularThinnessRatio, rectangleThinnesRatio);
                             SetValue(row, column_SquareThinnessRatio, squareThinnesRatio);
 
-                            Grid2D grid2D = new (rectangle2D, 5, 5);
-                            if(grid2D is not null)
+                            Grid2D grid2D = new(rectangle2D, 5, 5);
+                            if (grid2D is not null)
                             {
-                                for(int i =0; i < 5; i++)
+                                for (int i = 0; i < 5; i++)
                                 {
                                     for (int j = 0; j < 5; j++)
                                     {
@@ -245,15 +244,15 @@ namespace DiGi.GIS.IO
                                         {
                                             continue;
                                         }
-                                        
+
                                         Rectangle2D? rectangle2D_Grid = grid2D.GetRectangle(i, j);
-                                        if(rectangle2D_Grid is null)
+                                        if (rectangle2D_Grid is null)
                                         {
                                             continue;
                                         }
 
                                         double area_Grid = rectangle2D_Grid.GetArea();
-                                        if(double.IsNaN(area_Grid))
+                                        if (double.IsNaN(area_Grid))
                                         {
                                             continue;
                                         }
@@ -261,7 +260,7 @@ namespace DiGi.GIS.IO
                                         double factor = 0;
 
                                         List<Polygon2D>? polygon2Ds = Geometry.Planar.Query.Intersection<Polygon2D, IPolygonal2D>([rectangle2D_Grid, externalEdge]);
-                                        if(polygon2Ds is not null && polygon2Ds.Count != 0)
+                                        if (polygon2Ds is not null && polygon2Ds.Count != 0)
                                         {
                                             double area_Intersection = polygon2Ds.ConvertAll(x => x.GetArea()).Sum();
 
@@ -272,14 +271,13 @@ namespace DiGi.GIS.IO
                                     }
                                 }
                             }
-
                         }
 
                         List<Point2D>? point2Ds = externalEdge.ConvexHull();
-                        if(point2Ds is not null)
+                        if (point2Ds is not null)
                         {
                             double convexHullArea = Geometry.Planar.Query.Area(point2Ds);
-                            if(!double.IsNaN(convexHullArea) && convexHullArea > 0)
+                            if (!double.IsNaN(convexHullArea) && convexHullArea > 0)
                             {
                                 double convexHullThinnesRatio = Geometry.Core.Query.RectangularThinnessRatio(area, convexHullArea);
 
@@ -293,7 +291,7 @@ namespace DiGi.GIS.IO
                 if (buildingShapeSolver.Solve())
                 {
                     string? buildingShapeText = buildingShapeSolver.Output.Description();
-                    if(!string.IsNullOrWhiteSpace(buildingShapeText))
+                    if (!string.IsNullOrWhiteSpace(buildingShapeText))
                     {
                         SetValue(row, column_CalculatedBuildingShape, buildingShapeText);
                     }
@@ -404,15 +402,15 @@ namespace DiGi.GIS.IO
             List<AdministrativeDivision> administrativeDivisions = [];
             List<AdministrativeSubdivision> administrativeSubdivisions = [];
 
-            if(administrativeAreal2Ds is not null && administrativeAreal2Ds.Any())
+            if (administrativeAreal2Ds is not null && administrativeAreal2Ds.Any())
             {
                 foreach (AdministrativeAreal2D administrativeAreal2D in administrativeAreal2Ds)
                 {
-                    if(administrativeAreal2D is AdministrativeDivision administrativeDivision)
+                    if (administrativeAreal2D is AdministrativeDivision administrativeDivision)
                     {
                         administrativeDivisions.Add(administrativeDivision);
                     }
-                    else if(administrativeAreal2D is AdministrativeSubdivision administrativeSubdivision)
+                    else if (administrativeAreal2D is AdministrativeSubdivision administrativeSubdivision)
                     {
                         administrativeSubdivisions.Add(administrativeSubdivision);
                     }
@@ -431,7 +429,7 @@ namespace DiGi.GIS.IO
                     row[column_SubdivisionId.Index] = value;
                 }
 
-                if(administrativeDivisions is not null && administrativeDivisions.Any())
+                if (administrativeDivisions is not null && administrativeDivisions.Any())
                 {
                     AdministrativeDivision administrativeDivision_County = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.county);
                     if (administrativeDivision_County is not null)
@@ -440,7 +438,7 @@ namespace DiGi.GIS.IO
                     }
 
                     AdministrativeDivision administrativeDivision_Voivodeship = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.voivodeship);
-                    if(administrativeDivision_Voivodeship is not null)
+                    if (administrativeDivision_Voivodeship is not null)
                     {
                         SetValue(row, column_VoivodeshipName, administrativeDivision_Voivodeship.Name);
                     }
@@ -451,7 +449,7 @@ namespace DiGi.GIS.IO
                         SetValue(row, column_MunicipalityName, administrativeDivision_Municipality.Name);
                     }
 
-                    if(administrativeSubdivisions.Count > 0)
+                    if (administrativeSubdivisions.Count > 0)
                     {
                         AdministrativeSubdivision administrativeSubdivision = administrativeSubdivisions[0];
 
@@ -472,7 +470,7 @@ namespace DiGi.GIS.IO
 
         public static void Update_Building2DYearBuiltPredictions(this Table? table, int countyId, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions)
         {
-            if(table is null || building2DYearBuiltPredictions is null || !building2DYearBuiltPredictions.Any())
+            if (table is null || building2DYearBuiltPredictions is null || !building2DYearBuiltPredictions.Any())
             {
                 return;
             }
@@ -529,7 +527,7 @@ namespace DiGi.GIS.IO
                 column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionConfidence, year);
 
                 Column? column_PredictionConfidence = table.UpdateColumn(column);
-                if(column_PredictionConfidence is not null)
+                if (column_PredictionConfidence is not null)
                 {
                     dictionary_PredictionConfidence[year] = column_PredictionConfidence;
                 }
@@ -620,19 +618,18 @@ namespace DiGi.GIS.IO
                 Row row = tuple.Item1;
                 Building2DYearBuiltPredictions building2DYearBuiltPredictions_Temp = tuple.Item2;
 
-                if(building2DYearBuiltPredictions_Temp.Years is not List<ushort> years_Temp)
+                if (building2DYearBuiltPredictions_Temp.Years is not List<ushort> years_Temp)
                 {
                     continue;
                 }
 
-                foreach(ushort year in building2DYearBuiltPredictions_Temp.Years)
+                foreach (ushort year in building2DYearBuiltPredictions_Temp.Years)
                 {
                     YearBuiltPrediction? yearBuiltPrediction = building2DYearBuiltPredictions_Temp[year];
-                    if(yearBuiltPrediction is null)
+                    if (yearBuiltPrediction is null)
                     {
                         continue;
                     }
-
 
                     if (dictionary_PredictionConfidence.TryGetValue(year, out Column column))
                     {
@@ -699,34 +696,34 @@ namespace DiGi.GIS.IO
                 }
 
                 IEnumerable<OrtoDataComparison>? ortoDataComparisons = ortoDatasComparison.OrtoDataComparisons;
-                if(ortoDataComparisons is null || !ortoDataComparisons.Any())
+                if (ortoDataComparisons is null || !ortoDataComparisons.Any())
                 {
                     continue;
                 }
 
-                foreach(OrtoDataComparison ortoDataComparison in ortoDataComparisons)
+                foreach (OrtoDataComparison ortoDataComparison in ortoDataComparisons)
                 {
                     int year_1 = ortoDataComparison.DateTime.Year;
 
-                    IEnumerable< OrtoImageComparisonGroup>? ortoImageComparisonGroups =  ortoDataComparison.OrtoImageComparisonGroups;
-                    if(ortoImageComparisonGroups is not null && ortoImageComparisonGroups.Any())
+                    IEnumerable<OrtoImageComparisonGroup>? ortoImageComparisonGroups = ortoDataComparison.OrtoImageComparisonGroups;
+                    if (ortoImageComparisonGroups is not null && ortoImageComparisonGroups.Any())
                     {
-                        foreach(OrtoImageComparisonGroup ortoImageComparisonGroup in ortoImageComparisonGroups)
+                        foreach (OrtoImageComparisonGroup ortoImageComparisonGroup in ortoImageComparisonGroups)
                         {
-                            if(ortoImageComparisonGroup is null)
+                            if (ortoImageComparisonGroup is null)
                             {
                                 continue;
                             }
 
                             string name = string.IsNullOrEmpty(ortoImageComparisonGroup.Name) ? string.Empty : ortoImageComparisonGroup.Name!;
 
-                            if(ortoImageComparisonGroup.OrtoImageComparisons is IEnumerable<OrtoImageComparison> ortoImageComparisons)
+                            if (ortoImageComparisonGroup.OrtoImageComparisons is IEnumerable<OrtoImageComparison> ortoImageComparisons)
                             {
                                 foreach (OrtoImageComparison ortoImageComparison in ortoImageComparisons)
                                 {
                                     int year_2 = ortoImageComparison.DateTime.Year;
 
-                                    if(tuples.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2) != null)
+                                    if (tuples.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2) != null)
                                     {
                                         continue;
                                     }
@@ -751,7 +748,7 @@ namespace DiGi.GIS.IO
             List<Tuple<string, int, int, Column>> tuples_ColorDistributionShift = [];
             List<Tuple<string, int, int, Column>> tuples_OpticalFlowAverageMagnitude = [];
             List<Tuple<string, int, int, Column>> tuples_ORBFeatureMatchingFactor = [];
-            
+
             foreach (Tuple<string, int, int> tuple in tuples)
             {
                 Column column;
@@ -781,7 +778,7 @@ namespace DiGi.GIS.IO
                 }
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ShapeComparisonFactor);
-                
+
                 Column? column_ShapeComparisonFactor = table.UpdateColumn(column);
                 if (column_ShapeComparisonFactor is not null)
                 {
@@ -797,7 +794,7 @@ namespace DiGi.GIS.IO
                 }
 
                 column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.StructuralSimilarityIndex_MatchTemplate);
-                
+
                 Column? column_StructuralSimilarityIndex_MatchTemplate = table.UpdateColumn(column);
                 if (column_StructuralSimilarityIndex_MatchTemplate is not null)
                 {
@@ -887,9 +884,9 @@ namespace DiGi.GIS.IO
                     continue;
                 }
 
-                foreach(OrtoDataComparison ortoDataComparison in ortoDataComparisons)
+                foreach (OrtoDataComparison ortoDataComparison in ortoDataComparisons)
                 {
-                    if(ortoDataComparison?.OrtoImageComparisonGroups is not IEnumerable<OrtoImageComparisonGroup> ortoImageComparisonGroups)
+                    if (ortoDataComparison?.OrtoImageComparisonGroups is not IEnumerable<OrtoImageComparisonGroup> ortoImageComparisonGroups)
                     {
                         continue;
                     }
@@ -898,7 +895,7 @@ namespace DiGi.GIS.IO
 
                     foreach (OrtoImageComparisonGroup ortoImageComparisonGroup in ortoImageComparisonGroups)
                     {
-                        if(ortoImageComparisonGroup?.OrtoImageComparisons is not IEnumerable<OrtoImageComparison> ortoImageComparisons)
+                        if (ortoImageComparisonGroup?.OrtoImageComparisons is not IEnumerable<OrtoImageComparison> ortoImageComparisons)
                         {
                             continue;
                         }
@@ -927,7 +924,6 @@ namespace DiGi.GIS.IO
                             if (tuples_HistogramCorrelation.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_HistogramCorrelation)
                             {
                                 SetValue(row, column_HistogramCorrelation, ortoImageComparison.HistogramCorrelation);
- 
                             }
 
                             if (tuples_ShapeComparisonFactor.Find(x => x.Item1 == name && x.Item2 == year_1 && x.Item3 == year_2)?.Item4 is Column column_ShapeComparisonFactor)

@@ -6,7 +6,7 @@ namespace DiGi.GIS.IO
     {
         public static TColumn? UpdateColumn<TColumn>(this Table? table, TColumn column) where TColumn : Column
         {
-            if(table is null || column is null)
+            if (table is null || column is null)
             {
                 return null;
             }

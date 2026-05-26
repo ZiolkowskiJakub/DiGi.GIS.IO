@@ -36,7 +36,6 @@ namespace DiGi.GIS.IO.Constants
         public static ExtendedColumn IsOccupied = new("Is occupied", typeof(bool), Category.BuildingState.Description(), "Determines if building is occupied");
         public static ExtendedColumn SettlementType = new("Settlement type", typeof(string), Category.Administrative.Description(), "Settlement type such as rural or urban");
 
-
         public static ExtendedColumn IsoperimetricRatio = new("Isoperimetric ratio", typeof(float), Category.ShapeDescriptors.Description(), "Ratio of the curve area to the area of a circle with same perimeter as the curve");
         public static ExtendedColumn RectangularThinnessRatio = new("Rectangular thinnes ratio", typeof(float), Category.ShapeDescriptors.Description(), "Ratio of the shape area to the area of its minimum bounding rectangle");
         public static ExtendedColumn SquareThinnessRatio = new("Square thinness ratio", typeof(float), Category.ShapeDescriptors.Description(), "Ratio of the shape area to the area of its minimum bounding square");

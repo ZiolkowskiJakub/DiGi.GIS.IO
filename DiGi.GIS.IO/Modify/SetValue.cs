@@ -6,7 +6,7 @@ namespace DiGi.GIS.IO
     {
         public static void SetValue(this Row? row, Column? column, object? value)
         {
-            if(row is null || column is null)
+            if (row is null || column is null)
             {
                 return;
             }
