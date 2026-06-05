@@ -95,6 +95,17 @@ namespace DiGi.GIS.IO
             Column? column_IsOccupied = table.UpdateColumn<Column>(Constants.Column.IsOccupied);
             Column? column_IsResidential = table.UpdateColumn<Column>(Constants.Column.IsResidential);
 
+            List<Tuple<short, Column>> tuples_OrthophotomapImage = [];
+            for(short i = 2008; i <= DateTime.Now.Year; i++)
+            {
+                Column? column_Existing = table.UpdateColumn(Create.Column_OrthophotomapImage(i));
+
+                if (column_Existing is not null)
+                {
+                    tuples_OrthophotomapImage.Add(new Tuple<short, Column>(i, column_Existing));
+                }
+            }
+
             List<Tuple<int, int, Column>> tuples_GridCellCoverage = [];
             for (int i = 0; i < 5; i++)
             {
@@ -295,6 +306,11 @@ namespace DiGi.GIS.IO
                     {
                         SetValue(row, column_CalculatedBuildingShape, buildingShapeText);
                     }
+                }
+
+                foreach (Tuple<short, Column> tuple_OrthophotomapImage in tuples_OrthophotomapImage)
+                {
+                    SetValue(row, tuple_OrthophotomapImage.Item2, $"https://api.digiproject.uk/gis/ortodatas/imagebyreference?reference={building2D.Reference}&year={tuple_OrthophotomapImage.Item1}&countyId={countyId}");
                 }
 
                 table.AddRow(row, false);
@@ -753,7 +769,7 @@ namespace DiGi.GIS.IO
             {
                 Column column;
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.AverageColorSimilarity);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.AverageColorSimilarity);
 
                 Column? column_AverageColorSimilarity = table.UpdateColumn(column);
                 if (column_AverageColorSimilarity is not null)
@@ -761,7 +777,7 @@ namespace DiGi.GIS.IO
                     tuples_AverageColorSimilarity.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_AverageColorSimilarity));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.HammingDistance);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.HammingDistance);
 
                 Column? column_HammingDistance = table.UpdateColumn(column);
                 if (column_HammingDistance is not null)
@@ -769,7 +785,7 @@ namespace DiGi.GIS.IO
                     tuples_HammingDistance.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_HammingDistance));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.GrayHistogramFactor);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.GrayHistogramFactor);
 
                 Column? column_GrayHistogramFactor = table.UpdateColumn(column);
                 if (column_GrayHistogramFactor is not null)
@@ -777,7 +793,7 @@ namespace DiGi.GIS.IO
                     tuples_GrayHistogramFactor.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_GrayHistogramFactor));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ShapeComparisonFactor);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ShapeComparisonFactor);
 
                 Column? column_ShapeComparisonFactor = table.UpdateColumn(column);
                 if (column_ShapeComparisonFactor is not null)
@@ -785,7 +801,7 @@ namespace DiGi.GIS.IO
                     tuples_ShapeComparisonFactor.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_ShapeComparisonFactor));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.StructuralSimilarityIndex_AbsoluteDifference);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.StructuralSimilarityIndex_AbsoluteDifference);
 
                 Column? column_StructuralSimilarityIndex_AbsoluteDifference = table.UpdateColumn(column);
                 if (column_StructuralSimilarityIndex_AbsoluteDifference is not null)
@@ -793,7 +809,7 @@ namespace DiGi.GIS.IO
                     tuples_StructuralSimilarityIndex_AbsoluteDifference.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_StructuralSimilarityIndex_AbsoluteDifference));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.StructuralSimilarityIndex_MatchTemplate);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.StructuralSimilarityIndex_MatchTemplate);
 
                 Column? column_StructuralSimilarityIndex_MatchTemplate = table.UpdateColumn(column);
                 if (column_StructuralSimilarityIndex_MatchTemplate is not null)
@@ -801,7 +817,7 @@ namespace DiGi.GIS.IO
                     tuples_StructuralSimilarityIndex_MatchTemplate.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_StructuralSimilarityIndex_MatchTemplate));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ColorDistributionShift);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ColorDistributionShift);
 
                 Column? column_ColorDistributionShift = table.UpdateColumn(column);
                 if (column_ColorDistributionShift is not null)
@@ -809,7 +825,7 @@ namespace DiGi.GIS.IO
                     tuples_ColorDistributionShift.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_ColorDistributionShift));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.OpticalFlowAverageMagnitude);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.OpticalFlowAverageMagnitude);
 
                 Column? column_OpticalFlowAverageMagnitude = table.UpdateColumn(column);
                 if (column_OpticalFlowAverageMagnitude is not null)
@@ -817,7 +833,7 @@ namespace DiGi.GIS.IO
                     tuples_OpticalFlowAverageMagnitude.Add(new Tuple<string, int, int, Column>(tuple.Item1, tuple.Item2, tuple.Item3, column_OpticalFlowAverageMagnitude));
                 }
 
-                column = Create.Column_Orthophotomap(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ORBFeatureMatchingFactor);
+                column = Create.Column_OrthophotomapData(tuple.Item2, tuple.Item3, tuple.Item1, Constants.ColumnNameSuffix.ORBFeatureMatchingFactor);
 
                 Column? column_ORBFeatureMatchingFactor = table.UpdateColumn(column);
                 if (column_ORBFeatureMatchingFactor is not null)

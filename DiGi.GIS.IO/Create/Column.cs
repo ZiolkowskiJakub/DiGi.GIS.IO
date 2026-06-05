@@ -5,7 +5,7 @@ namespace DiGi.GIS.IO
 {
     public static partial class Create
     {
-        public static Column Column_Orthophotomap(int year_1, int year_2, string columnNamePrefix, string columnNameSuffix)
+        public static Column Column_OrthophotomapData(int year_1, int year_2, string columnNamePrefix, string columnNameSuffix)
         {
             string additionalText = string.Empty;
             if (columnNamePrefix == "BB")
@@ -21,12 +21,17 @@ namespace DiGi.GIS.IO
                 additionalText = "BoundingBox filled with offset ";
             }
 
-            return new ExtendedColumn($@"{columnNamePrefix} {year_1} {year_2} {columnNameSuffix}", typeof(float), Enums.Category.Orthophotomap.Description(), $@"{columnNameSuffix} comparison based on {additionalText}orthophotomap taken {year_1} and {year_2}");
+            return new ExtendedColumn($@"{columnNamePrefix} {year_1} {year_2} {columnNameSuffix}", typeof(float), Enums.Category.OrthophotomapData.Description(), $@"{columnNameSuffix} comparison based on {additionalText}orthophotomap taken {year_1} and {year_2}");
         }
 
         public static Column Column_YearBuit(string columnNamePrefix, int year)
         {
             return new ExtendedColumn($@"{columnNamePrefix} {year}", typeof(double), Enums.Category.YearBuit.Description(), $@"{columnNamePrefix} based on predition for {year}");
+        }
+
+        public static Column Column_OrthophotomapImage(int year)
+        {
+            return new ExtendedColumn($@"Orthophotomap image {year}", typeof(double), Enums.Category.OrthophotomapImage.Description(), $@"Orthophotomap image for {year}");
         }
 
         public static Column Column_GridCellCoverage(int widthCount, int heightCount)
