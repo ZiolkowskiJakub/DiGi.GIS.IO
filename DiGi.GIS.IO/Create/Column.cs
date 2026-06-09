@@ -31,7 +31,7 @@ namespace DiGi.GIS.IO
 
         public static Column Column_OrthophotomapImage(int year)
         {
-            return new ExtendedColumn($@"Orthophotomap image {year}", typeof(double), Enums.Category.OrthophotomapImage.Description(), $@"Orthophotomap image for {year}");
+            return new ExtendedColumn($@"Orthophotomap image link {year}", typeof(string), Enums.Category.OrthophotomapImage.Description(), $@"Link to orthophotomap image for {year}");
         }
 
         public static Column Column_GridCellCoverage(int widthCount, int heightCount)
