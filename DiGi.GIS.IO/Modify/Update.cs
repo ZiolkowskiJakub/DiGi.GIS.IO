@@ -1,4 +1,4 @@
-﻿using DiGi.Core;
+using DiGi.Core;
 using DiGi.Core.IO.Table.Classes;
 using DiGi.Geometry.Planar;
 using DiGi.Geometry.Planar.Classes;
@@ -13,6 +13,16 @@ namespace DiGi.GIS.IO
 {
     public static partial class Modify
     {
+        /// <summary>
+        /// Updates the table with building data, year built predictions, orthophotomap comparisons, and administrative boundaries.
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="countyId">The unique identifier of the county.</param>
+        /// <param name="subdivisionId">The optional unique identifier of the subdivision.</param>
+        /// <param name="building2Ds">The collection of building 2D geometries to update.</param>
+        /// <param name="building2DYearBuiltPredictions">The optional collection of year built predictions to update.</param>
+        /// <param name="ortoDatasComparisons">The optional collection of orthophotomap data comparisons to update.</param>
+        /// <param name="administrativeAreal2Ds">The optional collection of administrative boundary areas to update.</param>
         public static void Update(this Table? table, int countyId, int? subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions = null, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons = null, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds = null)
         {
             if (table is null)
@@ -37,6 +47,12 @@ namespace DiGi.GIS.IO
             }
         }
 
+        /// <summary>
+        /// Updates the table with building 2D geometric and shape descriptor features for a specific county.
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="countyId">The unique identifier of the county.</param>
+        /// <param name="building2Ds">The collection of building 2D geometries.</param>
         public static void Update_Building2D(this Table? table, int countyId, IEnumerable<Building2D>? building2Ds)
         {
             if (table is null || building2Ds is null || !building2Ds.Any())
@@ -317,6 +333,14 @@ namespace DiGi.GIS.IO
             }
         }
 
+        /// <summary>
+        /// Updates the table with building 2D geometric and administrative features for a specific county and optional subdivision.
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="countyId">The unique identifier of the county.</param>
+        /// <param name="subdivisionId">The optional unique identifier of the subdivision.</param>
+        /// <param name="building2Ds">The collection of building 2D geometries.</param>
+        /// <param name="administrativeAreal2Ds">The collection of administrative boundary areas.</param>
         public static void Update_Building2D(this Table? table, int countyId, int? subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds)
         {
             if (table is null || building2Ds is null || !building2Ds.Any())
@@ -484,6 +508,12 @@ namespace DiGi.GIS.IO
             }
         }
 
+        /// <summary>
+        /// Updates the table with year-built predictions for structures in a specific county.
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="countyId">The unique identifier of the county.</param>
+        /// <param name="building2DYearBuiltPredictions">The collection of year-built predictions.</param>
         public static void Update_Building2DYearBuiltPredictions(this Table? table, int countyId, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions)
         {
             if (table is null || building2DYearBuiltPredictions is null || !building2DYearBuiltPredictions.Any())
@@ -680,6 +710,12 @@ namespace DiGi.GIS.IO
             }
         }
 
+        /// <summary>
+        /// Updates the table with orthophotomap comparison data for structures in a specific county.
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="countyId">The unique identifier of the county.</param>
+        /// <param name="ortoDatasComparisons">The collection of orthophotomap data comparisons.</param>
         public static void Update_OrtoDatasComparison(this Table? table, int countyId, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons)
         {
             if (table is null || ortoDatasComparisons is null || !ortoDatasComparisons.Any())
