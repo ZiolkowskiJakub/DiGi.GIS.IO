@@ -184,5 +184,10 @@ namespace DiGi.GIS.IO.Constants
         /// Building Shape determined by user.
         /// </summary>
         public static ExtendedColumn UserBuildingShape = new("User Building Shape", typeof(string), Category.BuildingShape.Description(), "Building Shape determined by user");
+
+        /// <summary>
+        /// Database Id for the building.
+        /// </summary>
+        public static ExtendedColumn DatabaseId = new("Database Id", typeof(string), Category.Identity.Description(), "Unique identifier for the building in the database");
     }
 }
