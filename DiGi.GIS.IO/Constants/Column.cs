@@ -113,12 +113,7 @@ namespace DiGi.GIS.IO.Constants
         /// <summary>
         /// Subdivision occupancy coming from BDOO Geoportal *.gml file (ot:liczbaMieszkancow node).
         /// </summary>
-        public static ExtendedColumn SubdivisionOccupancy = new("Subdivision occupancy", typeof(int), Category.Occupancy.Description(), "Subdivision occupancy coming from BDOO Geoportal *.gml file (ot:liczbaMieszkancow node)");
-
-        /// <summary>
-        /// Subdivision calculated occupancy.
-        /// </summary>
-        public static ExtendedColumn SubdivisionCalculatedOccupancy = new("Subdivision calculated occupancy", typeof(int), Category.Occupancy.Description(), "Subdivision calculated occupancy");
+        public static ExtendedColumn SubdivisionOccupancy = new("Subdivision occupancy", typeof(uint), Category.Occupancy.Description(), "Subdivision occupancy coming from BDOO Geoportal *.gml file (ot:liczbaMieszkancow node)");
 
         /// <summary>
         /// Subdivision (city, village, colony etc.) name where the object belongs to.
@@ -189,5 +184,10 @@ namespace DiGi.GIS.IO.Constants
         /// Database Id for the building.
         /// </summary>
         public static ExtendedColumn DatabaseId = new("Database Id", typeof(string), Category.Identity.Description(), "Unique identifier for the building in the database");
+
+        /// <summary>
+        /// Calculated occupancy.
+        /// </summary>
+        public static ExtendedColumn CalculatedOccupancy = new("Calculated occupancy", typeof(uint), Category.Occupancy.Description(), "Calculated occupancy");
     }
 }
