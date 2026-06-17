@@ -112,7 +112,7 @@ namespace DiGi.GIS.IO
             Column? column_IsResidential = table.UpdateColumn<Column>(Constants.Column.IsResidential);
 
             List<Tuple<short, Column>> tuples_OrthophotomapImage = [];
-            for(short i = 2008; i <= DateTime.Now.Year; i++)
+            for (short i = 2008; i <= DateTime.Now.Year; i++)
             {
                 Column? column_Existing = table.UpdateColumn(Create.Column_OrthophotomapImage(i));
 
@@ -611,7 +611,7 @@ namespace DiGi.GIS.IO
                 table.AddRow(row, false);
             }
         }
-        
+
         /// <summary>
         /// Updates the table with year-built predictions for structures in a specific county.
         /// </summary>
