@@ -121,6 +121,26 @@ Radius \[m\]
 #### Returns
 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')
 
+<a name='DiGi.GIS.IO.Create.Column_RadialFloorAreaRatio(double)'></a>
+
+## Create\.Column\_RadialFloorAreaRatio\(double\) Method
+
+Creates a column representing radial floor area ratio for given radius\.
+
+```csharp
+public static DiGi.Core.IO.Table.Classes.Column Column_RadialFloorAreaRatio(double radius);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Column_RadialFloorAreaRatio(double).radius'></a>
+
+`radius` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+Radius \[m\]
+
+#### Returns
+[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')
+
 <a name='DiGi.GIS.IO.Create.Column_YearBuit(string,int)'></a>
 
 ## Create\.Column\_YearBuit\(string, int\) Method
@@ -432,3 +452,50 @@ The unique identifier of the county\.
 `ortoDatasComparisons` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Emgu\.CV\.Classes\.OrtoDatasComparison](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.emgu.cv.classes.ortodatascomparison 'DiGi\.GIS\.Emgu\.CV\.Classes\.OrtoDatasComparison')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
 The collection of orthophotomap data comparisons\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double)'></a>
+
+## Modify\.Update\_RadialRatios\(this Table, IEnumerable\<double\>, int, Building2D, IEnumerable\<Building2D\>, double\) Method
+
+Updates the table with radial ratios \(Radial Building Coverage Ratio and Radial Floor Area Ratio\) for a specific county and building 2D geometry\.
+
+```csharp
+public static void Update_RadialRatios(this DiGi.Core.IO.Table.Classes.Table? table, System.Collections.Generic.IEnumerable<double> radiuses, int countyId, DiGi.GIS.Classes.Building2D? building2D, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, double tolerance=1E-06);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).radiuses'></a>
+
+`radiuses` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The list of radiuses to consider\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).countyId'></a>
+
+`countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The ID of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).building2D'></a>
+
+`building2D` [DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')
+
+The building 2D\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).building2Ds'></a>
+
+`building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The list of building 2Ds\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).tolerance'></a>
+
+`tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The tolerance for distance calculations\.

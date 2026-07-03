@@ -1131,7 +1131,7 @@ namespace DiGi.GIS.IO
         /// <param name="tolerance">The tolerance for distance calculations.</param>
         public static void Update_RadialRatios(this Table? table, IEnumerable<double> radiuses, int countyId, Building2D? building2D, IEnumerable<Building2D>? building2Ds, double tolerance = Core.Constants.Tolerance.Distance)
         {
-            if (table is null || building2D is null || building2Ds is null || !building2Ds.Any()|| radiuses is null || !radiuses.Any())
+            if (table is null || building2D is null || building2Ds is null || !building2Ds.Any() || radiuses is null || !radiuses.Any())
             {
                 return;
             }
@@ -1142,8 +1142,8 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            Point2D? centroid = building2D.PolygonalFace2D?.Centroid();
-            if (centroid is null)
+            Point2D? point2D_Centroid = building2D.PolygonalFace2D?.Centroid();
+            if (point2D_Centroid is null)
             {
                 return;
             }
@@ -1189,25 +1189,33 @@ namespace DiGi.GIS.IO
                     continue;
                 }
 
+                if (reference_Row != reference)
+                {
+                    continue;
+                }
+
                 row = row_Temp;
                 break;
             }
 
-            if(row is null)
+            if (row is null)
             {
                 row = table.AddRow();
 
-                if(row is null)
+                if (row is null)
                 {
                     return;
                 }
+
+                SetValue(row, column_Reference, reference);
+                SetValue(row, column_CountyId, countyId);
             }
 
             List<Tuple<Building2D, Point2D, double, ushort>>? tuples = null;
 
             foreach (double radius in radiuses_Sorted)
             {
-                if (double.IsNaN(radius) || double.IsInfinity(radius))
+                if (double.IsNaN(radius) || double.IsInfinity(radius) || radius <= 0)
                 {
                     continue;
                 }
@@ -1238,13 +1246,25 @@ namespace DiGi.GIS.IO
                             continue;
                         }
 
-                        Point2D? point2D_Closest = polygonalFace2D.ClosestPoint(centroid, tolerance);
+                        // Optimization: Check bounding box distance first
+                        BoundingBox2D? boundingBox2D = polygonalFace2D.GetBoundingBox();
+                        if (boundingBox2D is not null)
+                        {
+                            double dx = Math.Max(0.0, Math.Max(boundingBox2D.Min.X - point2D_Centroid.X, point2D_Centroid.X - boundingBox2D.Max.X));
+                            double dy = Math.Max(0.0, Math.Max(boundingBox2D.Min.Y - point2D_Centroid.Y, point2D_Centroid.Y - boundingBox2D.Max.Y));
+                            if (Math.Sqrt((dx * dx) + (dy * dy)) > radius + tolerance)
+                            {
+                                continue;
+                            }
+                        }
+
+                        Point2D? point2D_Closest = polygonalFace2D.ClosestPoint(point2D_Centroid, tolerance);
                         if (point2D_Closest is null)
                         {
                             continue;
                         }
 
-                        if (centroid.Distance(point2D_Closest) > radius + tolerance)
+                        if (point2D_Centroid.Distance(point2D_Closest) > radius + tolerance)
                         {
                             continue;
                         }
@@ -1261,9 +1281,9 @@ namespace DiGi.GIS.IO
                             storeys = 1;
                         }
 
-                        tuples.Add(new Tuple<Building2D, Point2D, double, ushort>(building2D_Temp!, point2D_Closest, area_Temp, building2D_Temp.Storeys));
+                        tuples.Add(new Tuple<Building2D, Point2D, double, ushort>(building2D_Temp, point2D_Closest, area_Temp, storeys));
                         area_Building2D += area_Temp;
-                        area_Floor += area_Temp * building2D_Temp.Storeys;
+                        area_Floor += area_Temp * storeys;
                     }
                 }
                 else
@@ -1274,7 +1294,7 @@ namespace DiGi.GIS.IO
                     {
                         Tuple<Building2D, Point2D, double, ushort> tuple = tuples[i];
 
-                        if (centroid.Distance(tuple.Item2) > radius + tolerance)
+                        if (point2D_Centroid.Distance(tuple.Item2) > radius + tolerance)
                         {
                             tuples.RemoveAt(i);
                             continue;
@@ -1285,17 +1305,21 @@ namespace DiGi.GIS.IO
                     }
                 }
 
-                if(area_Building2D < tolerance)
+                if (area_Building2D < tolerance)
                 {
+                    SetValue(row, column_RadialBuildingCoverageRatio, 0.0f);
+                    SetValue(row, column_RadialFloorAreaRatio, 0.0f);
                     continue;
                 }
 
                 double area = Math.PI * radius * radius;
 
-                SetValue(row, column_RadialBuildingCoverageRatio, area_Building2D);
+                SetValue(row, column_RadialBuildingCoverageRatio, (float)(area_Building2D / area));
 
-                SetValue(row, column_RadialFloorAreaRatio, area_Floor);
+                SetValue(row, column_RadialFloorAreaRatio, (float)(area_Floor / area));
             }
+
+            table.AddRow(row, false);
         }
     }
 }
