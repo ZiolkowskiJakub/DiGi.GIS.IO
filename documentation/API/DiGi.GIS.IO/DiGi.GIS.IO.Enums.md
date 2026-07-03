@@ -127,3 +127,9 @@ Represents shape prediction information\.
 `Other` 18
 
 Represents other classifications\.
+
+<a name='DiGi.GIS.IO.Enums.Category.SpatialAnalysisMetric'></a>
+
+`SpatialAnalysisMetric` 19
+
+Spatial analysis metric

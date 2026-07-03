@@ -101,6 +101,26 @@ The year of the orthophotomap image\.
 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
 A new [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn') configured with the generated name, target type \(string\), category description, and details of the image link\.
 
+<a name='DiGi.GIS.IO.Create.Column_RadialBuildingCoverageRatio(double)'></a>
+
+## Create\.Column\_RadialBuildingCoverageRatio\(double\) Method
+
+Creates a column representing radial building coverage ratio for given radius\.
+
+```csharp
+public static DiGi.Core.IO.Table.Classes.Column Column_RadialBuildingCoverageRatio(double radius);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Column_RadialBuildingCoverageRatio(double).radius'></a>
+
+`radius` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+Radius \[m\]
+
+#### Returns
+[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')
+
 <a name='DiGi.GIS.IO.Create.Column_YearBuit(string,int)'></a>
 
 ## Create\.Column\_YearBuit\(string, int\) Method

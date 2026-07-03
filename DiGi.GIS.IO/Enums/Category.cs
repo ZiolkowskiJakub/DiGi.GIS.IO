@@ -101,5 +101,10 @@ namespace DiGi.GIS.IO.Enums
         /// Represents other classifications.
         /// </summary>
         [Description("Other")] Other,
+
+        /// <summary>
+        /// Spatial analysis metric
+        /// </summary>
+        [Description("Spatial analysis metric")] SpatialAnalysisMetric,
     }
 }

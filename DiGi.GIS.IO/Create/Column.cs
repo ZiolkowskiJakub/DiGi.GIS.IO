@@ -1,10 +1,22 @@
 using DiGi.Core;
 using DiGi.Core.IO.Table.Classes;
+using DiGi.GIS.Classes;
 
 namespace DiGi.GIS.IO
 {
     public static partial class Create
     {
+        /// <summary>
+        /// Creates a column representing normalized grid cell coverage values for a bounding rectangle.
+        /// </summary>
+        /// <param name="widthCount">The segment index along the horizontal axis (0 to 4).</param>
+        /// <param name="heightCount">The segment index along the vertical axis (0 to 4).</param>
+        /// <returns>A new <see cref="ExtendedColumn"/> configured with the grid location, target type (float), category description, and detailed computation details.</returns>
+        public static Column Column_GridCellCoverage(int widthCount, int heightCount)
+        {
+            return new ExtendedColumn($"Grid cell coverage [{widthCount},{heightCount}]", typeof(float), Enums.Category.ShapePrediction.Description(), $"A normalized value between 0.0 (completely empty) and 1.0 (fully occupied) that represents the shape intersection area divided by the total area of an individual grid cell. The grid is created by taking the bounding rectangle of the shape and dividing its edges into 5 segments of equal length. Value represents cell [{widthCount},{heightCount}]");
+        }
+
         /// <summary>
         /// Creates a column representing comparison data for orthophotomap images taken in two different years.
         /// </summary>
@@ -33,17 +45,6 @@ namespace DiGi.GIS.IO
         }
 
         /// <summary>
-        /// Creates a column representing prediction data related to the year a building was built.
-        /// </summary>
-        /// <param name="columnNamePrefix">The prefix describing the prediction type (e.g., confidence or bounding box coordinates).</param>
-        /// <param name="year">The target prediction year.</param>
-        /// <returns>A new <see cref="ExtendedColumn"/> configured with the generated name, target type (double), category description, and description text.</returns>
-        public static Column Column_YearBuit(string columnNamePrefix, int year)
-        {
-            return new ExtendedColumn($@"{columnNamePrefix} {year}", typeof(double), Enums.Category.YearBuit.Description(), $@"{columnNamePrefix} based on predition for {year}");
-        }
-
-        /// <summary>
         /// Creates a column containing the URL link to the orthophotomap image for a specific year.
         /// </summary>
         /// <param name="year">The year of the orthophotomap image.</param>
@@ -54,14 +55,34 @@ namespace DiGi.GIS.IO
         }
 
         /// <summary>
-        /// Creates a column representing normalized grid cell coverage values for a bounding rectangle.
+        /// Creates a column representing radial building coverage ratio for given radius.
         /// </summary>
-        /// <param name="widthCount">The segment index along the horizontal axis (0 to 4).</param>
-        /// <param name="heightCount">The segment index along the vertical axis (0 to 4).</param>
-        /// <returns>A new <see cref="ExtendedColumn"/> configured with the grid location, target type (float), category description, and detailed computation details.</returns>
-        public static Column Column_GridCellCoverage(int widthCount, int heightCount)
+        /// <param name="radius">Radius [m]</param>
+        /// <returns></returns>
+        public static Column Column_RadialBuildingCoverageRatio(double radius)
         {
-            return new ExtendedColumn($"Grid cell coverage [{widthCount},{heightCount}]", typeof(float), Enums.Category.ShapePrediction.Description(), $"A normalized value between 0.0 (completely empty) and 1.0 (fully occupied) that represents the shape intersection area divided by the total area of an individual grid cell. The grid is created by taking the bounding rectangle of the shape and dividing its edges into 5 segments of equal length. Value represents cell [{widthCount},{heightCount}]");
+            return new ExtendedColumn($"Radial Building Coverage Ratio {radius}m", typeof(float), Enums.Category.SpatialAnalysisMetric.Description(), $"Spatial analysis metric that measures the relationship between a defined circular area (radius {radius}m) centered on a specific building and the total footprint area of all buildings within that zone's reach");
+        }
+
+        /// <summary>
+        /// Creates a column representing radial floor area ratio for given radius.
+        /// </summary>
+        /// <param name="radius">Radius [m]</param>
+        /// <returns></returns>
+        public static Column Column_RadialFloorAreaRatio(double radius)
+        {
+            return new ExtendedColumn($"Radial Floor Area Ratio {radius}m", typeof(float), Enums.Category.SpatialAnalysisMetric.Description(), $"Spatial analysis metric that measures the relationship between a defined circular area (radius {radius}m) centered on a specific building and the total gross floor area (all storeys/floors combined) of all buildings within that zone's reach");
+        }
+
+        /// <summary>
+        /// Creates a column representing prediction data related to the year a building was built.
+        /// </summary>
+        /// <param name="columnNamePrefix">The prefix describing the prediction type (e.g., confidence or bounding box coordinates).</param>
+        /// <param name="year">The target prediction year.</param>
+        /// <returns>A new <see cref="ExtendedColumn"/> configured with the generated name, target type (double), category description, and description text.</returns>
+        public static Column Column_YearBuit(string columnNamePrefix, int year)
+        {
+            return new ExtendedColumn($@"{columnNamePrefix} {year}", typeof(double), Enums.Category.YearBuit.Description(), $@"{columnNamePrefix} based on predition for {year}");
         }
     }
 }

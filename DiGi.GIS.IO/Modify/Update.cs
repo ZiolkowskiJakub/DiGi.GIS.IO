@@ -6,6 +6,7 @@ using DiGi.Geometry.Planar.Interfaces;
 using DiGi.GIS.Classes;
 using DiGi.GIS.Emgu.CV.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -1116,6 +1117,184 @@ namespace DiGi.GIS.IO
                 }
 
                 table.AddRow(row, false);
+            }
+        }
+
+        /// <summary>
+        /// Updates the table with radial ratios (Radial Building Coverage Ratio and Radial Floor Area Ratio) for a specific county and building 2D geometry.
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="radiuses">The list of radiuses to consider.</param>
+        /// <param name="countyId">The ID of the county.</param>
+        /// <param name="building2D">The building 2D.</param>
+        /// <param name="building2Ds">The list of building 2Ds.</param>
+        /// <param name="tolerance">The tolerance for distance calculations.</param>
+        public static void Update_RadialRatios(this Table? table, IEnumerable<double> radiuses, int countyId, Building2D? building2D, IEnumerable<Building2D>? building2Ds, double tolerance = Core.Constants.Tolerance.Distance)
+        {
+            if (table is null || building2D is null || building2Ds is null || !building2Ds.Any()|| radiuses is null || !radiuses.Any())
+            {
+                return;
+            }
+
+            string? reference = building2D.Reference;
+            if (reference is null)
+            {
+                return;
+            }
+
+            Point2D? centroid = building2D.PolygonalFace2D?.Centroid();
+            if (centroid is null)
+            {
+                return;
+            }
+
+            Column? column_Reference = table.UpdateColumn<Column>(Constants.Column.Reference);
+            if (column_Reference is null)
+            {
+                return;
+            }
+
+            Column? column_CountyId = table.UpdateColumn<Column>(Constants.Column.CountyId);
+            if (column_CountyId is null)
+            {
+                return;
+            }
+
+            List<double> radiuses_Sorted = [.. radiuses];
+            radiuses_Sorted.Sort((x, y) => y.CompareTo(x));
+
+            Row? row = null;
+
+            int count = table.RowCount;
+            for (int i = count - 1; i >= 0; i--)
+            {
+                Row? row_Temp = table.GetRow(i);
+                if (row_Temp is null)
+                {
+                    continue;
+                }
+
+                if (!row_Temp.TryGetValue(column_CountyId.Index, out int countyId_Row))
+                {
+                    continue;
+                }
+
+                if (countyId_Row != countyId)
+                {
+                    continue;
+                }
+
+                if (!row_Temp.TryGetValue(column_Reference.Index, out string? reference_Row) || string.IsNullOrWhiteSpace(reference_Row))
+                {
+                    continue;
+                }
+
+                row = row_Temp;
+                break;
+            }
+
+            if(row is null)
+            {
+                row = table.AddRow();
+
+                if(row is null)
+                {
+                    return;
+                }
+            }
+
+            List<Tuple<Building2D, Point2D, double, ushort>>? tuples = null;
+
+            foreach (double radius in radiuses_Sorted)
+            {
+                if (double.IsNaN(radius) || double.IsInfinity(radius))
+                {
+                    continue;
+                }
+
+                Column? column_RadialBuildingCoverageRatio = table.UpdateColumn(Create.Column_RadialBuildingCoverageRatio(radius));
+                if (column_RadialBuildingCoverageRatio is null)
+                {
+                    continue;
+                }
+
+                Column? column_RadialFloorAreaRatio = table.UpdateColumn(Create.Column_RadialFloorAreaRatio(radius));
+                if (column_RadialFloorAreaRatio is null)
+                {
+                    continue;
+                }
+
+                double area_Building2D = 0;
+                double area_Floor = 0;
+
+                if (tuples is null)
+                {
+                    tuples = [];
+
+                    foreach (Building2D building2D_Temp in building2Ds)
+                    {
+                        if (building2D_Temp?.PolygonalFace2D is not PolygonalFace2D polygonalFace2D)
+                        {
+                            continue;
+                        }
+
+                        Point2D? point2D_Closest = polygonalFace2D.ClosestPoint(centroid, tolerance);
+                        if (point2D_Closest is null)
+                        {
+                            continue;
+                        }
+
+                        if (centroid.Distance(point2D_Closest) > radius + tolerance)
+                        {
+                            continue;
+                        }
+
+                        double area_Temp = polygonalFace2D.GetArea();
+                        if (double.IsNaN(area_Temp) || area_Temp < tolerance)
+                        {
+                            continue;
+                        }
+
+                        ushort storeys = building2D_Temp.Storeys;
+                        if (storeys <= 0)
+                        {
+                            storeys = 1;
+                        }
+
+                        tuples.Add(new Tuple<Building2D, Point2D, double, ushort>(building2D_Temp!, point2D_Closest, area_Temp, building2D_Temp.Storeys));
+                        area_Building2D += area_Temp;
+                        area_Floor += area_Temp * building2D_Temp.Storeys;
+                    }
+                }
+                else
+                {
+                    int count_Tuples = tuples.Count;
+
+                    for (int i = count_Tuples - 1; i >= 0; i--)
+                    {
+                        Tuple<Building2D, Point2D, double, ushort> tuple = tuples[i];
+
+                        if (centroid.Distance(tuple.Item2) > radius + tolerance)
+                        {
+                            tuples.RemoveAt(i);
+                            continue;
+                        }
+
+                        area_Building2D += tuple.Item3;
+                        area_Floor += tuple.Item3 * tuple.Item4;
+                    }
+                }
+
+                if(area_Building2D < tolerance)
+                {
+                    continue;
+                }
+
+                double area = Math.PI * radius * radius;
+
+                SetValue(row, column_RadialBuildingCoverageRatio, area_Building2D);
+
+                SetValue(row, column_RadialFloorAreaRatio, area_Floor);
             }
         }
     }

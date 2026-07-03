@@ -1,5 +1,6 @@
 using DiGi.Core;
 using DiGi.Core.IO.Table.Classes;
+using DiGi.GIS.Classes;
 using DiGi.GIS.IO.Enums;
 using DiGi.Unit.IO.Classes;
 
@@ -188,6 +189,6 @@ namespace DiGi.GIS.IO.Constants
         /// <summary>
         /// Calculated occupancy.
         /// </summary>
-        public static ExtendedColumn CalculatedOccupancy = new("Calculated occupancy", typeof(uint), Category.Occupancy.Description(), "Calculated occupancy");
+        public static ExtendedColumn CalculatedOccupancy = new("Calculated occupancy", typeof(uint), Category.Occupancy.Description(), "Calculated occupancy"); 
     }
 }
