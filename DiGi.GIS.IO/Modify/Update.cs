@@ -6,7 +6,6 @@ using DiGi.Geometry.Planar.Interfaces;
 using DiGi.GIS.Classes;
 using DiGi.GIS.Emgu.CV.Classes;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 

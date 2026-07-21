@@ -1,6 +1,5 @@
 using DiGi.Core;
 using DiGi.Core.IO.Table.Classes;
-using DiGi.GIS.Classes;
 
 namespace DiGi.GIS.IO
 {
