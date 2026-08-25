@@ -325,11 +325,76 @@ The unique identifier of the county\.
 
 The collection of building 2D geometries\.
 
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision)'></a>
+
+## Modify\.Update\_Building2D\(this Table, int, Nullable\<int\>, IEnumerable\<Building2D\>, string, string, string, AdministrativeSubdivision\) Method
+
+Updates the table with building 2D administrative features for a specific county and optional subdivision, taking the administrative names directly rather than reading them off boundary objects\.
+
+This is the overload to reach for from a caller that already knows the names - the reference path of a subdivision carries them - because the boundary objects the other overload takes hold the outlines as well, and those are never read here. At the top of an ancestor chain that outline is the whole country, so loading one per subdivision is the dominant cost of a country-wide run and buys nothing.
+
+Each value is written only when it is present, so a name that was not resolved leaves the stored one alone rather than clearing it.
+
+```csharp
+public static void Update_Building2D(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Nullable<int> subdivisionId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, string? countyName, string? municipalityName, string? voivodeshipName, DiGi.GIS.Classes.AdministrativeSubdivision? administrativeSubdivision);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).countyId'></a>
+
+`countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The unique identifier of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).subdivisionId'></a>
+
+`subdivisionId` [System\.Nullable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1 'System\.Nullable\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1 'System\.Nullable\`1')
+
+The optional unique identifier of the subdivision\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).building2Ds'></a>
+
+`building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of building 2D geometries\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).countyName'></a>
+
+`countyName` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+The optional name of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).municipalityName'></a>
+
+`municipalityName` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+The optional name of the municipality\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).voivodeshipName'></a>
+
+`voivodeshipName` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+The optional name of the voivodeship\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision).administrativeSubdivision'></a>
+
+`administrativeSubdivision` [DiGi\.GIS\.Classes\.AdministrativeSubdivision](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.administrativesubdivision 'DiGi\.GIS\.Classes\.AdministrativeSubdivision')
+
+The optional subdivision, read for its name, occupancy and settlement type\.
+
 <a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_)'></a>
 
 ## Modify\.Update\_Building2D\(this Table, int, Nullable\<int\>, IEnumerable\<Building2D\>, IEnumerable\<AdministrativeAreal2D\>\) Method
 
 Updates the table with building 2D geometric and administrative features for a specific county and optional subdivision\.
+
+Reads only the name of each division and the name, occupancy and type of the first subdivision out of [administrativeAreal2Ds](DiGi.GIS.IO.md#DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).administrativeAreal2Ds 'DiGi\.GIS\.IO\.Modify\.Update\_Building2D\(this DiGi\.Core\.IO\.Table\.Classes\.Table, int, System\.Nullable\<int\>, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.Building2D\>, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.AdministrativeAreal2D\>\)\.administrativeAreal2Ds'), then hands those to the overload that takes them directly. A caller that already holds the names - the reference path of a subdivision carries them - should call that overload instead and avoid loading the outlines, which are never read here and reach the size of a whole country at the top of the chain.
 
 ```csharp
 public static void Update_Building2D(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Nullable<int> subdivisionId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.AdministrativeAreal2D>? administrativeAreal2Ds);
@@ -495,6 +560,57 @@ The building 2D\.
 The list of building 2Ds\.
 
 <a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,DiGi.GIS.Classes.Building2D,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).tolerance'></a>
+
+`tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The tolerance for distance calculations\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double)'></a>
+
+## Modify\.Update\_RadialRatios\(this Table, IEnumerable\<double\>, int, IEnumerable\<Building2D\>, IEnumerable\<Building2D\>, double\) Method
+
+Updates the table with radial ratios \(Radial Building Coverage Ratio and Radial Floor Area Ratio\) for a whole collection of buildings at once\.
+
+This is the overload to reach for when more than one building is measured against the same surroundings. The table row index, the ratio columns, each neighbour's outline area and bounding box, and a grid index over the neighbours are all built once for the collection rather than once per building - the single-building overload delegates here with a collection of one, so a per-building loop over it repeats all of that work for every building and rescans the whole table each time.
+
+[building2Ds\_Neighbour](DiGi.GIS.IO.md#DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).building2Ds_Neighbour 'DiGi\.GIS\.IO\.Modify\.Update\_RadialRatios\(this DiGi\.Core\.IO\.Table\.Classes\.Table, System\.Collections\.Generic\.IEnumerable\<double\>, int, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.Building2D\>, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.Building2D\>, double\)\.building2Ds\_Neighbour') is the surroundings, not the subjects: it must already cover every building within the largest radius of every subject, including buildings outside the subjects' own area, and it normally contains the subjects themselves as well - a building counts towards its own ratios.
+
+```csharp
+public static void Update_RadialRatios(this DiGi.Core.IO.Table.Classes.Table? table, System.Collections.Generic.IEnumerable<double> radiuses, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds_Neighbour, double tolerance=1E-06);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).radiuses'></a>
+
+`radiuses` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The list of radiuses to consider\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).countyId'></a>
+
+`countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The ID of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).building2Ds'></a>
+
+`building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The buildings the ratios are measured for and written against\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).building2Ds_Neighbour'></a>
+
+`building2Ds_Neighbour` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The surrounding buildings the ratios are measured over\.
+
+<a name='DiGi.GIS.IO.Modify.Update_RadialRatios(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_double_,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,double).tolerance'></a>
 
 `tolerance` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
 

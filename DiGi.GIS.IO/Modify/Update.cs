@@ -335,6 +335,7 @@ namespace DiGi.GIS.IO
 
         /// <summary>
         /// Updates the table with building 2D geometric and administrative features for a specific county and optional subdivision.
+        /// <para>Reads only the name of each division and the name, occupancy and type of the first subdivision out of <paramref name="administrativeAreal2Ds"/>, then hands those to the overload that takes them directly. A caller that already holds the names - the reference path of a subdivision carries them - should call that overload instead and avoid loading the outlines, which are never read here and reach the size of a whole country at the top of the chain.</para>
         /// </summary>
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
@@ -342,6 +343,65 @@ namespace DiGi.GIS.IO
         /// <param name="building2Ds">The collection of building 2D geometries.</param>
         /// <param name="administrativeAreal2Ds">The collection of administrative boundary areas.</param>
         public static void Update_Building2D(this Table? table, int countyId, int? subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds)
+        {
+            string? countyName = null;
+            string? municipalityName = null;
+            string? voivodeshipName = null;
+            AdministrativeSubdivision? administrativeSubdivision = null;
+
+            if (administrativeAreal2Ds is not null)
+            {
+                foreach (AdministrativeAreal2D administrativeAreal2D in administrativeAreal2Ds)
+                {
+                    if (administrativeAreal2D is AdministrativeDivision administrativeDivision)
+                    {
+                        switch (administrativeDivision.AdministrativeDivisionType)
+                        {
+                            case GIS.Enums.AdministrativeDivisionType.county:
+                                countyName ??= administrativeDivision.Name;
+                                break;
+
+                            case GIS.Enums.AdministrativeDivisionType.municipality:
+                                municipalityName ??= administrativeDivision.Name;
+                                break;
+
+                            case GIS.Enums.AdministrativeDivisionType.voivodeship:
+                                voivodeshipName ??= administrativeDivision.Name;
+                                break;
+                        }
+                    }
+                    else if (administrativeAreal2D is AdministrativeSubdivision administrativeSubdivision_Temp)
+                    {
+                        administrativeSubdivision ??= administrativeSubdivision_Temp;
+                    }
+                }
+            }
+
+            Update_Building2D(table, countyId, subdivisionId, building2Ds, countyName, municipalityName, voivodeshipName, administrativeSubdivision);
+        }
+
+        /// <summary>
+        /// Updates the table with building 2D administrative features for a specific county and optional subdivision, taking the administrative names directly rather than reading them off boundary objects.
+        /// <para>This is the overload to reach for from a caller that already knows the names - the reference path of a subdivision carries them - because the boundary objects the other overload takes hold the outlines as well, and those are never read here. At the top of an ancestor chain that outline is the whole country, so loading one per subdivision is the dominant cost of a country-wide run and buys nothing.</para>
+        /// <para>Each value is written only when it is present, so a name that was not resolved leaves the stored one alone rather than clearing it.</para>
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="countyId">The unique identifier of the county.</param>
+        /// <param name="subdivisionId">The optional unique identifier of the subdivision.</param>
+        /// <param name="building2Ds">The collection of building 2D geometries.</param>
+        /// <param name="countyName">The optional name of the county.</param>
+        /// <param name="municipalityName">The optional name of the municipality.</param>
+        /// <param name="voivodeshipName">The optional name of the voivodeship.</param>
+        /// <param name="administrativeSubdivision">The optional subdivision, read for its name, occupancy and settlement type.</param>
+        public static void Update_Building2D(
+            this Table? table,
+            int countyId,
+            int? subdivisionId,
+            IEnumerable<Building2D>? building2Ds,
+            string? countyName,
+            string? municipalityName,
+            string? voivodeshipName,
+            AdministrativeSubdivision? administrativeSubdivision)
         {
             if (table is null || building2Ds is null || !building2Ds.Any())
             {
@@ -439,69 +499,42 @@ namespace DiGi.GIS.IO
                 tuples.Add(new Tuple<Row, Building2D>(row, building2D));
             }
 
-            List<AdministrativeDivision> administrativeDivisions = [];
-            List<AdministrativeSubdivision> administrativeSubdivisions = [];
-
-            if (administrativeAreal2Ds is not null && administrativeAreal2Ds.Any())
-            {
-                foreach (AdministrativeAreal2D administrativeAreal2D in administrativeAreal2Ds)
-                {
-                    if (administrativeAreal2D is AdministrativeDivision administrativeDivision)
-                    {
-                        administrativeDivisions.Add(administrativeDivision);
-                    }
-                    else if (administrativeAreal2D is AdministrativeSubdivision administrativeSubdivision)
-                    {
-                        administrativeSubdivisions.Add(administrativeSubdivision);
-                    }
-                }
-            }
+            string? settlementType = administrativeSubdivision?.AdministrativeSubdivisionType.SettlementType().Description();
 
             foreach (Tuple<Row, Building2D> tuple in tuples)
             {
                 Row row = tuple.Item1;
-                Building2D building2D = tuple.Item2;
 
-                object? value = null;
-
-                if (column_SubdivisionId is not null && column_SubdivisionId.TryGetValidValue(subdivisionId, out value))
+                if (column_SubdivisionId is not null && column_SubdivisionId.TryGetValidValue(subdivisionId, out object? value))
                 {
                     row[column_SubdivisionId.Index] = value;
                 }
 
-                if (administrativeDivisions is not null && administrativeDivisions.Any())
+                if (countyName is not null)
                 {
-                    AdministrativeDivision administrativeDivision_County = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.county);
-                    if (administrativeDivision_County is not null)
+                    SetValue(row, column_CountyName, countyName);
+                }
+
+                if (voivodeshipName is not null)
+                {
+                    SetValue(row, column_VoivodeshipName, voivodeshipName);
+                }
+
+                if (municipalityName is not null)
+                {
+                    SetValue(row, column_MunicipalityName, municipalityName);
+                }
+
+                if (administrativeSubdivision is not null)
+                {
+                    SetValue(row, column_SubdivisionName, administrativeSubdivision.Name);
+
+                    if (administrativeSubdivision.Occupancy is uint occupancy)
                     {
-                        SetValue(row, column_CountyName, administrativeDivision_County.Name);
+                        SetValue(row, column_SubdivisionOccupancy, occupancy);
                     }
 
-                    AdministrativeDivision administrativeDivision_Voivodeship = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.voivodeship);
-                    if (administrativeDivision_Voivodeship is not null)
-                    {
-                        SetValue(row, column_VoivodeshipName, administrativeDivision_Voivodeship.Name);
-                    }
-
-                    AdministrativeDivision administrativeDivision_Municipality = administrativeDivisions.Find(x => x.AdministrativeDivisionType == GIS.Enums.AdministrativeDivisionType.municipality);
-                    if (administrativeDivision_Municipality is not null)
-                    {
-                        SetValue(row, column_MunicipalityName, administrativeDivision_Municipality.Name);
-                    }
-
-                    if (administrativeSubdivisions.Count > 0)
-                    {
-                        AdministrativeSubdivision administrativeSubdivision = administrativeSubdivisions[0];
-
-                        SetValue(row, column_SubdivisionName, administrativeSubdivision.Name);
-
-                        if (administrativeSubdivision.Occupancy is uint occupancy)
-                        {
-                            SetValue(row, column_SubdivisionOccupancy, occupancy);
-                        }
-
-                        SetValue(row, column_SettlementType, administrativeSubdivision.AdministrativeSubdivisionType.SettlementType().Description());
-                    }
+                    SetValue(row, column_SettlementType, settlementType);
                 }
 
                 table.AddRow(row, false);
@@ -1130,22 +1163,39 @@ namespace DiGi.GIS.IO
         /// <param name="tolerance">The tolerance for distance calculations.</param>
         public static void Update_RadialRatios(this Table? table, IEnumerable<double> radiuses, int countyId, Building2D? building2D, IEnumerable<Building2D>? building2Ds, double tolerance = Core.Constants.Tolerance.Distance)
         {
-            if (table is null || building2D is null || building2Ds is null || !building2Ds.Any() || radiuses is null || !radiuses.Any())
+            if (building2D is null)
             {
                 return;
             }
 
-            string? reference = building2D.Reference;
-            if (reference is null)
+            Update_RadialRatios(table, radiuses, countyId, [building2D], building2Ds, tolerance);
+        }
+
+        /// <summary>
+        /// Updates the table with radial ratios (Radial Building Coverage Ratio and Radial Floor Area Ratio) for a whole collection of buildings at once.
+        /// <para>This is the overload to reach for when more than one building is measured against the same surroundings. The table row index, the ratio columns, each neighbour's outline area and bounding box, and a grid index over the neighbours are all built once for the collection rather than once per building - the single-building overload delegates here with a collection of one, so a per-building loop over it repeats all of that work for every building and rescans the whole table each time.</para>
+        /// <para><paramref name="building2Ds_Neighbour"/> is the surroundings, not the subjects: it must already cover every building within the largest radius of every subject, including buildings outside the subjects' own area, and it normally contains the subjects themselves as well - a building counts towards its own ratios.</para>
+        /// </summary>
+        /// <param name="table">The table to update.</param>
+        /// <param name="radiuses">The list of radiuses to consider.</param>
+        /// <param name="countyId">The ID of the county.</param>
+        /// <param name="building2Ds">The buildings the ratios are measured for and written against.</param>
+        /// <param name="building2Ds_Neighbour">The surrounding buildings the ratios are measured over.</param>
+        /// <param name="tolerance">The tolerance for distance calculations.</param>
+        public static void Update_RadialRatios(this Table? table, IEnumerable<double> radiuses, int countyId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2D>? building2Ds_Neighbour, double tolerance = Core.Constants.Tolerance.Distance)
+        {
+            if (table is null || building2Ds is null || !building2Ds.Any() || building2Ds_Neighbour is null || !building2Ds_Neighbour.Any() || radiuses is null || !radiuses.Any())
             {
                 return;
             }
 
-            Point2D? point2D_Centroid = building2D.PolygonalFace2D?.Centroid();
-            if (point2D_Centroid is null)
+            List<double> radiuses_Sorted = [.. radiuses.Where(x => !double.IsNaN(x) && !double.IsInfinity(x) && x > 0)];
+            if (radiuses_Sorted.Count == 0)
             {
                 return;
             }
+
+            radiuses_Sorted.Sort((x, y) => y.CompareTo(x));
 
             Column? column_Reference = table.UpdateColumn<Column>(Constants.Column.Reference);
             if (column_Reference is null)
@@ -1159,66 +1209,9 @@ namespace DiGi.GIS.IO
                 return;
             }
 
-            List<double> radiuses_Sorted = [.. radiuses];
-            radiuses_Sorted.Sort((x, y) => y.CompareTo(x));
-
-            Row? row = null;
-
-            int count = table.RowCount;
-            for (int i = count - 1; i >= 0; i--)
-            {
-                Row? row_Temp = table.GetRow(i);
-                if (row_Temp is null)
-                {
-                    continue;
-                }
-
-                if (!row_Temp.TryGetValue(column_CountyId.Index, out int countyId_Row))
-                {
-                    continue;
-                }
-
-                if (countyId_Row != countyId)
-                {
-                    continue;
-                }
-
-                if (!row_Temp.TryGetValue(column_Reference.Index, out string? reference_Row) || string.IsNullOrWhiteSpace(reference_Row))
-                {
-                    continue;
-                }
-
-                if (reference_Row != reference)
-                {
-                    continue;
-                }
-
-                row = row_Temp;
-                break;
-            }
-
-            if (row is null)
-            {
-                row = table.AddRow();
-
-                if (row is null)
-                {
-                    return;
-                }
-
-                SetValue(row, column_Reference, reference);
-                SetValue(row, column_CountyId, countyId);
-            }
-
-            List<Tuple<Building2D, Point2D, double, ushort>>? tuples = null;
-
+            List<Tuple<double, Column, Column>> tuples_Column = [];
             foreach (double radius in radiuses_Sorted)
             {
-                if (double.IsNaN(radius) || double.IsInfinity(radius) || radius <= 0)
-                {
-                    continue;
-                }
-
                 Column? column_RadialBuildingCoverageRatio = table.UpdateColumn(Create.Column_RadialBuildingCoverageRatio(radius));
                 if (column_RadialBuildingCoverageRatio is null)
                 {
@@ -1231,94 +1224,233 @@ namespace DiGi.GIS.IO
                     continue;
                 }
 
-                double area_Building2D = 0;
-                double area_Floor = 0;
+                tuples_Column.Add(new Tuple<double, Column, Column>(radius, column_RadialBuildingCoverageRatio, column_RadialFloorAreaRatio));
+            }
 
-                if (tuples is null)
+            if (tuples_Column.Count == 0)
+            {
+                return;
+            }
+
+            // The rows are indexed once. Scanned from the back so that the highest matching row index wins,
+            // which is what the single-building lookup this replaced did when it stopped at its first hit.
+            Dictionary<string, Row> dictionary_Row = [];
+
+            int count = table.RowCount;
+            for (int i = count - 1; i >= 0; i--)
+            {
+                Row? row_Temp = table.GetRow(i);
+                if (row_Temp is null)
                 {
-                    tuples = [];
+                    continue;
+                }
 
-                    foreach (Building2D building2D_Temp in building2Ds)
+                if (!row_Temp.TryGetValue(column_CountyId.Index, out int countyId_Row) || countyId_Row != countyId)
+                {
+                    continue;
+                }
+
+                if (!row_Temp.TryGetValue(column_Reference.Index, out string? reference_Row) || string.IsNullOrWhiteSpace(reference_Row))
+                {
+                    continue;
+                }
+
+                if (!dictionary_Row.ContainsKey(reference_Row!))
+                {
+                    dictionary_Row[reference_Row!] = row_Temp;
+                }
+            }
+
+            // Each neighbour's outline, bounding box, area and storey count are resolved once here rather than
+            // per subject building: GetArea and GetBoundingBox walk the outline, and a neighbour is looked at
+            // once per subject it is near.
+            List<Tuple<PolygonalFace2D, BoundingBox2D, double, ushort>> tuples_Neighbour = [];
+            foreach (Building2D building2D_Neighbour in building2Ds_Neighbour)
+            {
+                if (building2D_Neighbour?.PolygonalFace2D is not PolygonalFace2D polygonalFace2D)
+                {
+                    continue;
+                }
+
+                if (polygonalFace2D.GetBoundingBox() is not BoundingBox2D boundingBox2D)
+                {
+                    continue;
+                }
+
+                double area_Neighbour = polygonalFace2D.GetArea();
+                if (double.IsNaN(area_Neighbour) || area_Neighbour < tolerance)
+                {
+                    continue;
+                }
+
+                ushort storeys_Neighbour = building2D_Neighbour.Storeys;
+                if (storeys_Neighbour <= 0)
+                {
+                    storeys_Neighbour = 1;
+                }
+
+                tuples_Neighbour.Add(new Tuple<PolygonalFace2D, BoundingBox2D, double, ushort>(polygonalFace2D, boundingBox2D, area_Neighbour, storeys_Neighbour));
+            }
+
+            // A uniform grid over the neighbours, one cell wide per largest radius, so that everything within
+            // that radius of a subject is in the subject's own cell or one of the eight around it. Neighbours
+            // are filed by bounding box rather than by a single point, so one straddling a cell edge is filed
+            // in both. The cell index is floored rather than rounded because these are area buckets, not an
+            // attempt to bring coincident points together.
+            double cellSize = radiuses_Sorted[0];
+
+            Dictionary<(int, int), List<int>> dictionary_Cell = [];
+            for (int i = 0; i < tuples_Neighbour.Count; i++)
+            {
+                BoundingBox2D boundingBox2D = tuples_Neighbour[i].Item2;
+
+                int x_Min = (int)Math.Floor(boundingBox2D.Min.X / cellSize);
+                int x_Max = (int)Math.Floor(boundingBox2D.Max.X / cellSize);
+                int y_Min = (int)Math.Floor(boundingBox2D.Min.Y / cellSize);
+                int y_Max = (int)Math.Floor(boundingBox2D.Max.Y / cellSize);
+
+                for (int x = x_Min; x <= x_Max; x++)
+                {
+                    for (int y = y_Min; y <= y_Max; y++)
                     {
-                        if (building2D_Temp?.PolygonalFace2D is not PolygonalFace2D polygonalFace2D)
+                        if (!dictionary_Cell.TryGetValue((x, y), out List<int>? indexes) || indexes is null)
+                        {
+                            indexes = [];
+                            dictionary_Cell[(x, y)] = indexes;
+                        }
+
+                        indexes.Add(i);
+                    }
+                }
+            }
+
+            HashSet<int> indexes_Candidate = [];
+
+            foreach (Building2D building2D in building2Ds)
+            {
+                if (building2D?.Reference is not string reference || string.IsNullOrWhiteSpace(reference))
+                {
+                    continue;
+                }
+
+                Point2D? point2D_Centroid = building2D.PolygonalFace2D?.Centroid();
+                if (point2D_Centroid is null)
+                {
+                    continue;
+                }
+
+                if (!dictionary_Row.TryGetValue(reference, out Row? row) || row is null)
+                {
+                    row = table.AddRow();
+                    if (row is null)
+                    {
+                        continue;
+                    }
+
+                    SetValue(row, column_Reference, reference);
+                    SetValue(row, column_CountyId, countyId);
+
+                    dictionary_Row[reference] = row;
+                }
+
+                indexes_Candidate.Clear();
+
+                int x_Centre = (int)Math.Floor(point2D_Centroid.X / cellSize);
+                int y_Centre = (int)Math.Floor(point2D_Centroid.Y / cellSize);
+
+                for (int x = x_Centre - 1; x <= x_Centre + 1; x++)
+                {
+                    for (int y = y_Centre - 1; y <= y_Centre + 1; y++)
+                    {
+                        if (!dictionary_Cell.TryGetValue((x, y), out List<int>? indexes) || indexes is null)
                         {
                             continue;
                         }
 
-                        // Optimization: Check bounding box distance first
-                        BoundingBox2D? boundingBox2D = polygonalFace2D.GetBoundingBox();
-                        if (boundingBox2D is not null)
+                        foreach (int index in indexes)
                         {
+                            indexes_Candidate.Add(index);
+                        }
+                    }
+                }
+
+                List<Tuple<Point2D, double, ushort>>? tuples = null;
+
+                foreach (Tuple<double, Column, Column> tuple_Column in tuples_Column)
+                {
+                    double radius = tuple_Column.Item1;
+
+                    double area_Building2D = 0;
+                    double area_Floor = 0;
+
+                    if (tuples is null)
+                    {
+                        tuples = [];
+
+                        foreach (int index in indexes_Candidate)
+                        {
+                            Tuple<PolygonalFace2D, BoundingBox2D, double, ushort> tuple_Neighbour = tuples_Neighbour[index];
+
+                            // Optimization: Check bounding box distance first
+                            BoundingBox2D boundingBox2D = tuple_Neighbour.Item2;
                             double dx = Math.Max(0.0, Math.Max(boundingBox2D.Min.X - point2D_Centroid.X, point2D_Centroid.X - boundingBox2D.Max.X));
                             double dy = Math.Max(0.0, Math.Max(boundingBox2D.Min.Y - point2D_Centroid.Y, point2D_Centroid.Y - boundingBox2D.Max.Y));
                             if (Math.Sqrt((dx * dx) + (dy * dy)) > radius + tolerance)
                             {
                                 continue;
                             }
-                        }
 
-                        Point2D? point2D_Closest = polygonalFace2D.ClosestPoint(point2D_Centroid, tolerance);
-                        if (point2D_Closest is null)
-                        {
-                            continue;
-                        }
+                            Point2D? point2D_Closest = tuple_Neighbour.Item1.ClosestPoint(point2D_Centroid, tolerance);
+                            if (point2D_Closest is null)
+                            {
+                                continue;
+                            }
 
-                        if (point2D_Centroid.Distance(point2D_Closest) > radius + tolerance)
-                        {
-                            continue;
-                        }
+                            if (point2D_Centroid.Distance(point2D_Closest) > radius + tolerance)
+                            {
+                                continue;
+                            }
 
-                        double area_Temp = polygonalFace2D.GetArea();
-                        if (double.IsNaN(area_Temp) || area_Temp < tolerance)
-                        {
-                            continue;
+                            tuples.Add(new Tuple<Point2D, double, ushort>(point2D_Closest, tuple_Neighbour.Item3, tuple_Neighbour.Item4));
+                            area_Building2D += tuple_Neighbour.Item3;
+                            area_Floor += tuple_Neighbour.Item3 * tuple_Neighbour.Item4;
                         }
-
-                        ushort storeys = building2D_Temp.Storeys;
-                        if (storeys <= 0)
-                        {
-                            storeys = 1;
-                        }
-
-                        tuples.Add(new Tuple<Building2D, Point2D, double, ushort>(building2D_Temp, point2D_Closest, area_Temp, storeys));
-                        area_Building2D += area_Temp;
-                        area_Floor += area_Temp * storeys;
                     }
-                }
-                else
-                {
-                    int count_Tuples = tuples.Count;
-
-                    for (int i = count_Tuples - 1; i >= 0; i--)
+                    else
                     {
-                        Tuple<Building2D, Point2D, double, ushort> tuple = tuples[i];
+                        int count_Tuples = tuples.Count;
 
-                        if (point2D_Centroid.Distance(tuple.Item2) > radius + tolerance)
+                        for (int i = count_Tuples - 1; i >= 0; i--)
                         {
-                            tuples.RemoveAt(i);
-                            continue;
+                            Tuple<Point2D, double, ushort> tuple = tuples[i];
+
+                            if (point2D_Centroid.Distance(tuple.Item1) > radius + tolerance)
+                            {
+                                tuples.RemoveAt(i);
+                                continue;
+                            }
+
+                            area_Building2D += tuple.Item2;
+                            area_Floor += tuple.Item2 * tuple.Item3;
                         }
-
-                        area_Building2D += tuple.Item3;
-                        area_Floor += tuple.Item3 * tuple.Item4;
                     }
+
+                    if (area_Building2D < tolerance)
+                    {
+                        SetValue(row, tuple_Column.Item2, 0.0f);
+                        SetValue(row, tuple_Column.Item3, 0.0f);
+                        continue;
+                    }
+
+                    double area = Math.PI * radius * radius;
+
+                    SetValue(row, tuple_Column.Item2, (float)(area_Building2D / area));
+
+                    SetValue(row, tuple_Column.Item3, (float)(area_Floor / area));
                 }
 
-                if (area_Building2D < tolerance)
-                {
-                    SetValue(row, column_RadialBuildingCoverageRatio, 0.0f);
-                    SetValue(row, column_RadialFloorAreaRatio, 0.0f);
-                    continue;
-                }
-
-                double area = Math.PI * radius * radius;
-
-                SetValue(row, column_RadialBuildingCoverageRatio, (float)(area_Building2D / area));
-
-                SetValue(row, column_RadialFloorAreaRatio, (float)(area_Floor / area));
+                table.AddRow(row, false);
             }
-
-            table.AddRow(row, false);
         }
     }
 }
