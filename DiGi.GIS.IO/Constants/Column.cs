@@ -183,7 +183,7 @@ namespace DiGi.GIS.IO.Constants
         /// <summary>
         /// Database Id for the building.
         /// </summary>
-        public static ExtendedColumn DatabaseId = new("Database Id", typeof(string), Category.Identity.Description(), "Unique identifier for the building in the database");
+        public static ExtendedColumn DatabaseId = new("Database Id", typeof(long), Category.Identity.Description(), "Unique identifier for the building in the database");
 
         /// <summary>
         /// Calculated occupancy.
