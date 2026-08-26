@@ -208,58 +208,64 @@ The column whose value is to be set\.
 
 The new value to set, which will be validated before setting\.
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_)'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string)'></a>
 
-## Modify\.Update\(this Table, int, Nullable\<int\>, IEnumerable\<Building2D\>, IEnumerable\<Building2DYearBuiltPredictions\>, IEnumerable\<OrtoDatasComparison\>, IEnumerable\<AdministrativeAreal2D\>\) Method
+## Modify\.Update\(this Table, int, Nullable\<int\>, IEnumerable\<Building2D\>, IEnumerable\<Building2DYearBuiltPredictions\>, IEnumerable\<OrtoDatasComparison\>, IEnumerable\<AdministrativeAreal2D\>, string\) Method
 
 Updates the table with building data, year built predictions, orthophotomap comparisons, and administrative boundaries\.
 
 ```csharp
-public static void Update(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Nullable<int> subdivisionId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2DYearBuiltPredictions>? building2DYearBuiltPredictions=null, System.Collections.Generic.IEnumerable<DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison>? ortoDatasComparisons=null, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.AdministrativeAreal2D>? administrativeAreal2Ds=null);
+public static void Update(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Nullable<int> subdivisionId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2DYearBuiltPredictions>? building2DYearBuiltPredictions=null, System.Collections.Generic.IEnumerable<DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison>? ortoDatasComparisons=null, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.AdministrativeAreal2D>? administrativeAreal2Ds=null, string? apiBaseUrl=null);
 ```
 #### Parameters
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).table'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).table'></a>
 
 `table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
 
 The table to update\.
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).countyId'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).countyId'></a>
 
 `countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
 
 The unique identifier of the county\.
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).subdivisionId'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).subdivisionId'></a>
 
 `subdivisionId` [System\.Nullable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1 'System\.Nullable\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.nullable-1 'System\.Nullable\`1')
 
 The optional unique identifier of the subdivision\.
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).building2Ds'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).building2Ds'></a>
 
 `building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
 The collection of building 2D geometries to update\.
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).building2DYearBuiltPredictions'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).building2DYearBuiltPredictions'></a>
 
 `building2DYearBuiltPredictions` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2DYearBuiltPredictions](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2dyearbuiltpredictions 'DiGi\.GIS\.Classes\.Building2DYearBuiltPredictions')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
 The optional collection of year built predictions to update\.
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).ortoDatasComparisons'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).ortoDatasComparisons'></a>
 
 `ortoDatasComparisons` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Emgu\.CV\.Classes\.OrtoDatasComparison](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.emgu.cv.classes.ortodatascomparison 'DiGi\.GIS\.Emgu\.CV\.Classes\.OrtoDatasComparison')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
 The optional collection of orthophotomap data comparisons to update\.
 
-<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).administrativeAreal2Ds'></a>
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).administrativeAreal2Ds'></a>
 
 `administrativeAreal2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.AdministrativeAreal2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.administrativeareal2d 'DiGi\.GIS\.Classes\.AdministrativeAreal2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
 The optional collection of administrative boundary areas to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_,System.Collections.Generic.IEnumerable_DiGi.GIS.Emgu.CV.Classes.OrtoDatasComparison_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_,string).apiBaseUrl'></a>
+
+`apiBaseUrl` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+The optional API base URL to construct orthophotomap links\.
 
 <a name='DiGi.GIS.IO.Modify.UpdateColumn_TColumn_(thisDiGi.Core.IO.Table.Classes.Table,TColumn)'></a>
 
@@ -296,34 +302,40 @@ The column template or definition to update or add\.
 [TColumn](DiGi.GIS.IO.md#DiGi.GIS.IO.Modify.UpdateColumn_TColumn_(thisDiGi.Core.IO.Table.Classes.Table,TColumn).TColumn 'DiGi\.GIS\.IO\.Modify\.UpdateColumn\<TColumn\>\(this DiGi\.Core\.IO\.Table\.Classes\.Table, TColumn\)\.TColumn')  
 The updated column matching the specified type, or [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs\.microsoft\.com/en\-us/dotnet/csharp/language\-reference/keywords/null') if the table or column parameter is [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs\.microsoft\.com/en\-us/dotnet/csharp/language\-reference/keywords/null')\.
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_)'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string)'></a>
 
-## Modify\.Update\_Building2D\(this Table, int, IEnumerable\<Building2D\>\) Method
+## Modify\.Update\_Building2D\(this Table, int, IEnumerable\<Building2D\>, string\) Method
 
 Updates the table with building 2D geometric and shape descriptor features for a specific county\.
 
 ```csharp
-public static void Update_Building2D(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds);
+public static void Update_Building2D(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, string? apiBaseUrl=null);
 ```
 #### Parameters
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_).table'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string).table'></a>
 
 `table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
 
 The table to update\.
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_).countyId'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string).countyId'></a>
 
 `countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
 
 The unique identifier of the county\.
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_).building2Ds'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string).building2Ds'></a>
 
 `building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
 The collection of building 2D geometries\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string).apiBaseUrl'></a>
+
+`apiBaseUrl` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+The optional API base URL to construct orthophotomap links\.
 
 <a name='DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,string,string,string,DiGi.GIS.Classes.AdministrativeSubdivision)'></a>
 

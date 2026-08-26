@@ -730,3 +730,29 @@ public const string StructuralSimilarityIndex_MatchTemplate = "Structural Simila
 
 #### Field Value
 [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+<a name='DiGi.GIS.IO.Constants.WebAPI'></a>
+
+## WebAPI Class
+
+Provides Web API constant endpoint configurations\.
+
+```csharp
+public static class WebAPI
+```
+
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → WebAPI
+### Fields
+
+<a name='DiGi.GIS.IO.Constants.WebAPI.BaseUri'></a>
+
+## WebAPI\.BaseUri Field
+
+Default base URL for the deployed Web API\.
+
+```csharp
+public const string BaseUri = "https://api.digiproject.uk";
+```
+
+#### Field Value
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')

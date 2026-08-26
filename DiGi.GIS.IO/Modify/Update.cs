@@ -23,7 +23,8 @@ namespace DiGi.GIS.IO
         /// <param name="building2DYearBuiltPredictions">The optional collection of year built predictions to update.</param>
         /// <param name="ortoDatasComparisons">The optional collection of orthophotomap data comparisons to update.</param>
         /// <param name="administrativeAreal2Ds">The optional collection of administrative boundary areas to update.</param>
-        public static void Update(this Table? table, int countyId, int? subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions = null, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons = null, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds = null)
+        /// <param name="apiBaseUrl">The optional API base URL to construct orthophotomap links.</param>
+        public static void Update(this Table? table, int countyId, int? subdivisionId, IEnumerable<Building2D>? building2Ds, IEnumerable<Building2DYearBuiltPredictions>? building2DYearBuiltPredictions = null, IEnumerable<OrtoDatasComparison>? ortoDatasComparisons = null, IEnumerable<AdministrativeAreal2D>? administrativeAreal2Ds = null, string? apiBaseUrl = null)
         {
             if (table is null)
             {
@@ -32,7 +33,7 @@ namespace DiGi.GIS.IO
 
             if (building2Ds is not null && building2Ds.Any())
             {
-                Update_Building2D(table, countyId, building2Ds);
+                Update_Building2D(table, countyId, building2Ds, apiBaseUrl);
                 Update_Building2D(table, countyId, subdivisionId, building2Ds, administrativeAreal2Ds);
             }
 
@@ -53,7 +54,8 @@ namespace DiGi.GIS.IO
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
         /// <param name="building2Ds">The collection of building 2D geometries.</param>
-        public static void Update_Building2D(this Table? table, int countyId, IEnumerable<Building2D>? building2Ds)
+        /// <param name="apiBaseUrl">The optional API base URL to construct orthophotomap links.</param>
+        public static void Update_Building2D(this Table? table, int countyId, IEnumerable<Building2D>? building2Ds, string? apiBaseUrl = null)
         {
             if (table is null || building2Ds is null || !building2Ds.Any())
             {
@@ -185,6 +187,8 @@ namespace DiGi.GIS.IO
             }
 
             BuildingShapeSolver buildingShapeSolver = new();
+
+            string baseUrl = (string.IsNullOrWhiteSpace(apiBaseUrl) ? Constants.WebAPI.BaseUri : apiBaseUrl!).TrimEnd('/');
 
             foreach (Tuple<Row, Building2D> tuple in tuples)
             {
@@ -326,7 +330,7 @@ namespace DiGi.GIS.IO
 
                 foreach (Tuple<short, Column> tuple_OrthophotomapImage in tuples_OrthophotomapImage)
                 {
-                    SetValue(row, tuple_OrthophotomapImage.Item2, $"https://api.digiproject.uk/gis/ortodatas/imagebyreference?reference={building2D.Reference}&year={tuple_OrthophotomapImage.Item1}&countyId={countyId}");
+                    SetValue(row, tuple_OrthophotomapImage.Item2, $"{baseUrl}/gis/ortodatas/imagebyreference?reference={building2D.Reference}&year={tuple_OrthophotomapImage.Item1}&countyId={countyId}");
                 }
 
                 table.AddRow(row, false);
