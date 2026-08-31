@@ -69,43 +69,37 @@ namespace DiGi.GIS.IO
             Dictionary<ushort, Column> dictionary_PredictionBoundingBoxHeight = [];
             foreach (ushort year in years)
             {
-                Column column;
+                List<Column> columns = Create.Columns_YearBuilt(year);
+                if (columns.Count < 5)
+                {
+                    continue;
+                }
 
-                column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionConfidence, year);
-
-                Column? column_PredictionConfidence = table.UpdateColumn(column);
+                Column? column_PredictionConfidence = table.UpdateColumn(columns[0]);
                 if (column_PredictionConfidence is not null)
                 {
                     dictionary_PredictionConfidence[year] = column_PredictionConfidence;
                 }
 
-                column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxX, year);
-
-                Column? column_PredictionBoundingBoxX = table.UpdateColumn(column);
+                Column? column_PredictionBoundingBoxX = table.UpdateColumn(columns[1]);
                 if (column_PredictionBoundingBoxX is not null)
                 {
                     dictionary_PredictionBoundingBoxX[year] = column_PredictionBoundingBoxX;
                 }
 
-                column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxY, year);
-
-                Column? column_PredictionBoundingBoxY = table.UpdateColumn(column);
+                Column? column_PredictionBoundingBoxY = table.UpdateColumn(columns[2]);
                 if (column_PredictionBoundingBoxY is not null)
                 {
                     dictionary_PredictionBoundingBoxY[year] = column_PredictionBoundingBoxY;
                 }
 
-                column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxWidth, year);
-
-                Column? column_PredictionBoundingBoxWidth = table.UpdateColumn(column);
+                Column? column_PredictionBoundingBoxWidth = table.UpdateColumn(columns[3]);
                 if (column_PredictionBoundingBoxWidth is not null)
                 {
                     dictionary_PredictionBoundingBoxWidth[year] = column_PredictionBoundingBoxWidth;
                 }
 
-                column = Create.Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxHeight, year);
-
-                Column? column_PredictionBoundingBoxHeight = table.UpdateColumn(column);
+                Column? column_PredictionBoundingBoxHeight = table.UpdateColumn(columns[4]);
                 if (column_PredictionBoundingBoxHeight is not null)
                 {
                     dictionary_PredictionBoundingBoxHeight[year] = column_PredictionBoundingBoxHeight;
