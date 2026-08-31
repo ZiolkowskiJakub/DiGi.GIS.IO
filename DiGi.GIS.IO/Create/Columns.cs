@@ -15,11 +15,11 @@ namespace DiGi.GIS.IO
         {
             return
             [
-                Column_YearBuit(Constants.ColumnNamePrefix.PredictionConfidence, year),
-                Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxX, year),
-                Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxY, year),
-                Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxWidth, year),
-                Column_YearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxHeight, year)
+                Column_PredictionYearBuit(Constants.ColumnNamePrefix.PredictionConfidence, year),
+                Column_PredictionYearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxX, year),
+                Column_PredictionYearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxY, year),
+                Column_PredictionYearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxWidth, year),
+                Column_PredictionYearBuit(Constants.ColumnNamePrefix.PredictionBoundingBoxHeight, year)
             ];
         }
 

@@ -164,6 +164,33 @@ The year of the orthophotomap image\.
 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
 A new [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn') configured with the generated name, target type \(string\), category description, and details of the image link\.
 
+<a name='DiGi.GIS.IO.Create.Column_PredictionYearBuit(string,int)'></a>
+
+## Create\.Column\_PredictionYearBuit\(string, int\) Method
+
+Creates a column representing prediction data related to the year a building was built\.
+
+```csharp
+public static DiGi.Core.IO.Table.Classes.Column Column_PredictionYearBuit(string columnNamePrefix, int year);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Column_PredictionYearBuit(string,int).columnNamePrefix'></a>
+
+`columnNamePrefix` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+The prefix describing the prediction type \(e\.g\., confidence or bounding box coordinates\)\.
+
+<a name='DiGi.GIS.IO.Create.Column_PredictionYearBuit(string,int).year'></a>
+
+`year` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The target prediction year\.
+
+#### Returns
+[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
+A new [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn') configured with the generated name, target type \(double\), category description, and description text\.
+
 <a name='DiGi.GIS.IO.Create.Column_RadialBuildingCoverageRatio(double)'></a>
 
 ## Create\.Column\_RadialBuildingCoverageRatio\(double\) Method
@@ -203,33 +230,6 @@ Radius \[m\]
 
 #### Returns
 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')
-
-<a name='DiGi.GIS.IO.Create.Column_YearBuit(string,int)'></a>
-
-## Create\.Column\_YearBuit\(string, int\) Method
-
-Creates a column representing prediction data related to the year a building was built\.
-
-```csharp
-public static DiGi.Core.IO.Table.Classes.Column Column_YearBuit(string columnNamePrefix, int year);
-```
-#### Parameters
-
-<a name='DiGi.GIS.IO.Create.Column_YearBuit(string,int).columnNamePrefix'></a>
-
-`columnNamePrefix` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
-
-The prefix describing the prediction type \(e\.g\., confidence or bounding box coordinates\)\.
-
-<a name='DiGi.GIS.IO.Create.Column_YearBuit(string,int).year'></a>
-
-`year` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
-
-The target prediction year\.
-
-#### Returns
-[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
-A new [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn') configured with the generated name, target type \(double\), category description, and description text\.
 
 <a name='DiGi.GIS.IO.Modify'></a>
 

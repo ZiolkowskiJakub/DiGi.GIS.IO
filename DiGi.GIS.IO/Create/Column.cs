@@ -79,7 +79,7 @@ namespace DiGi.GIS.IO
         /// <param name="columnNamePrefix">The prefix describing the prediction type (e.g., confidence or bounding box coordinates).</param>
         /// <param name="year">The target prediction year.</param>
         /// <returns>A new <see cref="ExtendedColumn"/> configured with the generated name, target type (double), category description, and description text.</returns>
-        public static Column Column_YearBuit(string columnNamePrefix, int year)
+        public static Column Column_PredictionYearBuit(string columnNamePrefix, int year)
         {
             return new ExtendedColumn($@"{columnNamePrefix} {year}", typeof(double), Enums.Category.YearBuit.Description(), $@"{columnNamePrefix} based on predition for {year}");
         }
