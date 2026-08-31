@@ -14,18 +14,18 @@ public static class Create
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → Create
 ### Methods
 
-<a name='DiGi.GIS.IO.Create.Columns_YearBuilt(DiGi.Core.Classes.Range_int_)'></a>
+<a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(DiGi.Core.Classes.Range_int_)'></a>
 
-## Create\.Columns\_YearBuilt\(Range\<int\>\) Method
+## Create\.Columns\_PredictionYearBuilt\(Range\<int\>\) Method
 
 Creates the collection of prediction columns \(confidence, centroid coordinates, and dimensions\) across a range of years\.
 
 ```csharp
-public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_YearBuilt(DiGi.Core.Classes.Range<int>? years);
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_PredictionYearBuilt(DiGi.Core.Classes.Range<int>? years);
 ```
 #### Parameters
 
-<a name='DiGi.GIS.IO.Create.Columns_YearBuilt(DiGi.Core.Classes.Range_int_).years'></a>
+<a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(DiGi.Core.Classes.Range_int_).years'></a>
 
 `years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
 
@@ -35,18 +35,18 @@ The range of target prediction years\.
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing the prediction attributes for the specified range of years, or an empty list if null\.
 
-<a name='DiGi.GIS.IO.Create.Columns_YearBuilt(int)'></a>
+<a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(int)'></a>
 
-## Create\.Columns\_YearBuilt\(int\) Method
+## Create\.Columns\_PredictionYearBuilt\(int\) Method
 
 Creates the collection of prediction columns \(confidence, centroid coordinates, and dimensions\) for a specified year\.
 
 ```csharp
-public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_YearBuilt(int year);
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_PredictionYearBuilt(int year);
 ```
 #### Parameters
 
-<a name='DiGi.GIS.IO.Create.Columns_YearBuilt(int).year'></a>
+<a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(int).year'></a>
 
 `year` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
 
@@ -56,18 +56,18 @@ The target prediction year\.
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing the prediction attributes for the specified year\.
 
-<a name='DiGi.GIS.IO.Create.Columns_YearBuilt(System.Collections.Generic.IEnumerable_int_)'></a>
+<a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(System.Collections.Generic.IEnumerable_int_)'></a>
 
-## Create\.Columns\_YearBuilt\(IEnumerable\<int\>\) Method
+## Create\.Columns\_PredictionYearBuilt\(IEnumerable\<int\>\) Method
 
 Creates the collection of prediction columns \(confidence, centroid coordinates, and dimensions\) across a collection of years\.
 
 ```csharp
-public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_YearBuilt(System.Collections.Generic.IEnumerable<int>? years);
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_PredictionYearBuilt(System.Collections.Generic.IEnumerable<int>? years);
 ```
 #### Parameters
 
-<a name='DiGi.GIS.IO.Create.Columns_YearBuilt(System.Collections.Generic.IEnumerable_int_).years'></a>
+<a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(System.Collections.Generic.IEnumerable_int_).years'></a>
 
 `years` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 

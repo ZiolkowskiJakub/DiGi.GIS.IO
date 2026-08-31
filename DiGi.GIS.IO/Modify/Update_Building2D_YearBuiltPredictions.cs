@@ -69,7 +69,7 @@ namespace DiGi.GIS.IO
             Dictionary<ushort, Column> dictionary_PredictionBoundingBoxHeight = [];
             foreach (ushort year in years)
             {
-                List<Column> columns = Create.Columns_YearBuilt(year);
+                List<Column> columns = Create.Columns_PredictionYearBuilt(year);
                 if (columns.Count < 5)
                 {
                     continue;
