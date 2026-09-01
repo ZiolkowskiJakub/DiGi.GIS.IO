@@ -14,6 +14,69 @@ public static class Create
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → Create
 ### Methods
 
+<a name='DiGi.GIS.IO.Create.Columns_Population(DiGi.Core.Classes.Range_int_)'></a>
+
+## Create\.Columns\_Population\(Range\<int\>\) Method
+
+Creates a collection of demographic population columns across a range of years\.
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_Population(DiGi.Core.Classes.Range<int>? years);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Columns_Population(DiGi.Core.Classes.Range_int_).years'></a>
+
+`years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
+
+The range of target years\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing population attributes for the specified range of years, or an empty list if null\.
+
+<a name='DiGi.GIS.IO.Create.Columns_Population(int)'></a>
+
+## Create\.Columns\_Population\(int\) Method
+
+Creates a collection containing the demographic population column for a single year\.
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_Population(int year);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Columns_Population(int).year'></a>
+
+`year` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The target year for the population count\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+A list containing the [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instance for the specified year\.
+
+<a name='DiGi.GIS.IO.Create.Columns_Population(System.Collections.Generic.IEnumerable_int_)'></a>
+
+## Create\.Columns\_Population\(IEnumerable\<int\>\) Method
+
+Creates a collection of demographic population columns across a sequence of years\.
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_Population(System.Collections.Generic.IEnumerable<int>? years);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Columns_Population(System.Collections.Generic.IEnumerable_int_).years'></a>
+
+`years` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The sequence of target years\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing population attributes for the specified years, or an empty list if null\.
+
 <a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(DiGi.Core.Classes.Range_int_)'></a>
 
 ## Create\.Columns\_PredictionYearBuilt\(Range\<int\>\) Method
@@ -163,6 +226,27 @@ The year of the orthophotomap image\.
 #### Returns
 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
 A new [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn') configured with the generated name, target type \(string\), category description, and details of the image link\.
+
+<a name='DiGi.GIS.IO.Create.Column_Population(int)'></a>
+
+## Create\.Column\_Population\(int\) Method
+
+Creates a column representing demographic population for a specific year\.
+
+```csharp
+public static DiGi.Core.IO.Table.Classes.Column Column_Population(int year);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Column_Population(int).year'></a>
+
+`year` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The target year for the population count\.
+
+#### Returns
+[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
+A new [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn') configured with the generated name, target type \(int\), category description, and metadata explanation\.
 
 <a name='DiGi.GIS.IO.Create.Column_PredictionYearBuit(string,int)'></a>
 
@@ -534,6 +618,88 @@ The unique identifier of the county\.
 `building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
 The collection of building 2D geometries\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalDataCollection,DiGi.Core.Classes.Range_int_)'></a>
+
+## Modify\.Update\_Building2D\_Population\(this Table, int, IEnumerable\<Building2D\>, StatisticalDataCollection, Range\<int\>\) Method
+
+Updates the table with yearly population data for building 2D geometries in a specific county from a statistical data collection\.
+
+```csharp
+public static void Update_Building2D_Population(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, DiGi.GIS.Classes.StatisticalDataCollection? statisticalDataCollection, DiGi.Core.Classes.Range<int>? years=null);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalDataCollection,DiGi.Core.Classes.Range_int_).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalDataCollection,DiGi.Core.Classes.Range_int_).countyId'></a>
+
+`countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The unique identifier of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalDataCollection,DiGi.Core.Classes.Range_int_).building2Ds'></a>
+
+`building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of building 2D geometries\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalDataCollection,DiGi.Core.Classes.Range_int_).statisticalDataCollection'></a>
+
+`statisticalDataCollection` [DiGi\.GIS\.Classes\.StatisticalDataCollection](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.statisticaldatacollection 'DiGi\.GIS\.Classes\.StatisticalDataCollection')
+
+The statistical data collection containing the population data\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalDataCollection,DiGi.Core.Classes.Range_int_).years'></a>
+
+`years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
+
+The optional range of years for the population series, defaulting to 2008\.\.2025\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalYearlyDoubleData,DiGi.Core.Classes.Range_int_)'></a>
+
+## Modify\.Update\_Building2D\_Population\(this Table, int, IEnumerable\<Building2D\>, StatisticalYearlyDoubleData, Range\<int\>\) Method
+
+Updates the table with yearly population data for building 2D geometries in a specific county from a yearly double data series\.
+
+```csharp
+public static void Update_Building2D_Population(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, DiGi.GIS.Classes.StatisticalYearlyDoubleData? statisticalYearlyDoubleData, DiGi.Core.Classes.Range<int>? years=null);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalYearlyDoubleData,DiGi.Core.Classes.Range_int_).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalYearlyDoubleData,DiGi.Core.Classes.Range_int_).countyId'></a>
+
+`countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The unique identifier of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalYearlyDoubleData,DiGi.Core.Classes.Range_int_).building2Ds'></a>
+
+`building2Ds` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.Building2D](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.building2d 'DiGi\.GIS\.Classes\.Building2D')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of building 2D geometries\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalYearlyDoubleData,DiGi.Core.Classes.Range_int_).statisticalYearlyDoubleData'></a>
+
+`statisticalYearlyDoubleData` [DiGi\.GIS\.Classes\.StatisticalYearlyDoubleData](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.statisticalyearlydoubledata 'DiGi\.GIS\.Classes\.StatisticalYearlyDoubleData')
+
+The yearly statistical double data containing population counts\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalYearlyDoubleData,DiGi.Core.Classes.Range_int_).years'></a>
+
+`years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
+
+The optional range of years for the population series, defaulting to 2008\.\.2025\.
 
 <a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuiltPredictions(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_)'></a>
 

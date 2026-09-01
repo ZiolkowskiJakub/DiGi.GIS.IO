@@ -133,3 +133,9 @@ Represents other classifications\.
 `SpatialAnalysisMetric` 19
 
 Spatial analysis metric
+
+<a name='DiGi.GIS.IO.Enums.Category.Population'></a>
+
+`Population` 20
+
+Represents demographic population count\.

@@ -64,5 +64,57 @@ namespace DiGi.GIS.IO
 
             return columns;
         }
+
+        /// <summary>
+        /// Creates a collection containing the demographic population column for a single year.
+        /// </summary>
+        /// <param name="year">The target year for the population count.</param>
+        /// <returns>A list containing the <see cref="Column"/> instance for the specified year.</returns>
+        public static List<Column> Columns_Population(int year)
+        {
+            return [Column_Population(year)];
+        }
+
+        /// <summary>
+        /// Creates a collection of demographic population columns across a sequence of years.
+        /// </summary>
+        /// <param name="years">The sequence of target years.</param>
+        /// <returns>A list of <see cref="Column"/> instances representing population attributes for the specified years, or an empty list if null.</returns>
+        public static List<Column> Columns_Population(IEnumerable<int>? years)
+        {
+            if (years is null)
+            {
+                return [];
+            }
+
+            List<Column> columns = [];
+            foreach (int year in years)
+            {
+                columns.Add(Column_Population(year));
+            }
+
+            return columns;
+        }
+
+        /// <summary>
+        /// Creates a collection of demographic population columns across a range of years.
+        /// </summary>
+        /// <param name="years">The range of target years.</param>
+        /// <returns>A list of <see cref="Column"/> instances representing population attributes for the specified range of years, or an empty list if null.</returns>
+        public static List<Column> Columns_Population(Range<int>? years)
+        {
+            if (years is null)
+            {
+                return [];
+            }
+
+            List<Column> columns = [];
+            for (int year = years.Min; year <= years.Max; year++)
+            {
+                columns.Add(Column_Population(year));
+            }
+
+            return columns;
+        }
     }
 }

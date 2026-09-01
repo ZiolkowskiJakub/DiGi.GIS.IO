@@ -106,5 +106,10 @@ namespace DiGi.GIS.IO.Enums
         /// Spatial analysis metric
         /// </summary>
         [Description("Spatial analysis metric")] SpatialAnalysisMetric,
+
+        /// <summary>
+        /// Represents demographic population count.
+        /// </summary>
+        [Description("Population")] Population,
     }
 }

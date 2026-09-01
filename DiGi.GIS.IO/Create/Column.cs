@@ -83,5 +83,15 @@ namespace DiGi.GIS.IO
         {
             return new ExtendedColumn($@"{columnNamePrefix} {year}", typeof(double), Enums.Category.YearBuit.Description(), $@"{columnNamePrefix} based on predition for {year}");
         }
+
+        /// <summary>
+        /// Creates a column representing demographic population for a specific year.
+        /// </summary>
+        /// <param name="year">The target year for the population count.</param>
+        /// <returns>A new <see cref="ExtendedColumn"/> configured with the generated name, target type (int), category description, and metadata explanation.</returns>
+        public static Column Column_Population(int year)
+        {
+            return new ExtendedColumn($"Population {year}", typeof(int), Enums.Category.Population.Description(), $"Population count for {year}");
+        }
     }
 }
