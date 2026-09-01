@@ -701,6 +701,39 @@ The yearly statistical double data containing municipality population counts\.
 
 The optional range of years for the population series, defaulting to 2008\.\.2025\.
 
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_)'></a>
+
+## Modify\.Update\_Building2D\_PredictedYearBuilt\(this Table, int, IEnumerable\<YearBuiltData\>\) Method
+
+Updates the table with the latest predicted year built of each building in a specific county\.
+
+A building may hold several stored [DiGi\.GIS\.Classes\.YearBuiltData](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.yearbuiltdata 'DiGi\.GIS\.Classes\.YearBuiltData') records - the table appends rather than replaces - so the predictions of every record carrying the same reference are considered together and the one made most recently wins.
+
+Rows already in the table are matched on county identifier and reference; a reference the table does not hold yet is appended, so the same method serves a run that is building rows from buildings and a run that is writing predictions on their own.
+
+```csharp
+public static void Update_Building2D_PredictedYearBuilt(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.YearBuiltData>? yearBuiltDatas);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).countyId'></a>
+
+`countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The unique identifier of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).yearBuiltDatas'></a>
+
+`yearBuiltDatas` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.YearBuiltData](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.yearbuiltdata 'DiGi\.GIS\.Classes\.YearBuiltData')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of stored year built data to take the predictions from\.
+
 <a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuiltPredictions(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_)'></a>
 
 ## Modify\.Update\_Building2D\_YearBuiltPredictions\(this Table, int, IEnumerable\<Building2DYearBuiltPredictions\>\) Method
