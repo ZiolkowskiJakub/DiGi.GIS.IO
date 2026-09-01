@@ -66,20 +66,20 @@ namespace DiGi.GIS.IO
         }
 
         /// <summary>
-        /// Creates a collection containing the demographic population column for a single year.
+        /// Creates a single-element collection containing a demographic municipality population column for the specified year.
         /// </summary>
-        /// <param name="year">The target year for the population count.</param>
-        /// <returns>A list containing the <see cref="Column"/> instance for the specified year.</returns>
+        /// <param name="year">The target year for the municipality population count.</param>
+        /// <returns>A list containing a single <see cref="Column"/> instance configured for the specified year.</returns>
         public static List<Column> Columns_Population(int year)
         {
             return [Column_Population(year)];
         }
 
         /// <summary>
-        /// Creates a collection of demographic population columns across a sequence of years.
+        /// Creates a collection of demographic municipality population columns for a sequence of years.
         /// </summary>
         /// <param name="years">The sequence of target years.</param>
-        /// <returns>A list of <see cref="Column"/> instances representing population attributes for the specified years, or an empty list if null.</returns>
+        /// <returns>A list of <see cref="Column"/> instances representing municipality population attributes for the specified years, or an empty list if null.</returns>
         public static List<Column> Columns_Population(IEnumerable<int>? years)
         {
             if (years is null)
@@ -97,10 +97,10 @@ namespace DiGi.GIS.IO
         }
 
         /// <summary>
-        /// Creates a collection of demographic population columns across a range of years.
+        /// Creates a collection of demographic municipality population columns across a range of years.
         /// </summary>
         /// <param name="years">The range of target years.</param>
-        /// <returns>A list of <see cref="Column"/> instances representing population attributes for the specified range of years, or an empty list if null.</returns>
+        /// <returns>A list of <see cref="Column"/> instances representing municipality population attributes for the specified range of years, or an empty list if null.</returns>
         public static List<Column> Columns_Population(Range<int>? years)
         {
             if (years is null)

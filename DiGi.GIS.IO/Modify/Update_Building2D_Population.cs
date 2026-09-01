@@ -10,12 +10,12 @@ namespace DiGi.GIS.IO
     public static partial class Modify
     {
         /// <summary>
-        /// Updates the table with yearly population data for building 2D geometries in a specific county from a yearly double data series.
+        /// Updates the table with yearly municipality population data for building 2D geometries in a specific county from a yearly double data series.
         /// </summary>
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
         /// <param name="building2Ds">The collection of building 2D geometries.</param>
-        /// <param name="statisticalYearlyDoubleData">The yearly statistical double data containing population counts.</param>
+        /// <param name="statisticalYearlyDoubleData">The yearly statistical double data containing municipality population counts.</param>
         /// <param name="years">The optional range of years for the population series, defaulting to 2008..2025.</param>
         public static void Update_Building2D_Population(this Table? table, int countyId, IEnumerable<Building2D>? building2Ds, StatisticalYearlyDoubleData? statisticalYearlyDoubleData, Range<int>? years = null)
         {
@@ -134,12 +134,12 @@ namespace DiGi.GIS.IO
         }
 
         /// <summary>
-        /// Updates the table with yearly population data for building 2D geometries in a specific county from a statistical data collection.
+        /// Updates the table with yearly municipality population data for building 2D geometries in a specific county from a statistical data collection.
         /// </summary>
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
         /// <param name="building2Ds">The collection of building 2D geometries.</param>
-        /// <param name="statisticalDataCollection">The statistical data collection containing the population data.</param>
+        /// <param name="statisticalDataCollection">The statistical data collection containing the municipality population data.</param>
         /// <param name="years">The optional range of years for the population series, defaulting to 2008..2025.</param>
         public static void Update_Building2D_Population(this Table? table, int countyId, IEnumerable<Building2D>? building2Ds, StatisticalDataCollection? statisticalDataCollection, Range<int>? years = null)
         {

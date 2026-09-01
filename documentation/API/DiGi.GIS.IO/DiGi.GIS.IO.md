@@ -18,7 +18,7 @@ Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system
 
 ## Create\.Columns\_Population\(Range\<int\>\) Method
 
-Creates a collection of demographic population columns across a range of years\.
+Creates a collection of demographic municipality population columns across a range of years\.
 
 ```csharp
 public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_Population(DiGi.Core.Classes.Range<int>? years);
@@ -33,13 +33,13 @@ The range of target years\.
 
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
-A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing population attributes for the specified range of years, or an empty list if null\.
+A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing municipality population attributes for the specified range of years, or an empty list if null\.
 
 <a name='DiGi.GIS.IO.Create.Columns_Population(int)'></a>
 
 ## Create\.Columns\_Population\(int\) Method
 
-Creates a collection containing the demographic population column for a single year\.
+Creates a single\-element collection containing a demographic municipality population column for the specified year\.
 
 ```csharp
 public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_Population(int year);
@@ -50,17 +50,17 @@ public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column>
 
 `year` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
 
-The target year for the population count\.
+The target year for the municipality population count\.
 
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
-A list containing the [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instance for the specified year\.
+A list containing a single [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instance configured for the specified year\.
 
 <a name='DiGi.GIS.IO.Create.Columns_Population(System.Collections.Generic.IEnumerable_int_)'></a>
 
 ## Create\.Columns\_Population\(IEnumerable\<int\>\) Method
 
-Creates a collection of demographic population columns across a sequence of years\.
+Creates a collection of demographic municipality population columns for a sequence of years\.
 
 ```csharp
 public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_Population(System.Collections.Generic.IEnumerable<int>? years);
@@ -75,7 +75,7 @@ The sequence of target years\.
 
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
-A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing population attributes for the specified years, or an empty list if null\.
+A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing municipality population attributes for the specified years, or an empty list if null\.
 
 <a name='DiGi.GIS.IO.Create.Columns_PredictionYearBuilt(DiGi.Core.Classes.Range_int_)'></a>
 
@@ -231,7 +231,7 @@ A new [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.c
 
 ## Create\.Column\_Population\(int\) Method
 
-Creates a column representing demographic population for a specific year\.
+Creates a column representing demographic municipality population for a specific year\.
 
 ```csharp
 public static DiGi.Core.IO.Table.Classes.Column Column_Population(int year);
@@ -242,7 +242,7 @@ public static DiGi.Core.IO.Table.Classes.Column Column_Population(int year);
 
 `year` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
 
-The target year for the population count\.
+The target year for the municipality population count\.
 
 #### Returns
 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
@@ -623,7 +623,7 @@ The collection of building 2D geometries\.
 
 ## Modify\.Update\_Building2D\_Population\(this Table, int, IEnumerable\<Building2D\>, StatisticalDataCollection, Range\<int\>\) Method
 
-Updates the table with yearly population data for building 2D geometries in a specific county from a statistical data collection\.
+Updates the table with yearly municipality population data for building 2D geometries in a specific county from a statistical data collection\.
 
 ```csharp
 public static void Update_Building2D_Population(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, DiGi.GIS.Classes.StatisticalDataCollection? statisticalDataCollection, DiGi.Core.Classes.Range<int>? years=null);
@@ -652,7 +652,7 @@ The collection of building 2D geometries\.
 
 `statisticalDataCollection` [DiGi\.GIS\.Classes\.StatisticalDataCollection](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.statisticaldatacollection 'DiGi\.GIS\.Classes\.StatisticalDataCollection')
 
-The statistical data collection containing the population data\.
+The statistical data collection containing the municipality population data\.
 
 <a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalDataCollection,DiGi.Core.Classes.Range_int_).years'></a>
 
@@ -664,7 +664,7 @@ The optional range of years for the population series, defaulting to 2008\.\.202
 
 ## Modify\.Update\_Building2D\_Population\(this Table, int, IEnumerable\<Building2D\>, StatisticalYearlyDoubleData, Range\<int\>\) Method
 
-Updates the table with yearly population data for building 2D geometries in a specific county from a yearly double data series\.
+Updates the table with yearly municipality population data for building 2D geometries in a specific county from a yearly double data series\.
 
 ```csharp
 public static void Update_Building2D_Population(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, DiGi.GIS.Classes.StatisticalYearlyDoubleData? statisticalYearlyDoubleData, DiGi.Core.Classes.Range<int>? years=null);
@@ -693,7 +693,7 @@ The collection of building 2D geometries\.
 
 `statisticalYearlyDoubleData` [DiGi\.GIS\.Classes\.StatisticalYearlyDoubleData](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.statisticalyearlydoubledata 'DiGi\.GIS\.Classes\.StatisticalYearlyDoubleData')
 
-The yearly statistical double data containing population counts\.
+The yearly statistical double data containing municipality population counts\.
 
 <a name='DiGi.GIS.IO.Modify.Update_Building2D_Population(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,DiGi.GIS.Classes.StatisticalYearlyDoubleData,DiGi.Core.Classes.Range_int_).years'></a>
 
