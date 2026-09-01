@@ -168,9 +168,9 @@ namespace DiGi.GIS.IO
                 SetValue(row, column_BuildingPhase, building2D.BuildingPhase?.Description());
                 SetValue(row, column_Storeys, storeys);
                 SetValue(row, column_Azimuth, azimuth);
-                SetValue(row, column_CardinalDirection, Query.CardinalDirection(azimuth));
-                SetValue(row, column_IsOccupied, Query.IsOccupied(building2D));
-                SetValue(row, column_IsResidential, Query.IsResidential(building2D));
+                SetValue(row, column_CardinalDirection, GIS.Query.CardinalDirection(azimuth));
+                SetValue(row, column_IsOccupied, GIS.Query.IsOccupied(building2D));
+                SetValue(row, column_IsResidential, GIS.Query.IsResidential(building2D));
 
                 PolygonalFace2D? polygonalFace2D = building2D.PolygonalFace2D;
                 if (polygonalFace2D is not null)

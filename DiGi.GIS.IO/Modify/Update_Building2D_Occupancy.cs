@@ -105,8 +105,8 @@ namespace DiGi.GIS.IO
                 Row row = tuple.Item1;
                 Building2D building2D = tuple.Item2;
 
-                SetValue(row, column_IsOccupied, Query.IsOccupied(building2D));
-                SetValue(row, column_IsResidential, Query.IsResidential(building2D));
+                SetValue(row, column_IsOccupied, GIS.Query.IsOccupied(building2D));
+                SetValue(row, column_IsResidential, GIS.Query.IsResidential(building2D));
 
                 table.AddRow(row, false);
             }
