@@ -116,5 +116,45 @@ namespace DiGi.GIS.IO
 
             return columns;
         }
+
+        /// <summary>
+        /// Creates a collection containing the radial ratio columns (building coverage ratio and floor area ratio) for the specified radius.
+        /// </summary>
+        /// <param name="radius">The radius in meters.</param>
+        /// <returns>A list of <see cref="Column"/> instances representing the radial ratios for the specified radius.</returns>
+        public static List<Column> Columns_RadialRatios(double radius)
+        {
+            if (double.IsNaN(radius) || double.IsInfinity(radius) || radius <= 0)
+            {
+                return [];
+            }
+
+            return
+            [
+                Column_RadialBuildingCoverageRatio(radius),
+                Column_RadialFloorAreaRatio(radius)
+            ];
+        }
+
+        /// <summary>
+        /// Creates a collection of radial ratio columns (building coverage ratio and floor area ratio) for a collection of radiuses.
+        /// </summary>
+        /// <param name="radiuses">The collection of radiuses in meters.</param>
+        /// <returns>A list of <see cref="Column"/> instances representing the radial ratios for the specified radiuses, or an empty list if null.</returns>
+        public static List<Column> Columns_RadialRatios(IEnumerable<double>? radiuses)
+        {
+            if (radiuses is null)
+            {
+                return [];
+            }
+
+            List<Column> columns = [];
+            foreach (double radius in radiuses)
+            {
+                columns.AddRange(Columns_RadialRatios(radius));
+            }
+
+            return columns;
+        }
     }
 }

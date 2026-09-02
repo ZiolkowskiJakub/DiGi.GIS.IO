@@ -140,6 +140,48 @@ The collection of target prediction years\.
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing the prediction attributes for the specified years, or an empty list if null\.
 
+<a name='DiGi.GIS.IO.Create.Columns_RadialRatios(double)'></a>
+
+## Create\.Columns\_RadialRatios\(double\) Method
+
+Creates a collection containing the radial ratio columns \(building coverage ratio and floor area ratio\) for the specified radius\.
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_RadialRatios(double radius);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Columns_RadialRatios(double).radius'></a>
+
+`radius` [System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')
+
+The radius in meters\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing the radial ratios for the specified radius\.
+
+<a name='DiGi.GIS.IO.Create.Columns_RadialRatios(System.Collections.Generic.IEnumerable_double_)'></a>
+
+## Create\.Columns\_RadialRatios\(IEnumerable\<double\>\) Method
+
+Creates a collection of radial ratio columns \(building coverage ratio and floor area ratio\) for a collection of radiuses\.
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_RadialRatios(System.Collections.Generic.IEnumerable<double>? radiuses);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Create.Columns_RadialRatios(System.Collections.Generic.IEnumerable_double_).radiuses'></a>
+
+`radiuses` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of radiuses in meters\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing the radial ratios for the specified radiuses, or an empty list if null\.
+
 <a name='DiGi.GIS.IO.Create.Column_GridCellCoverage(int,int)'></a>
 
 ## Create\.Column\_GridCellCoverage\(int, int\) Method
@@ -901,22 +943,28 @@ public static class Query
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → Query
 ### Methods
 
-<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_)'></a>
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_)'></a>
 
-## Query\.YearBuiltPredictionInputColumns\(Range\<int\>\) Method
+## Query\.YearBuiltPredictionInputColumns\(Range\<int\>, IEnumerable\<double\>\) Method
 
-Retrieves the list of columns permitted as input features for the Year Built prediction machine learning model across the specified range of years\.
+Retrieves the list of columns permitted as input features for the Year Built prediction machine learning model across the specified range of years and radial radiuses\.
 
 ```csharp
-public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range<int>? years=null);
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range<int>? years=null, System.Collections.Generic.IEnumerable<double>? radiuses=null);
 ```
 #### Parameters
 
-<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_).years'></a>
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_).years'></a>
 
 `years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
 
 The range of years for detection and temporal features\. Defaults to 2008\.\.2025 when null\.
+
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_).radiuses'></a>
+
+`radiuses` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of radiuses for radial ratio features\. Defaults to 200, 400, 600, 1000 when null\.
 
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
