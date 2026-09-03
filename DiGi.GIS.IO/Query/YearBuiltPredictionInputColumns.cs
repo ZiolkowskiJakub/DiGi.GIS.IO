@@ -8,63 +8,34 @@ namespace DiGi.GIS.IO
     {
         /// <summary>
         /// Retrieves the list of columns permitted as input features for the Year Built prediction machine learning model across the specified range of years and radial radiuses.
+        /// <para>Assembled from <see cref="YearBuiltPredictionFeatureGroups(Range{int}?, IEnumerable{double}?)"/> rather than listed a second time, so a column added to a group reaches the allow-list without anyone remembering to add it twice.</para>
         /// </summary>
         /// <param name="years">The range of years for detection and temporal features. Defaults to 2008..2025 when null.</param>
         /// <param name="radiuses">The collection of radiuses for radial ratio features. Defaults to 200, 400, 600, 1000 when null.</param>
         /// <returns>A list of <see cref="Column"/> instances representing the allowed input features.</returns>
         public static List<Column> YearBuiltPredictionInputColumns(Range<int>? years = null, IEnumerable<double>? radiuses = null)
         {
-            Range<int> range_Years = years ?? new(2008, 2025);
-            IEnumerable<double> enumerable_Radiuses = radiuses ?? [200, 400, 600, 1000];
+            Dictionary<string, List<Column>> columns_ByGroup = YearBuiltPredictionFeatureGroups(years, radiuses);
 
-            List<Column> columns =
+            List<string> names_Group =
             [
-                Constants.Column.FloorArea,
-                Constants.Column.TotalArea,
-                Constants.Column.Storeys,
-                Constants.Column.Azimuth,
-                Constants.Column.CardinalDirection,
-                Constants.Column.InternalPointX,
-                Constants.Column.InternalPointY,
-                Constants.Column.BoundingBoxX,
-                Constants.Column.BoundingBoxY,
-                Constants.Column.BoundingBoxWidth,
-                Constants.Column.BoundingBoxHeight,
-                Constants.Column.IsoperimetricRatio,
-                Constants.Column.RectangularThinnessRatio,
-                Constants.Column.SquareThinnessRatio,
-                Constants.Column.ThinnessRatio,
-                Constants.Column.ConvexHullThinnessRatio,
-                Constants.Column.CalculatedBuildingShape,
-                Constants.Column.BuildingGeneralFunction,
-                Constants.Column.BuildingSpecificFunctions,
-                Constants.Column.BuildingPhase,
-                Constants.Column.IsResidential,
-                Constants.Column.IsOccupied,
-                Constants.Column.VoivodeshipName,
-                Constants.Column.CountyName,
-                Constants.Column.CountyId,
-                Constants.Column.MunicipalityName,
-                Constants.Column.SubdivisionName,
-                Constants.Column.SubdivisionId,
-                Constants.Column.SettlementType,
-                Constants.Column.SubdivisionOccupancy,
-                Constants.Column.CalculatedOccupancy
+                Constants.YearBuiltPredictionFeatureGroup.Base,
+                Constants.YearBuiltPredictionFeatureGroup.GridCellCoverage,
+                Constants.YearBuiltPredictionFeatureGroup.Detection,
+                Constants.YearBuiltPredictionFeatureGroup.Population,
+                Constants.YearBuiltPredictionFeatureGroup.RadialRatio
             ];
 
-            for (int i = 0; i < 5; i++)
+            List<Column> result = [];
+            foreach (string name_Group in names_Group)
             {
-                for (int j = 0; j < 5; j++)
+                if (columns_ByGroup.TryGetValue(name_Group, out List<Column>? columns) && columns is not null)
                 {
-                    columns.Add(Create.Column_GridCellCoverage(i, j));
+                    result.AddRange(columns);
                 }
             }
 
-            columns.AddRange(Create.Columns_PredictionYearBuilt(range_Years));
-            columns.AddRange(Create.Columns_Population(range_Years));
-            columns.AddRange(Create.Columns_RadialRatios(enumerable_Radiuses));
-
-            return columns;
+            return result;
         }
     }
 }

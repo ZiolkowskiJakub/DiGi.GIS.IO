@@ -756,3 +756,83 @@ public const string BaseUri = "https://api.digiproject.uk";
 
 #### Field Value
 [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+<a name='DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup'></a>
+
+## YearBuiltPredictionFeatureGroup Class
+
+Names the groups the Year Built prediction feature set is built from\.
+
+The groups are not cosmetic. Each is populated by a different run - the base and grid cell columns by a General building data update, the population columns by a Statistical one, the radial ratios by a Radial Ratios one, and the detection columns by the prediction pipeline itself - so which group is empty says which run has not happened.
+
+```csharp
+public static class YearBuiltPredictionFeatureGroup
+```
+
+Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → YearBuiltPredictionFeatureGroup
+### Fields
+
+<a name='DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup.Base'></a>
+
+## YearBuiltPredictionFeatureGroup\.Base Field
+
+The scalar geometry, shape, administrative and occupancy columns\. Written by a General building data update\.
+
+```csharp
+public const string Base = "base";
+```
+
+#### Field Value
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+<a name='DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup.Detection'></a>
+
+## YearBuiltPredictionFeatureGroup\.Detection Field
+
+The five per year detection columns\. Written by the prediction pipeline itself, never by a building data update\.
+
+```csharp
+public const string Detection = "detection";
+```
+
+#### Field Value
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+<a name='DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup.GridCellCoverage'></a>
+
+## YearBuiltPredictionFeatureGroup\.GridCellCoverage Field
+
+The five by five grid cell coverage columns\. Written by a General building data update\.
+
+```csharp
+public const string GridCellCoverage = "grid cell coverage";
+```
+
+#### Field Value
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+<a name='DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup.Population'></a>
+
+## YearBuiltPredictionFeatureGroup\.Population Field
+
+The per year municipality population columns\. Written by a Statistical building data update\.
+
+```csharp
+public const string Population = "population";
+```
+
+#### Field Value
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+<a name='DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup.RadialRatio'></a>
+
+## YearBuiltPredictionFeatureGroup\.RadialRatio Field
+
+The two per radius radial ratio columns\. Written by a Radial Ratios building data update\.
+
+```csharp
+public const string RadialRatio = "radial ratio";
+```
+
+#### Field Value
+[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')

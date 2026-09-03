@@ -951,11 +951,100 @@ public static class Query
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → Query
 ### Methods
 
+<a name='DiGi.GIS.IO.Query.DefaultOnlyColumnNames(thisDiGi.Core.IO.Table.Classes.Table)'></a>
+
+## Query\.DefaultOnlyColumnNames\(this Table\) Method
+
+Names the columns of a table that carry the same value in every row\.
+
+Written as the acceptance check on an assembled training table. A feature column that never varies teaches the regressor nothing, and on this pipeline it has a specific and expensive cause: the detection and population columns are created by runs rather than by code, so a table assembled before those runs is a full looking file in which 108 of 172 features are the default. LightGbm fits it without complaining and the resulting metrics look ordinary.
+
+See [UnpopulatedColumnNames\(this Table, IEnumerable&lt;Column&gt;\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Query.UnpopulatedColumnNames(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_DiGi.Core.IO.Table.Classes.Column_) 'DiGi\.GIS\.IO\.Query\.UnpopulatedColumnNames\(this DiGi\.Core\.IO\.Table\.Classes\.Table, System\.Collections\.Generic\.IEnumerable\<DiGi\.Core\.IO\.Table\.Classes\.Column\>\)') for the neighbouring question on the inference side - not which columns never vary, but which carry nothing at all.
+
+A hit is not automatically a defect - a single county genuinely shares one `County name`, and a rarely populated feature can be constant on a small sample. It is a list to explain, not a list to fail on blindly.
+
+```csharp
+public static System.Collections.Generic.List<string> DefaultOnlyColumnNames(this DiGi.Core.IO.Table.Classes.Table? table);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.DefaultOnlyColumnNames(thisDiGi.Core.IO.Table.Classes.Table).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to inspect\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+The names of the columns that never vary, in column order\. Empty when every column varies, or when the table has fewer than two rows to compare\.
+
+<a name='DiGi.GIS.IO.Query.UnpopulatedColumnNames(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_DiGi.Core.IO.Table.Classes.Column_)'></a>
+
+## Query\.UnpopulatedColumnNames\(this Table, IEnumerable\<Column\>\) Method
+
+Names the given columns that a table either does not carry at all, or carries with the type default in every row\.
+
+The two cases are reported together on purpose, because a scorer cannot tell them apart: a column the table does not carry reads as the type default, so an absent feature and a feature that is zero everywhere reach a model as the same thing. Both mean the run that fills the column has not happened.
+
+This is a different question from [DefaultOnlyColumnNames\(this Table\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Query.DefaultOnlyColumnNames(thisDiGi.Core.IO.Table.Classes.Table) 'DiGi\.GIS\.IO\.Query\.DefaultOnlyColumnNames\(this DiGi\.Core\.IO\.Table\.Classes\.Table\)'), which names columns that never vary. A column holding one county name in every row never varies and is perfectly populated; a detection column holding zero in every row is not.
+
+```csharp
+public static System.Collections.Generic.List<string> UnpopulatedColumnNames(this DiGi.Core.IO.Table.Classes.Table? table, System.Collections.Generic.IEnumerable<DiGi.Core.IO.Table.Classes.Column>? columns);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.UnpopulatedColumnNames(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_DiGi.Core.IO.Table.Classes.Column_).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to inspect\. A null table carries nothing, so every column is reported\.
+
+<a name='DiGi.GIS.IO.Query.UnpopulatedColumnNames(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_DiGi.Core.IO.Table.Classes.Column_).columns'></a>
+
+`columns` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The columns to look for\. Columns are matched by stored column slug first and by display name second, the way the feature read projects them\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+The names of the unpopulated columns, in the order given\. Empty when every column carries a value somewhere\.
+
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionFeatureGroups(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_)'></a>
+
+## Query\.YearBuiltPredictionFeatureGroups\(Range\<int\>, IEnumerable\<double\>\) Method
+
+Retrieves the Year Built prediction input features, grouped by the run that populates them\.
+
+This is the definition [YearBuiltPredictionInputColumns\(Range&lt;int&gt;, IEnumerable&lt;double&gt;\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_) 'DiGi\.GIS\.IO\.Query\.YearBuiltPredictionInputColumns\(DiGi\.Core\.Classes\.Range\<int\>, System\.Collections\.Generic\.IEnumerable\<double\>\)') is assembled from, so the allow-list and the groups cannot drift apart. Read the allow-list when the question is which columns the regressor may see, and read this when the question is which of them a county is actually carrying.
+
+```csharp
+public static System.Collections.Generic.Dictionary<string,System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column>> YearBuiltPredictionFeatureGroups(DiGi.Core.Classes.Range<int>? years=null, System.Collections.Generic.IEnumerable<double>? radiuses=null);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionFeatureGroups(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_).years'></a>
+
+`years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
+
+The range of years for detection and population features\. Defaults to 2008\.\.2025 when null\.
+
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionFeatureGroups(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_).radiuses'></a>
+
+`radiuses` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of radiuses for radial ratio features\. Defaults to 200, 400, 600, 1000 when null\.
+
+#### Returns
+[System\.Collections\.Generic\.Dictionary&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[,](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')  
+A dictionary keyed by [YearBuiltPredictionFeatureGroup](DiGi.GIS.IO.Constants.md#DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup 'DiGi\.GIS\.IO\.Constants\.YearBuiltPredictionFeatureGroup') holding the columns of each group, in the order the allow\-list lists them\.
+
 <a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_)'></a>
 
 ## Query\.YearBuiltPredictionInputColumns\(Range\<int\>, IEnumerable\<double\>\) Method
 
 Retrieves the list of columns permitted as input features for the Year Built prediction machine learning model across the specified range of years and radial radiuses\.
+
+Assembled from [YearBuiltPredictionFeatureGroups\(Range&lt;int&gt;, IEnumerable&lt;double&gt;\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Query.YearBuiltPredictionFeatureGroups(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_) 'DiGi\.GIS\.IO\.Query\.YearBuiltPredictionFeatureGroups\(DiGi\.Core\.Classes\.Range\<int\>, System\.Collections\.Generic\.IEnumerable\<double\>\)') rather than listed a second time, so a column added to a group reaches the allow-list without anyone remembering to add it twice.
 
 ```csharp
 public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range<int>? years=null, System.Collections.Generic.IEnumerable<double>? radiuses=null);
