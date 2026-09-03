@@ -15,6 +15,9 @@ namespace DiGi.GIS.IO
     {
         /// <summary>
         /// Updates the table with building 2D geometric and shape descriptor features for a specific county.
+        /// <para>Adds and writes the identity columns <c>Reference</c> and <c>County Id</c>; the function and phase columns <c>Building general function</c>, <c>Building specific functions</c> and <c>Building Phase</c>; the shape columns <c>Storeys</c>, <c>Floor area</c>, <c>Total area</c>, <c>Internal Point X</c>, <c>Internal Point Y</c>, <c>BoundingBox X</c>, <c>BoundingBox Y</c>, <c>BoundingBox width</c>, <c>BoundingBox height</c>, <c>Cardinal direction</c>, <c>Azimuth</c>, <c>Isoperimetric ratio</c>, <c>Thinness ratio</c>, <c>Rectangular thinnes ratio</c>, <c>Square thinness ratio</c>, <c>Convex hull thinness ratio</c> and <c>Calculated Building Shape</c>; the occupancy flags <c>Is occupied</c> and <c>Is residential</c>; the per-year orthophotomap link columns; and the grid cell coverage columns.</para>
+        /// <para>A cell is written only when its value is computable - the areas only when the outline has one, the internal point and the bounding box only when the outline yields them, the shape only when the solver resolves - so an uncomputable value leaves the cell unset rather than storing a placeholder.</para>
+        /// <para>Pushed via <c>TablePostgreSQLConverter.PushAsync</c>, the upsert - <c>ON CONFLICT (county_id, reference) DO UPDATE SET col = EXCLUDED.col</c> - covers every column present on the table, so a cell left unset on a row is written as NULL and overwrites the stored value of an existing row, while a column this method never adds is never touched.</para>
         /// </summary>
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
@@ -304,7 +307,7 @@ namespace DiGi.GIS.IO
 
         /// <summary>
         /// Updates the table with building 2D geometric and administrative features for a specific county and optional subdivision.
-        /// <para>Reads only the name of each division and the name, occupancy and type of the first subdivision out of <paramref name="administrativeAreal2Ds"/>, then hands those to the overload that takes them directly. A caller that already holds the names - the reference path of a subdivision carries them - should call that overload instead and avoid loading the outlines, which are never read here and reach the size of a whole country at the top of the chain.</para>
+        /// <para>Reads only the name of each division and the name, occupancy and type of the first subdivision out of <paramref name="administrativeAreal2Ds"/>, then hands those to the overload that takes them directly. A caller that already holds the names - the reference path of a subdivision carries them - should call that overload instead and avoid loading the outlines, which are never read here and reach the size of a whole country at the top of the chain. The administrative columns written, and the unset-cell semantics of the push, are those of the overload it delegates to.</para>
         /// </summary>
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
@@ -352,7 +355,8 @@ namespace DiGi.GIS.IO
         /// <summary>
         /// Updates the table with building 2D administrative features for a specific county and optional subdivision, taking the administrative names directly rather than reading them off boundary objects.
         /// <para>This is the overload to reach for from a caller that already knows the names - the reference path of a subdivision carries them - because the boundary objects the other overload takes hold the outlines as well, and those are never read here. At the top of an ancestor chain that outline is the whole country, so loading one per subdivision is the dominant cost of a country-wide run and buys nothing.</para>
-        /// <para>Each value is written only when it is present, so a name that was not resolved leaves the stored one alone rather than clearing it.</para>
+        /// <para>Adds the administrative columns <c>Subdivision Id</c>, <c>County name</c>, <c>Municipality name</c>, <c>Voivodeship name</c>, <c>Subdivision name</c>, <c>Subdivision occupancy</c> and <c>Settlement type</c> to the table, and writes each cell only when its value is present.</para>
+        /// <para>The columns are added to the table even when a value does not resolve, and pushed via <c>TablePostgreSQLConverter.PushAsync</c> the upsert - <c>ON CONFLICT (county_id, reference) DO UPDATE SET col = EXCLUDED.col</c> - covers every column present on the table. An unset cell is written as NULL, so a name that does not resolve on a re-run clears the value previously stored on an existing row; only a column never added to the table is left untouched.</para>
         /// </summary>
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>

@@ -497,6 +497,12 @@ The updated column matching the specified type, or [null](https://docs.microsoft
 
 Updates the table with building 2D geometric and shape descriptor features for a specific county\.
 
+Adds and writes the identity columns `Reference` and `County Id`; the function and phase columns `Building general function`, `Building specific functions` and `Building Phase`; the shape columns `Storeys`, `Floor area`, `Total area`, `Internal Point X`, `Internal Point Y`, `BoundingBox X`, `BoundingBox Y`, `BoundingBox width`, `BoundingBox height`, `Cardinal direction`, `Azimuth`, `Isoperimetric ratio`, `Thinness ratio`, `Rectangular thinnes ratio`, `Square thinness ratio`, `Convex hull thinness ratio` and `Calculated Building Shape`; the occupancy flags `Is occupied` and `Is residential`; the per-year orthophotomap link columns; and the grid cell coverage columns.
+
+A cell is written only when its value is computable - the areas only when the outline has one, the internal point and the bounding box only when the outline yields them, the shape only when the solver resolves - so an uncomputable value leaves the cell unset rather than storing a placeholder.
+
+Pushed via `TablePostgreSQLConverter.PushAsync`, the upsert - `ON CONFLICT (county_id, reference) DO UPDATE SET col = EXCLUDED.col` - covers every column present on the table, so a cell left unset on a row is written as NULL and overwrites the stored value of an existing row, while a column this method never adds is never touched.
+
 ```csharp
 public static void Update_Building2D(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, string? apiBaseUrl=null);
 ```
@@ -534,7 +540,9 @@ Updates the table with building 2D administrative features for a specific county
 
 This is the overload to reach for from a caller that already knows the names - the reference path of a subdivision carries them - because the boundary objects the other overload takes hold the outlines as well, and those are never read here. At the top of an ancestor chain that outline is the whole country, so loading one per subdivision is the dominant cost of a country-wide run and buys nothing.
 
-Each value is written only when it is present, so a name that was not resolved leaves the stored one alone rather than clearing it.
+Adds the administrative columns `Subdivision Id`, `County name`, `Municipality name`, `Voivodeship name`, `Subdivision name`, `Subdivision occupancy` and `Settlement type` to the table, and writes each cell only when its value is present.
+
+The columns are added to the table even when a value does not resolve, and pushed via `TablePostgreSQLConverter.PushAsync` the upsert - `ON CONFLICT (county_id, reference) DO UPDATE SET col = EXCLUDED.col` - covers every column present on the table. An unset cell is written as NULL, so a name that does not resolve on a re-run clears the value previously stored on an existing row; only a column never added to the table is left untouched.
 
 ```csharp
 public static void Update_Building2D(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Nullable<int> subdivisionId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, string? countyName, string? municipalityName, string? voivodeshipName, DiGi.GIS.Classes.AdministrativeSubdivision? administrativeSubdivision);
@@ -595,7 +603,7 @@ The optional subdivision, read for its name, occupancy and settlement type\.
 
 Updates the table with building 2D geometric and administrative features for a specific county and optional subdivision\.
 
-Reads only the name of each division and the name, occupancy and type of the first subdivision out of [administrativeAreal2Ds](DiGi.GIS.IO.md#DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).administrativeAreal2Ds 'DiGi\.GIS\.IO\.Modify\.Update\_Building2D\(this DiGi\.Core\.IO\.Table\.Classes\.Table, int, System\.Nullable\<int\>, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.Building2D\>, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.AdministrativeAreal2D\>\)\.administrativeAreal2Ds'), then hands those to the overload that takes them directly. A caller that already holds the names - the reference path of a subdivision carries them - should call that overload instead and avoid loading the outlines, which are never read here and reach the size of a whole country at the top of the chain.
+Reads only the name of each division and the name, occupancy and type of the first subdivision out of [administrativeAreal2Ds](DiGi.GIS.IO.md#DiGi.GIS.IO.Modify.Update_Building2D(thisDiGi.Core.IO.Table.Classes.Table,int,System.Nullable_int_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2D_,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.AdministrativeAreal2D_).administrativeAreal2Ds 'DiGi\.GIS\.IO\.Modify\.Update\_Building2D\(this DiGi\.Core\.IO\.Table\.Classes\.Table, int, System\.Nullable\<int\>, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.Building2D\>, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.AdministrativeAreal2D\>\)\.administrativeAreal2Ds'), then hands those to the overload that takes them directly. A caller that already holds the names - the reference path of a subdivision carries them - should call that overload instead and avoid loading the outlines, which are never read here and reach the size of a whole country at the top of the chain. The administrative columns written, and the unset-cell semantics of the push, are those of the overload it delegates to.
 
 ```csharp
 public static void Update_Building2D(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Nullable<int> subdivisionId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.Building2D>? building2Ds, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.AdministrativeAreal2D>? administrativeAreal2Ds);
