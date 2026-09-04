@@ -42,3 +42,19 @@ The building features to score, one row per building\.
 #### Returns
 [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')  
 The predicted construction years, or [null](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/null 'https://docs\.microsoft\.com/en\-us/dotnet/csharp/language\-reference/keywords/null') when the table could not be scored at all\.
+
+<a name='DiGi.GIS.IO.Interfaces.IYearBuiltPredictor.YearBuiltPredictorReadiness()'></a>
+
+## IYearBuiltPredictor\.YearBuiltPredictorReadiness\(\) Method
+
+Reports whether this predictor can score at all, probed before a run starts\.
+
+The orchestrator checks this beside the Python preflight when the scoring step is on, so a runner that is missing the model it scores with is refused in seconds instead of after exporting a county of imagery and failing on the first scoring batch. It carries the diagnostics that say why, rather than a bare flag.
+
+```csharp
+DiGi.GIS.IO.Classes.YearBuiltPredictorReadiness YearBuiltPredictorReadiness();
+```
+
+#### Returns
+[YearBuiltPredictorReadiness](DiGi.GIS.IO.Classes.md#DiGi.GIS.IO.Classes.YearBuiltPredictorReadiness 'DiGi\.GIS\.IO\.Classes\.YearBuiltPredictorReadiness')  
+The readiness of this predictor \- whether it can score, and why not when it cannot\.
