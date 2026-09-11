@@ -23,6 +23,6 @@ namespace DiGi.GIS.IO.Interfaces
         /// <para>The orchestrator checks this beside the Python preflight when the scoring step is on, so a runner that is missing the model it scores with is refused in seconds instead of after exporting a county of imagery and failing on the first scoring batch. It carries the diagnostics that say why, rather than a bare flag.</para>
         /// </summary>
         /// <returns>The readiness of this predictor - whether it can score, and why not when it cannot.</returns>
-        DiGi.GIS.IO.Classes.YearBuiltPredictorReadiness YearBuiltPredictorReadiness();
+        Classes.YearBuiltPredictorReadiness YearBuiltPredictorReadiness();
     }
 }
