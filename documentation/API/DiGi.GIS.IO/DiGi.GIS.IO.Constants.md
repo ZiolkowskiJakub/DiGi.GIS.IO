@@ -211,6 +211,461 @@ public static ExtendedColumn DatabaseId;
 #### Field Value
 [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn')
 
+<a name='DiGi.GIS.IO.Constants.Column.ExternalComponentsArea'></a>
+
+## Column\.ExternalComponentsArea Field
+
+Sum of all external wall, roof and floor component areas\.
+
+```csharp
+public static UnitColumn ExternalComponentsArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalEastTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalEastTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing east \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalEastTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalEastTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalEastTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing east \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalEastTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalEastTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalEastTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing east \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalEastTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalEastWallArea'></a>
+
+## Column\.ExternalEastWallArea Field
+
+External wall area with outward normal azimuth in the east sector \(\[67\.5°, 112\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalEastWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalFlatRoofArea'></a>
+
+## Column\.ExternalFlatRoofArea Field
+
+External roof area with tilt below 5 degrees \(flat, no directional split\)\.
+
+```csharp
+public static UnitColumn ExternalFlatRoofArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalFloorArea'></a>
+
+## Column\.ExternalFloorArea Field
+
+External floor area \(ground\-facing external floor components\)\.
+
+```csharp
+public static UnitColumn ExternalFloorArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNortheastTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalNortheastTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing northeast \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalNortheastTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNortheastTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalNortheastTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing northeast \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalNortheastTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNortheastTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalNortheastTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing northeast \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalNortheastTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNortheastWallArea'></a>
+
+## Column\.ExternalNortheastWallArea Field
+
+External wall area with outward normal azimuth in the northeast sector \(\[22\.5°, 67\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalNortheastWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalNorthTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing north \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalNorthTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalNorthTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing north \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalNorthTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalNorthTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing north \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalNorthTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthWallArea'></a>
+
+## Column\.ExternalNorthWallArea Field
+
+External wall area with outward normal azimuth in the north sector \(\[337\.5°, 360°\) ∪ \[0°, 22\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalNorthWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthwestTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalNorthwestTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing northwest \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalNorthwestTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthwestTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalNorthwestTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing northwest \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalNorthwestTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthwestTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalNorthwestTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing northwest \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalNorthwestTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalNorthwestWallArea'></a>
+
+## Column\.ExternalNorthwestWallArea Field
+
+External wall area with outward normal azimuth in the northwest sector \(\[292\.5°, 337\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalNorthwestWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSoutheastTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalSoutheastTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing southeast \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalSoutheastTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSoutheastTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalSoutheastTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing southeast \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalSoutheastTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSoutheastTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalSoutheastTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing southeast \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalSoutheastTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSoutheastWallArea'></a>
+
+## Column\.ExternalSoutheastWallArea Field
+
+External wall area with outward normal azimuth in the southeast sector \(\[112\.5°, 157\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalSoutheastWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalSouthTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing south \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalSouthTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalSouthTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing south \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalSouthTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalSouthTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing south \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalSouthTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthWallArea'></a>
+
+## Column\.ExternalSouthWallArea Field
+
+External wall area with outward normal azimuth in the south sector \(\[157\.5°, 202\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalSouthWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthwestTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalSouthwestTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing southwest \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalSouthwestTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthwestTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalSouthwestTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing southwest \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalSouthwestTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthwestTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalSouthwestTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing southwest \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalSouthwestTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalSouthwestWallArea'></a>
+
+## Column\.ExternalSouthwestWallArea Field
+
+External wall area with outward normal azimuth in the southwest sector \(\[202\.5°, 247\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalSouthwestWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalWestTiltedRoofAreaAbove45'></a>
+
+## Column\.ExternalWestTiltedRoofAreaAbove45 Field
+
+External roof area with tilt greater than 45 degrees, facing west \(\> 45°\)\.
+
+```csharp
+public static UnitColumn ExternalWestTiltedRoofAreaAbove45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalWestTiltedRoofAreaBetween20And45'></a>
+
+## Column\.ExternalWestTiltedRoofAreaBetween20And45 Field
+
+External roof area with tilt greater than 20 and up to 45 degrees, facing west \(\(20°, 45°\]\)\.
+
+```csharp
+public static UnitColumn ExternalWestTiltedRoofAreaBetween20And45;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalWestTiltedRoofAreaUpTo20'></a>
+
+## Column\.ExternalWestTiltedRoofAreaUpTo20 Field
+
+External roof area with tilt from 5 up to 20 degrees, facing west \(\[5°, 20°\]\)\.
+
+```csharp
+public static UnitColumn ExternalWestTiltedRoofAreaUpTo20;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.ExternalWestWallArea'></a>
+
+## Column\.ExternalWestWallArea Field
+
+External wall area with outward normal azimuth in the west sector \(\[247\.5°, 292\.5°\)\)\.
+
+```csharp
+public static UnitColumn ExternalWestWallArea;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
 <a name='DiGi.GIS.IO.Constants.Column.FloorArea'></a>
 
 ## Column\.FloorArea Field

@@ -139,3 +139,9 @@ Spatial analysis metric
 `Population` 20
 
 Represents demographic population count\.
+
+<a name='DiGi.GIS.IO.Enums.Category.ExternalComponentsArea'></a>
+
+`ExternalComponentsArea` 21
+
+Represents the areas of a building's external components \(walls, roofs and floors\)\.

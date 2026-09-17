@@ -14,6 +14,20 @@ public static class Create
 Inheritance [System\.Object](https://learn.microsoft.com/en-us/dotnet/api/system.object 'System\.Object') → Create
 ### Methods
 
+<a name='DiGi.GIS.IO.Create.Columns_ExternalComponentsArea()'></a>
+
+## Create\.Columns\_ExternalComponentsArea\(\) Method
+
+Creates the collection of external components area columns \(walls by azimuth sector, flat and tilted roofs by tilt band and sector, floor, and the total\)\.
+
+```csharp
+public static System.Collections.Generic.List<DiGi.Core.IO.Table.Classes.Column> Columns_ExternalComponentsArea();
+```
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+A list of 35 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances in a stable order: 8 walls by direction, flat roof, tilted roof bands by direction, floor, and the total last\.
+
 <a name='DiGi.GIS.IO.Create.Columns_Population(DiGi.Core.Classes.Range_int_)'></a>
 
 ## Create\.Columns\_Population\(Range\<int\>\) Method

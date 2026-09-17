@@ -21,6 +21,181 @@ namespace DiGi.GIS.IO.Constants
         public static UnitColumn TotalArea = new("Total area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ShapeDescriptors.Description(), "Calculated total area (floor area * storeys) based on geometry data from BDOO Geoportal *.gml file (ot:geometria node)", Unit.Enums.UnitDataType.Float);
 
         /// <summary>
+        /// External wall area with outward normal azimuth in the north sector ([337.5°, 360°) ∪ [0°, 22.5°)).
+        /// </summary>
+        public static UnitColumn ExternalNorthWallArea = new("External north wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the north sector ([337.5°, 360°) ∪ [0°, 22.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External wall area with outward normal azimuth in the northeast sector ([22.5°, 67.5°)).
+        /// </summary>
+        public static UnitColumn ExternalNortheastWallArea = new("External northeast wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the northeast sector ([22.5°, 67.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External wall area with outward normal azimuth in the east sector ([67.5°, 112.5°)).
+        /// </summary>
+        public static UnitColumn ExternalEastWallArea = new("External east wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the east sector ([67.5°, 112.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External wall area with outward normal azimuth in the southeast sector ([112.5°, 157.5°)).
+        /// </summary>
+        public static UnitColumn ExternalSoutheastWallArea = new("External southeast wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the southeast sector ([112.5°, 157.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External wall area with outward normal azimuth in the south sector ([157.5°, 202.5°)).
+        /// </summary>
+        public static UnitColumn ExternalSouthWallArea = new("External south wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the south sector ([157.5°, 202.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External wall area with outward normal azimuth in the southwest sector ([202.5°, 247.5°)).
+        /// </summary>
+        public static UnitColumn ExternalSouthwestWallArea = new("External southwest wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the southwest sector ([202.5°, 247.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External wall area with outward normal azimuth in the west sector ([247.5°, 292.5°)).
+        /// </summary>
+        public static UnitColumn ExternalWestWallArea = new("External west wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the west sector ([247.5°, 292.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External wall area with outward normal azimuth in the northwest sector ([292.5°, 337.5°)).
+        /// </summary>
+        public static UnitColumn ExternalNorthwestWallArea = new("External northwest wall area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External wall area with outward normal azimuth in the northwest sector ([292.5°, 337.5°))", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt below 5 degrees (flat, no directional split).
+        /// </summary>
+        public static UnitColumn ExternalFlatRoofArea = new("External flat roof area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt below 5 degrees (flat, no directional split)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing north ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalNorthTiltedRoofAreaUpTo20 = new("External north tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing north ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing northeast ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalNortheastTiltedRoofAreaUpTo20 = new("External northeast tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing northeast ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing east ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalEastTiltedRoofAreaUpTo20 = new("External east tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing east ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing southeast ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalSoutheastTiltedRoofAreaUpTo20 = new("External southeast tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing southeast ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing south ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalSouthTiltedRoofAreaUpTo20 = new("External south tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing south ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing southwest ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalSouthwestTiltedRoofAreaUpTo20 = new("External southwest tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing southwest ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing west ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalWestTiltedRoofAreaUpTo20 = new("External west tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing west ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt from 5 up to 20 degrees, facing northwest ([5°, 20°]).
+        /// </summary>
+        public static UnitColumn ExternalNorthwestTiltedRoofAreaUpTo20 = new("External northwest tilted roof area up to 20", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt from 5 up to 20 degrees, facing northwest ([5°, 20°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing north ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalNorthTiltedRoofAreaBetween20And45 = new("External north tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing north ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing northeast ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalNortheastTiltedRoofAreaBetween20And45 = new("External northeast tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing northeast ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing east ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalEastTiltedRoofAreaBetween20And45 = new("External east tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing east ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing southeast ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalSoutheastTiltedRoofAreaBetween20And45 = new("External southeast tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing southeast ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing south ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalSouthTiltedRoofAreaBetween20And45 = new("External south tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing south ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing southwest ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalSouthwestTiltedRoofAreaBetween20And45 = new("External southwest tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing southwest ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing west ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalWestTiltedRoofAreaBetween20And45 = new("External west tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing west ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 20 and up to 45 degrees, facing northwest ((20°, 45°]).
+        /// </summary>
+        public static UnitColumn ExternalNorthwestTiltedRoofAreaBetween20And45 = new("External northwest tilted roof area between 20 and 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 20 and up to 45 degrees, facing northwest ((20°, 45°])", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing north (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalNorthTiltedRoofAreaAbove45 = new("External north tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing north (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing northeast (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalNortheastTiltedRoofAreaAbove45 = new("External northeast tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing northeast (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing east (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalEastTiltedRoofAreaAbove45 = new("External east tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing east (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing southeast (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalSoutheastTiltedRoofAreaAbove45 = new("External southeast tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing southeast (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing south (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalSouthTiltedRoofAreaAbove45 = new("External south tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing south (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing southwest (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalSouthwestTiltedRoofAreaAbove45 = new("External southwest tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing southwest (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing west (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalWestTiltedRoofAreaAbove45 = new("External west tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing west (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External roof area with tilt greater than 45 degrees, facing northwest (> 45°).
+        /// </summary>
+        public static UnitColumn ExternalNorthwestTiltedRoofAreaAbove45 = new("External northwest tilted roof area above 45", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External roof area with tilt greater than 45 degrees, facing northwest (> 45°)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// External floor area (ground-facing external floor components).
+        /// </summary>
+        public static UnitColumn ExternalFloorArea = new("External floor area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "External floor area (ground-facing external floor components)", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
+        /// Sum of all external wall, roof and floor component areas.
+        /// </summary>
+        public static UnitColumn ExternalComponentsArea = new("External components area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "Sum of all external wall, roof and floor component areas", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
         /// Azimuth as an angle to north direction.
         /// </summary>
         public static UnitColumn Azimuth = new("Azimuth", (Unit.Classes.Unit?)Unit.Enums.AngleUnit.Degree, Category.Orientation.Description(), "Azimuth as an angle to north direction", Unit.Enums.UnitDataType.Float);

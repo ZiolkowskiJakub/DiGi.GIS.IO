@@ -156,5 +156,51 @@ namespace DiGi.GIS.IO
 
             return columns;
         }
+
+        /// <summary>
+        /// Creates the collection of external components area columns (walls by azimuth sector, flat and tilted roofs by tilt band and sector, floor, and the total).
+        /// </summary>
+        /// <returns>A list of 35 <see cref="Column"/> instances in a stable order: 8 walls by direction, flat roof, tilted roof bands by direction, floor, and the total last.</returns>
+        public static List<Column> Columns_ExternalComponentsArea()
+        {
+            return
+            [
+                Constants.Column.ExternalNorthWallArea,
+                Constants.Column.ExternalNortheastWallArea,
+                Constants.Column.ExternalEastWallArea,
+                Constants.Column.ExternalSoutheastWallArea,
+                Constants.Column.ExternalSouthWallArea,
+                Constants.Column.ExternalSouthwestWallArea,
+                Constants.Column.ExternalWestWallArea,
+                Constants.Column.ExternalNorthwestWallArea,
+                Constants.Column.ExternalFlatRoofArea,
+                Constants.Column.ExternalNorthTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalNortheastTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalEastTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalSoutheastTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalSouthTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalSouthwestTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalWestTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalNorthwestTiltedRoofAreaUpTo20,
+                Constants.Column.ExternalNorthTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalNortheastTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalEastTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalSoutheastTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalSouthTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalSouthwestTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalWestTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalNorthwestTiltedRoofAreaBetween20And45,
+                Constants.Column.ExternalNorthTiltedRoofAreaAbove45,
+                Constants.Column.ExternalNortheastTiltedRoofAreaAbove45,
+                Constants.Column.ExternalEastTiltedRoofAreaAbove45,
+                Constants.Column.ExternalSoutheastTiltedRoofAreaAbove45,
+                Constants.Column.ExternalSouthTiltedRoofAreaAbove45,
+                Constants.Column.ExternalSouthwestTiltedRoofAreaAbove45,
+                Constants.Column.ExternalWestTiltedRoofAreaAbove45,
+                Constants.Column.ExternalNorthwestTiltedRoofAreaAbove45,
+                Constants.Column.ExternalFloorArea,
+                Constants.Column.ExternalComponentsArea
+            ];
+        }
     }
 }

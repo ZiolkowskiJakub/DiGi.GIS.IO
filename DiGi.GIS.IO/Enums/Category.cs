@@ -111,5 +111,10 @@ namespace DiGi.GIS.IO.Enums
         /// Represents demographic population count.
         /// </summary>
         [Description("Population")] Population,
+
+        /// <summary>
+        /// Represents the areas of a building's external components (walls, roofs and floors).
+        /// </summary>
+        [Description("External Components Area")] ExternalComponentsArea,
     }
 }
