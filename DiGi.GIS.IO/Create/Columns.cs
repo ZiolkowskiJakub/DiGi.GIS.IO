@@ -158,6 +158,15 @@ namespace DiGi.GIS.IO
         }
 
         /// <summary>
+        /// Creates the closing tolerance column of the external components classification - the open-envelope signal written beside the area columns.
+        /// </summary>
+        /// <returns>A <see cref="Column"/> carrying the finest tolerance at which the model's external envelope closes, null for an envelope that closes at no rung of the ladder.</returns>
+        public static Column Column_ClosingTolerance()
+        {
+            return Constants.Column.ClosingTolerance;
+        }
+
+        /// <summary>
         /// Creates the collection of external components area columns (walls by azimuth sector, flat and tilted roofs by tilt band and sector, floor, and the total).
         /// </summary>
         /// <returns>A list of 35 <see cref="Column"/> instances in a stable order: 8 walls by direction, flat roof, tilted roof bands by direction, floor, and the total last.</returns>

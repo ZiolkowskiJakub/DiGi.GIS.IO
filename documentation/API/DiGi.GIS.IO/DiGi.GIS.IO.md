@@ -196,6 +196,20 @@ The collection of radiuses in meters\.
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 A list of [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') instances representing the radial ratios for the specified radiuses, or an empty list if null\.
 
+<a name='DiGi.GIS.IO.Create.Column_ClosingTolerance()'></a>
+
+## Create\.Column\_ClosingTolerance\(\) Method
+
+Creates the closing tolerance column of the external components classification \- the open\-envelope signal written beside the area columns\.
+
+```csharp
+public static DiGi.Core.IO.Table.Classes.Column Column_ClosingTolerance();
+```
+
+#### Returns
+[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
+A [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') carrying the finest tolerance at which the model's external envelope closes, null for an envelope that closes at no rung of the ladder\.
+
 <a name='DiGi.GIS.IO.Create.Column_GridCellCoverage(int,int)'></a>
 
 ## Create\.Column\_GridCellCoverage\(int, int\) Method
