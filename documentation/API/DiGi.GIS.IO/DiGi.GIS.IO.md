@@ -208,7 +208,7 @@ public static DiGi.Core.IO.Table.Classes.Column Column_ClosingTolerance();
 
 #### Returns
 [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')  
-A [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') carrying the finest tolerance at which the model's external envelope closes, null for an envelope that closes at no rung of the ladder\.
+A [DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column') whose cell holds the finest tolerance at which the model's external envelope closes, and is null when the envelope closes at no rung of the ladder or the model carries no external components\.
 
 <a name='DiGi.GIS.IO.Create.Column_GridCellCoverage(int,int)'></a>
 

@@ -93,5 +93,14 @@ namespace DiGi.GIS.IO
         {
             return new ExtendedColumn($"Municipality population {year}", typeof(int), Enums.Category.Population.Description(), $"Municipality population count for {year}");
         }
+
+        /// <summary>
+        /// Creates the closing tolerance column of the external components classification - the open-envelope signal written beside the area columns.
+        /// </summary>
+        /// <returns>A <see cref="Column"/> whose cell holds the finest tolerance at which the model's external envelope closes, and is null when the envelope closes at no rung of the ladder or the model carries no external components.</returns>
+        public static Column Column_ClosingTolerance()
+        {
+            return Constants.Column.ClosingTolerance;
+        }
     }
 }
