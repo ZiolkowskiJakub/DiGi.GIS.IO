@@ -196,6 +196,11 @@ namespace DiGi.GIS.IO.Constants
         public static UnitColumn ExternalComponentsArea = new("External components area", (Unit.Classes.Unit?)Unit.Enums.AreaUnit.SquareMeter, Category.ExternalComponentsArea.Description(), "Sum of all external wall, roof and floor component areas", Unit.Enums.UnitDataType.Float);
 
         /// <summary>
+        /// Coarsest tolerance at which the model's external envelope closes, or null when it does not close - the open-envelope signal of the external components classification.
+        /// </summary>
+        public static UnitColumn ClosingTolerance = new("Closing tolerance", (Unit.Classes.Unit?)Unit.Enums.LengthUnit.Meter, Category.ExternalComponentsArea.Description(), "Coarsest distance tolerance at which the model's external envelope edge-pairs into a closed surface, over the candidate ladder 1e-6 to 0.2 m; null when the envelope does not close on the ladder or the model carries no external components - the signal that this row's sector and tilt values may rest on an arbitrary face side", Unit.Enums.UnitDataType.Float);
+
+        /// <summary>
         /// Azimuth as an angle to north direction.
         /// </summary>
         public static UnitColumn Azimuth = new("Azimuth", (Unit.Classes.Unit?)Unit.Enums.AngleUnit.Degree, Category.Orientation.Description(), "Azimuth as an angle to north direction", Unit.Enums.UnitDataType.Float);

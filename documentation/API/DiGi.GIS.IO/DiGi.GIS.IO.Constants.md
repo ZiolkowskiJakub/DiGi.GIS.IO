@@ -159,6 +159,19 @@ public static ExtendedColumn CardinalDirection;
 #### Field Value
 [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn')
 
+<a name='DiGi.GIS.IO.Constants.Column.ClosingTolerance'></a>
+
+## Column\.ClosingTolerance Field
+
+Coarsest tolerance at which the model's external envelope closes, or null when it does not close \- the open\-envelope signal of the external components classification\.
+
+```csharp
+public static UnitColumn ClosingTolerance;
+```
+
+#### Field Value
+[DiGi\.Unit\.IO\.Classes\.UnitColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.unit.io.classes.unitcolumn 'DiGi\.Unit\.IO\.Classes\.UnitColumn')
+
 <a name='DiGi.GIS.IO.Constants.Column.ConvexHullThinnessRatio'></a>
 
 ## Column\.ConvexHullThinnessRatio Field
