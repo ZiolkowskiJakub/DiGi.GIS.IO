@@ -163,7 +163,7 @@ public static ExtendedColumn CardinalDirection;
 
 ## Column\.ClosingTolerance Field
 
-Coarsest tolerance at which the model's external envelope closes, or null when it does not close \- the open\-envelope signal of the external components classification\.
+Finest tolerance at which the model's external envelope closes, or null when it does not close \- the open\-envelope signal of the external components classification\.
 
 ```csharp
 public static UnitColumn ClosingTolerance;
