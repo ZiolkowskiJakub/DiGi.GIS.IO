@@ -276,9 +276,19 @@ namespace DiGi.GIS.IO.Constants
         public static ExtendedColumn MunicipalityName = new("Municipality name", typeof(string), Category.Administrative.Description(), "Municipality (gmina) name where the object belongs to");
 
         /// <summary>
-        /// Predicted year built based on historical data analyzed by a Machine Learning engine.
+        /// Predicted year built - the most frequent year over every prediction stored for the building by the Machine Learning engine (orthophoto - YOLO - ML model).
         /// </summary>
-        public static ExtendedColumn PredictedYearBuilt = new("Predicted year built", typeof(ushort), Category.YearBuit.Description(), "Predicted year built based on historical data analyzed by a Machine Learning engine");
+        public static ExtendedColumn PredictedYearBuilt = new("Predicted year built", typeof(ushort), Category.YearBuit.Description(), "Year built predicted by the Machine Learning engine; the most frequent value when the building carries several predictions");
+
+        /// <summary>
+        /// User year built - the most frequent year entered manually by a user.
+        /// </summary>
+        public static ExtendedColumn UserYearBuilt = new("User year built", typeof(ushort), Category.YearBuit.Description(), "Year built entered manually by a user; the most frequent value when several users entered one");
+
+        /// <summary>
+        /// Calculated year built - the year built to use: the user-entered year when one exists, otherwise the predicted year.
+        /// </summary>
+        public static ExtendedColumn CalculatedYearBuilt = new("Calculated year built", typeof(ushort), Category.YearBuit.Description(), "Year built to use - the user-entered year when one exists, otherwise the predicted year");
 
         /// <summary>
         /// Main reference of the object coming from BDOO Geoportal *.gml file (ot:lokalnyId node).

@@ -779,42 +779,42 @@ The yearly statistical double data containing municipality population counts\.
 
 The optional range of years for the population series, defaulting to 2008\.\.2025\.
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_)'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_)'></a>
 
-## Modify\.Update\_Building2D\_PredictedYearBuilt\(this Table, int, IEnumerable\<YearBuiltData\>\) Method
+## Modify\.Update\_Building2D\_YearBuilt\(this Table, int, IEnumerable\<YearBuiltData\>\) Method
 
-Updates the table with the latest predicted year built of each building in a specific county\.
+Updates the table with the three year built columns \- predicted, user and calculated \- of each building in a specific county\.
 
-A building may hold several stored [DiGi\.GIS\.Classes\.YearBuiltData](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.yearbuiltdata 'DiGi\.GIS\.Classes\.YearBuiltData') records - the table appends rather than replaces - so the predictions of every record carrying the same reference are considered together and the one made most recently wins.
+A building may hold several stored [DiGi\.GIS\.Classes\.YearBuiltData](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.yearbuiltdata 'DiGi\.GIS\.Classes\.YearBuiltData') records - the table appends rather than replaces - so the entries of every record carrying the same reference are considered together: each column holds the most frequent year of its kind, the user column counts only exact user years, and the calculated column is the user year when one exists, otherwise the predicted year. All three are derived from the same records in the same call, so they cannot disagree.
 
-Rows already in the table are matched on county identifier and reference; a reference the table does not hold yet is appended, so the same method serves a run that is building rows from buildings and a run that is writing predictions on their own.
+Rows already in the table are matched on county identifier and reference; a reference the table does not hold yet is appended. A column a building holds no value for is left as it stood, and a building whose records carry no usable entry at all leaves no row behind.
 
 ```csharp
-public static int Update_Building2D_PredictedYearBuilt(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.YearBuiltData>? yearBuiltDatas);
+public static int Update_Building2D_YearBuilt(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<DiGi.GIS.Classes.YearBuiltData>? yearBuiltDatas);
 ```
 #### Parameters
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).table'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).table'></a>
 
 `table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
 
 The table to update\.
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).countyId'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).countyId'></a>
 
 `countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
 
 The unique identifier of the county\.
 
-<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).yearBuiltDatas'></a>
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_).yearBuiltDatas'></a>
 
 `yearBuiltDatas` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.GIS\.Classes\.YearBuiltData](https://learn.microsoft.com/en-us/dotnet/api/digi.gis.classes.yearbuiltdata 'DiGi\.GIS\.Classes\.YearBuiltData')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
 
-The collection of stored year built data to take the predictions from\.
+The collection of stored year built data to derive the columns from\.
 
 #### Returns
 [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')  
-The number of rows given a predicted year \- updated and appended alike\. Zero when nothing was written, so a run can tell a county without stored predictions from one it never asked about\.
+The number of rows given at least one of the three values \- updated and appended alike\. Zero when nothing was written, so a run can tell a county without stored entries from one it never asked about\.
 
 <a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuiltPredictions(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_)'></a>
 

@@ -146,6 +146,19 @@ public static ExtendedColumn CalculatedOccupancy;
 #### Field Value
 [DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn')
 
+<a name='DiGi.GIS.IO.Constants.Column.CalculatedYearBuilt'></a>
+
+## Column\.CalculatedYearBuilt Field
+
+Calculated year built \- the year built to use: the user\-entered year when one exists, otherwise the predicted year\.
+
+```csharp
+public static ExtendedColumn CalculatedYearBuilt;
+```
+
+#### Field Value
+[DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn')
+
 <a name='DiGi.GIS.IO.Constants.Column.CardinalDirection'></a>
 
 ## Column\.CardinalDirection Field
@@ -787,7 +800,7 @@ public static ExtendedColumn PredictedBuildingShape;
 
 ## Column\.PredictedYearBuilt Field
 
-Predicted year built based on historical data analyzed by a Machine Learning engine\.
+Predicted year built \- the most frequent year over every prediction stored for the building by the Machine Learning engine \(orthophoto \- YOLO \- ML model\)\.
 
 ```csharp
 public static ExtendedColumn PredictedYearBuilt;
@@ -934,6 +947,19 @@ Building Shape determined by user\.
 
 ```csharp
 public static ExtendedColumn UserBuildingShape;
+```
+
+#### Field Value
+[DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.extendedcolumn 'DiGi\.Core\.IO\.Table\.Classes\.ExtendedColumn')
+
+<a name='DiGi.GIS.IO.Constants.Column.UserYearBuilt'></a>
+
+## Column\.UserYearBuilt Field
+
+User year built \- the most frequent year entered manually by a user\.
+
+```csharp
+public static ExtendedColumn UserYearBuilt;
 ```
 
 #### Field Value
