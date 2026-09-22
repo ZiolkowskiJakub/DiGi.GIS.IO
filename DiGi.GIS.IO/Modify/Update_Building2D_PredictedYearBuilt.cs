@@ -16,23 +16,24 @@ namespace DiGi.GIS.IO
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
         /// <param name="yearBuiltDatas">The collection of stored year built data to take the predictions from.</param>
-        public static void Update_Building2D_PredictedYearBuilt(this Table? table, int countyId, IEnumerable<YearBuiltData>? yearBuiltDatas)
+        /// <returns>The number of rows given a predicted year - updated and appended alike. Zero when nothing was written, so a run can tell a county without stored predictions from one it never asked about.</returns>
+        public static int Update_Building2D_PredictedYearBuilt(this Table? table, int countyId, IEnumerable<YearBuiltData>? yearBuiltDatas)
         {
             if (table is null || yearBuiltDatas is null || !yearBuiltDatas.Any())
             {
-                return;
+                return 0;
             }
 
             Column? column_Reference = table.UpdateColumn<Column>(Constants.Column.Reference);
             if (column_Reference is null)
             {
-                return;
+                return 0;
             }
 
             Column? column_CountyId = table.UpdateColumn<Column>(Constants.Column.CountyId);
             if (column_CountyId is null)
             {
-                return;
+                return 0;
             }
 
             Dictionary<string, PredictedYearBuilt> dictionary = [];
@@ -59,13 +60,13 @@ namespace DiGi.GIS.IO
 
             if (dictionary.Count == 0)
             {
-                return;
+                return 0;
             }
 
             Column? column_PredictedYearBuilt = table.UpdateColumn<Column>(Constants.Column.PredictedYearBuilt);
             if (column_PredictedYearBuilt is null)
             {
-                return;
+                return 0;
             }
 
             List<Tuple<Row, PredictedYearBuilt>> tuples = [];
@@ -116,6 +117,8 @@ namespace DiGi.GIS.IO
                 tuples.Add(new Tuple<Row, PredictedYearBuilt>(row, keyValuePair.Value));
             }
 
+            int result = 0;
+
             foreach (Tuple<Row, PredictedYearBuilt> tuple in tuples)
             {
                 Row row = tuple.Item1;
@@ -130,7 +133,10 @@ namespace DiGi.GIS.IO
                 SetValue(row, column_PredictedYearBuilt, (ushort)year);
 
                 table.AddRow(row, false);
+                result++;
             }
+
+            return result;
         }
     }
 }
