@@ -1070,6 +1070,37 @@ The collection of radiuses for radial ratio features\. Defaults to 200, 400, 600
 [System\.Collections\.Generic\.Dictionary&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[,](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[DiGi\.Core\.IO\.Table\.Classes\.Column](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column 'DiGi\.Core\.IO\.Table\.Classes\.Column')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')  
 A dictionary keyed by [YearBuiltPredictionFeatureGroup](DiGi.GIS.IO.Constants.md#DiGi.GIS.IO.Constants.YearBuiltPredictionFeatureGroup 'DiGi\.GIS\.IO\.Constants\.YearBuiltPredictionFeatureGroup') holding the columns of each group, in the order the allow\-list lists them\.
 
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumnNames(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_)'></a>
+
+## Query\.YearBuiltPredictionInputColumnNames\(Range\<int\>, IEnumerable\<double\>\) Method
+
+Retrieves the names the Year Built prediction input features are bound by, for the specified range of years and radial radiuses\.
+
+These are the [DiGi\.Core\.IO\.Table\.Classes\.Column\.Name](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.column.name 'DiGi\.Core\.IO\.Table\.Classes\.Column\.Name') values - the names a `ModelInput` member is bound to, not the stored column identifiers - and they are the one place an orchestrator compares its options against the predictor's stated contract: a name the model needs but the options do not ask for is the silent-degradation case, and a name the options ask for but the model does not use is the harmless surplus.
+
+Built from [YearBuiltPredictionInputColumns\(Range&lt;int&gt;, IEnumerable&lt;double&gt;\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_) 'DiGi\.GIS\.IO\.Query\.YearBuiltPredictionInputColumns\(DiGi\.Core\.Classes\.Range\<int\>, System\.Collections\.Generic\.IEnumerable\<double\>\)') so the allow-list and its names cannot drift apart.
+
+```csharp
+public static System.Collections.Generic.HashSet<string> YearBuiltPredictionInputColumnNames(DiGi.Core.Classes.Range<int>? years=null, System.Collections.Generic.IEnumerable<double>? radiuses=null);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumnNames(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_).years'></a>
+
+`years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
+
+The range of years for detection and temporal features\. Defaults to 2008\.\.2025 when null\.
+
+<a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumnNames(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_).radiuses'></a>
+
+`radiuses` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.Double](https://learn.microsoft.com/en-us/dotnet/api/system.double 'System\.Double')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The collection of radiuses for radial ratio features\. Defaults to 200, 400, 600, 1000 when null\.
+
+#### Returns
+[System\.Collections\.Generic\.HashSet&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.hashset-1 'System\.Collections\.Generic\.HashSet\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.hashset-1 'System\.Collections\.Generic\.HashSet\`1')  
+The set of input feature names the projection for the given options asks for\.
+
 <a name='DiGi.GIS.IO.Query.YearBuiltPredictionInputColumns(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_)'></a>
 
 ## Query\.YearBuiltPredictionInputColumns\(Range\<int\>, IEnumerable\<double\>\) Method
