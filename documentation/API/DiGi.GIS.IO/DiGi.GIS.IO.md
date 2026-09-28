@@ -1010,6 +1010,109 @@ The table to inspect\.
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 The names of the columns that never vary, in column order\. Empty when every column varies, or when the table has fewer than two rows to compare\.
 
+<a name='DiGi.GIS.IO.Query.FirstDetectionYears(thisDiGi.Core.IO.Table.Classes.Table,DiGi.Core.Classes.Range_int_,short)'></a>
+
+## Query\.FirstDetectionYears\(this Table, Range\<int\>, short\) Method
+
+Computes the regressor\-free "first detection year" baseline, one entry per row\.
+
+For each row, the first year of the range whose `Prediction Confidence {year}` value is present and greater than zero - the first year the detector saw the building. A row whose confidence values are all absent or zero falls back to `year_Default`.
+
+This is the detector-only acceptance baseline of the YOLO retrain (ZiolkowskiJakub/DiGi.GIS.YOLO.UI#12): on the 2025-05-27 table it scores MAE 0.434 (OrtoBuildingDetectionModel.provenance.md), the bar a retrained detector has to clear. The regressor evaluation and the detector evaluation both compute it from the same columns, so the rule lives here where both can reach it.
+
+The result aligns with the rows by index, so a caller that wants a dictionary zips it with the reference column.
+
+```csharp
+public static System.Collections.Generic.List<short> FirstDetectionYears(this DiGi.Core.IO.Table.Classes.Table? table, DiGi.Core.Classes.Range<int>? years=null, short year_Default=2008);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.FirstDetectionYears(thisDiGi.Core.IO.Table.Classes.Table,DiGi.Core.Classes.Range_int_,short).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table carrying the per\-year `Prediction Confidence` columns, or null\.
+
+<a name='DiGi.GIS.IO.Query.FirstDetectionYears(thisDiGi.Core.IO.Table.Classes.Table,DiGi.Core.Classes.Range_int_,short).years'></a>
+
+`years` [DiGi\.Core\.Classes\.Range&lt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/digi.core.classes.range-1 'DiGi\.Core\.Classes\.Range\`1')
+
+The years to scan, in row order\. Defaults to 2008\.\.2025, the same default as [YearBuiltPredictionFeatureGroups\(Range&lt;int&gt;, IEnumerable&lt;double&gt;\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Query.YearBuiltPredictionFeatureGroups(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_) 'DiGi\.GIS\.IO\.Query\.YearBuiltPredictionFeatureGroups\(DiGi\.Core\.Classes\.Range\<int\>, System\.Collections\.Generic\.IEnumerable\<double\>\)')\.
+
+<a name='DiGi.GIS.IO.Query.FirstDetectionYears(thisDiGi.Core.IO.Table.Classes.Table,DiGi.Core.Classes.Range_int_,short).year_Default'></a>
+
+`year_Default` [System\.Int16](https://learn.microsoft.com/en-us/dotnet/api/system.int16 'System\.Int16')
+
+The year reported for a row whose confidence values are all absent or zero\. Defaults to 2008\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[System\.Int16](https://learn.microsoft.com/en-us/dotnet/api/system.int16 'System\.Int16')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+One entry per row, in row order: the first detection year of each row\. Empty when the table is null or holds no rows\.
+
+<a name='DiGi.GIS.IO.Query.Holdout(string,int)'></a>
+
+## Query\.Holdout\(string, int\) Method
+
+Decides whether one key belongs to the Year Built holdout, by hashing the key rather than by shuffling\.
+
+A seeded shuffle is only reproducible inside one runtime: the same seed gives different orders in .NET and in Python, and the framework is free to change its generator between versions. Hashing the key makes membership a property of the row, so the same holdout comes back on any machine, in any language, in any order, and two runs months apart stay comparable.
+
+The hash is FNV-1a over the UTF-8 bytes, written out here rather than taken from `string.GetHashCode`, which is randomised per process and would put the same building in a different half on every run.
+
+Pass the building reference to hold out roughly one row in five. Pass the subdivision identifier to hold out whole subdivisions instead, so no subdivision spans training and holdout - that is the control for a model memorising neighbourhoods rather than reading the imagery.
+
+This is the holdout both the year built regressor (DiGi.GIS.ML) and the YOLO dataset builder (DiGi.GIS.YOLO.UI) carve, so it lives in DiGi.GIS.IO where both can reach it without dragging ML.NET into the detector side.
+
+```csharp
+public static bool Holdout(string? key, int denominator=5);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.Holdout(string,int).key'></a>
+
+`key` [System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')
+
+The row key \- a building reference or a subdivision identifier\.
+
+<a name='DiGi.GIS.IO.Query.Holdout(string,int).denominator'></a>
+
+`denominator` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+One row in this many joins the holdout\. 5 gives a 20 percent holdout\.
+
+#### Returns
+[System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean')  
+True when the key belongs to the holdout, false for a null or empty key\.
+
+<a name='DiGi.GIS.IO.Query.Holdouts(thisSystem.Collections.Generic.IEnumerable_string_,int)'></a>
+
+## Query\.Holdouts\(this IEnumerable\<string\>, int\) Method
+
+Decides Year Built holdout membership for every key, in row order\.
+
+Delegates to [Holdout\(string, int\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Query.Holdout(string,int) 'DiGi\.GIS\.IO\.Query\.Holdout\(string, int\)') per key so the two cannot disagree. A null or empty key is simply not in the holdout, so the result always carries one entry per key, and null input gives an empty list rather than throwing.
+
+```csharp
+public static System.Collections.Generic.List<bool> Holdouts(this System.Collections.Generic.IEnumerable<string?>? keys, int denominator=5);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.Holdouts(thisSystem.Collections.Generic.IEnumerable_string_,int).keys'></a>
+
+`keys` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The key of each row, in row order \- building references, or subdivision identifiers for the grouped carve\.
+
+<a name='DiGi.GIS.IO.Query.Holdouts(thisSystem.Collections.Generic.IEnumerable_string_,int).denominator'></a>
+
+`denominator` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+One row in this many joins the holdout\. 5 gives a 20 percent holdout\.
+
+#### Returns
+[System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[System\.Boolean](https://learn.microsoft.com/en-us/dotnet/api/system.boolean 'System\.Boolean')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
+True for each row that belongs to the holdout, in row order\. Empty when the input is null\.
+
 <a name='DiGi.GIS.IO.Query.UnpopulatedColumnNames(thisDiGi.Core.IO.Table.Classes.Table,System.Collections.Generic.IEnumerable_DiGi.Core.IO.Table.Classes.Column_)'></a>
 
 ## Query\.UnpopulatedColumnNames\(this Table, IEnumerable\<Column\>\) Method
@@ -1040,6 +1143,56 @@ The columns to look for\. Columns are matched by stored column slug first and by
 #### Returns
 [System\.Collections\.Generic\.List&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1 'System\.Collections\.Generic\.List\`1')  
 The names of the unpopulated columns, in the order given\. Empty when every column carries a value somewhere\.
+
+<a name='DiGi.GIS.IO.Query.YearBuiltLabels(thisDiGi.Core.IO.Table.Classes.Table)'></a>
+
+## Query\.YearBuiltLabels\(this Table\) Method
+
+Extracts the training labels of one stored building data table, by building reference\.
+
+Delegates to the IEnumerable<Table?> overload with a single element so the two cannot disagree.
+
+```csharp
+public static System.Collections.Generic.Dictionary<string,short> YearBuiltLabels(this DiGi.Core.IO.Table.Classes.Table? table);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.YearBuiltLabels(thisDiGi.Core.IO.Table.Classes.Table).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The stored building data table to take labels from, or null\.
+
+#### Returns
+[System\.Collections\.Generic\.Dictionary&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[,](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.Int16](https://learn.microsoft.com/en-us/dotnet/api/system.int16 'System\.Int16')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')  
+The construction year of each labelled building, by reference\. Empty when the table is null or holds no labels\.
+
+<a name='DiGi.GIS.IO.Query.YearBuiltLabels(thisSystem.Collections.Generic.IEnumerable_DiGi.Core.IO.Table.Classes.Table_)'></a>
+
+## Query\.YearBuiltLabels\(this IEnumerable\<Table\>\) Method
+
+Extracts the training labels from the stored `User year built` column, by building reference\.
+
+The value is the most frequent exact user year over every stored record of the building. The rule and its tie-breaks are defined once, on `DiGi.GIS.Query.MostFrequentUserYearBuilt`, and applied when `DiGi.GIS.IO.Modify.Update_Building2D_YearBuilt` writes the column. This method reads, it does not re-derive.
+
+Only this column is read, because the two year built columns beside it are the regressor's own territory. `Predicted year built` is this model's own output, and `Calculated year built` equals the prediction wherever no user year exists: on the counties this model trains on the stored user and predicted years disagree on roughly a quarter of the buildings, so reading either would train the regressor on its predecessor, which reads as an accuracy gain rather than as a defect.
+
+An empty cell is an unlabelled building, not year zero. A table without the column - a county the Year Built update has not reached - gives no labels.
+
+```csharp
+public static System.Collections.Generic.Dictionary<string,short> YearBuiltLabels(this System.Collections.Generic.IEnumerable<DiGi.Core.IO.Table.Classes.Table?>? tables);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Query.YearBuiltLabels(thisSystem.Collections.Generic.IEnumerable_DiGi.Core.IO.Table.Classes.Table_).tables'></a>
+
+`tables` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The stored building data tables to take labels from, typically one page or one county each\.
+
+#### Returns
+[System\.Collections\.Generic\.Dictionary&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[,](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')[System\.Int16](https://learn.microsoft.com/en-us/dotnet/api/system.int16 'System\.Int16')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2 'System\.Collections\.Generic\.Dictionary\`2')  
+The construction year of each labelled building, by reference\. Empty when nothing was labelled\.
 
 <a name='DiGi.GIS.IO.Query.YearBuiltPredictionFeatureGroups(DiGi.Core.Classes.Range_int_,System.Collections.Generic.IEnumerable_double_)'></a>
 
