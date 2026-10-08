@@ -24,18 +24,26 @@ namespace DiGi.GIS.IO.Classes
         public List<double>? Radiuses { get; }
 
         /// <summary>
+        /// Gets the identity of the loaded model - normally the lowercase hexadecimal SHA-256 of its file - or <see langword="null"/> when the predictor states none.
+        /// <para>The orchestrator stamps it on every prediction it stores (<c>PredictedYearBuilt.ModelId</c>), so the history can tell one model's predictions from another's after the model file is replaced in place - a file name says nothing then (ZiolkowskiJakub/DiGi.GIS.YOLO.UI#26).</para>
+        /// </summary>
+        public string? ModelId { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="YearBuiltPredictorReadiness"/> class.
         /// </summary>
         /// <param name="runnable">Whether the predictor can score at all.</param>
         /// <param name="messages">The diagnostics explaining why it cannot score. Null or empty when it can score.</param>
         /// <param name="years">The year range the loaded model was trained on, or null when the predictor states no contract.</param>
         /// <param name="radiuses">The radiuses the loaded model was trained on, in metres, or null when the predictor states no contract.</param>
-        public YearBuiltPredictorReadiness(bool runnable, IEnumerable<string>? messages = null, Range<int>? years = null, IEnumerable<double>? radiuses = null)
+        /// <param name="modelId">The identity of the loaded model, normally the lowercase hexadecimal SHA-256 of its file, or null when the predictor states none.</param>
+        public YearBuiltPredictorReadiness(bool runnable, IEnumerable<string>? messages = null, Range<int>? years = null, IEnumerable<double>? radiuses = null, string? modelId = null)
         {
             this.Runnable = runnable;
             this.Messages = messages is null ? [] : [.. messages];
             this.Years = years;
             this.Radiuses = radiuses is null ? null : [.. radiuses];
+            this.ModelId = string.IsNullOrWhiteSpace(modelId) ? null : modelId;
         }
     }
 }
