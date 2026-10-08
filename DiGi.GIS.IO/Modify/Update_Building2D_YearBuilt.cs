@@ -11,15 +11,19 @@ namespace DiGi.GIS.IO
         /// <summary>
         /// Updates the table with the three year built columns - predicted, user and calculated - of each building in a specific county.
         /// <para>A building may hold several stored <see cref="YearBuiltData"/> records - the table appends rather than replaces - so the entries of every record carrying the same reference are considered together: each column holds the most frequent year of its kind, the user column counts only exact user years, and the calculated column is the user year when one exists, otherwise the predicted year. All three are derived from the same records in the same call, so they cannot disagree.</para>
-        /// <para>Rows already in the table are matched on county identifier and reference; a reference the table does not hold yet is appended. A column a building holds no value for is left as it stood, and a building whose records carry no usable entry at all leaves no row behind.</para>
+        /// <para>Rows already in the table are matched on county identifier and reference; a reference the table does not hold yet is appended. A column a building holds no value for is left unset in its row - which is not "left as it stood" once the table is stored: <c>TablePostgreSQLConverter.PushAsync</c> writes NULL for every unset cell of a column the pushed table carries, and the three columns are carried as soon as one building has a value.</para>
+        /// <para>Without <paramref name="references"/> a building whose records carry no usable entry at all leaves no row behind, so its stored columns are never touched. With it, every named building gets a row and the three columns are always added, a value its history no longer holds being an unset cell (removed from a row the table already held) - pushing the table then clears it. That is what a recompute after a removal needs; a building data run leaves it out.</para>
         /// </summary>
         /// <param name="table">The table to update.</param>
         /// <param name="countyId">The unique identifier of the county.</param>
         /// <param name="yearBuiltDatas">The collection of stored year built data to derive the columns from.</param>
-        /// <returns>The number of rows given at least one of the three values - updated and appended alike. Zero when nothing was written, so a run can tell a county without stored entries from one it never asked about.</returns>
-        public static int Update_Building2D_YearBuilt(this Table? table, int countyId, IEnumerable<YearBuiltData>? yearBuiltDatas)
+        /// <param name="references">The references of the buildings to emit a row for whatever their history holds, or <c>null</c> to emit only the buildings with at least one value.</param>
+        /// <returns>The number of rows given at least one of the three values - updated and appended alike. Rows emitted for <paramref name="references"/> with no value are not counted. Zero when nothing was written, so a run can tell a county without stored entries from one it never asked about.</returns>
+        public static int Update_Building2D_YearBuilt(this Table? table, int countyId, IEnumerable<YearBuiltData>? yearBuiltDatas, IEnumerable<string>? references = null)
         {
-            if (table is null || yearBuiltDatas is null || !yearBuiltDatas.Any())
+            HashSet<string> references_Emit = references is null ? [] : [.. references.Where(x => !string.IsNullOrWhiteSpace(x))];
+
+            if (table is null || ((yearBuiltDatas is null || !yearBuiltDatas.Any()) && references_Emit.Count == 0))
             {
                 return 0;
             }
@@ -38,7 +42,7 @@ namespace DiGi.GIS.IO
 
             //Several records may be stored for one building, so the entries of every record are counted together per reference
             Dictionary<string, List<YearBuiltData>> groupsByReference = [];
-            foreach (YearBuiltData? yearBuiltData in yearBuiltDatas)
+            foreach (YearBuiltData? yearBuiltData in yearBuiltDatas ?? [])
             {
                 if (yearBuiltData?.Reference is not string reference || string.IsNullOrWhiteSpace(reference))
                 {
@@ -54,7 +58,7 @@ namespace DiGi.GIS.IO
                 yearBuiltDatas_Group.Add(yearBuiltData);
             }
 
-            if (groupsByReference.Count == 0)
+            if (groupsByReference.Count == 0 && references_Emit.Count == 0)
             {
                 return 0;
             }
@@ -68,10 +72,19 @@ namespace DiGi.GIS.IO
                 ushort? user = DiGi.GIS.Query.MostFrequentUserYearBuilt(keyValuePair.Value)?.Year is short year_User && year_User >= 0 ? (ushort)year_User : null;
                 ushort? calculated = DiGi.GIS.Query.CalculatedYearBuilt(keyValuePair.Value) is short year_Calculated && year_Calculated >= 0 ? (ushort)year_Calculated : null;
 
-                //A reference is kept only when at least one of the three columns has a value, so a building with bounds-only user entries and no prediction leaves no row
-                if (predicted is not null || user is not null || calculated is not null)
+                //A reference is kept only when at least one of the three columns has a value, so a building with bounds-only user entries and no prediction leaves no row - unless the caller named it
+                if (predicted is not null || user is not null || calculated is not null || references_Emit.Contains(keyValuePair.Key))
                 {
                     valuesByReference[keyValuePair.Key] = new Tuple<ushort?, ushort?, ushort?>(predicted, user, calculated);
+                }
+            }
+
+            //A named building with no stored record at all is emitted with no value, so its stored columns are cleared
+            foreach (string reference in references_Emit)
+            {
+                if (!valuesByReference.ContainsKey(reference))
+                {
+                    valuesByReference[reference] = new Tuple<ushort?, ushort?, ushort?>(null, null, null);
                 }
             }
 
@@ -80,7 +93,7 @@ namespace DiGi.GIS.IO
                 return 0;
             }
 
-            //The columns are added lazily: a table pushed without a column leaves the stored column untouched, so a missing value keeps what it had
+            //The columns are added lazily: a table pushed without a column leaves the stored column untouched. Once added, an unset cell is stored as NULL
             Column? column_PredictedYearBuilt = table.UpdateColumn<Column>(Constants.Column.PredictedYearBuilt);
             if (column_PredictedYearBuilt is null)
             {
@@ -154,27 +167,34 @@ namespace DiGi.GIS.IO
                 Row row = tuple.Item1;
                 Tuple<ushort?, ushort?, ushort?> values = tuple.Item2;
 
-                //A missing value is not written, so the cell keeps what it had
-                if (values.Item1 is not null)
-                {
-                    SetValue(row, column_PredictedYearBuilt, values.Item1);
-                }
+                //A missing value is not set. For a named building it is removed as well, so a row the table already held cannot carry a stale value into the push
+                bool clear = row.TryGetValue(column_Reference.Index, out string? reference_Row) && reference_Row is not null && references_Emit.Contains(reference_Row);
 
-                if (values.Item2 is not null)
-                {
-                    SetValue(row, column_UserYearBuilt, values.Item2);
-                }
-
-                if (values.Item3 is not null)
-                {
-                    SetValue(row, column_CalculatedYearBuilt, values.Item3);
-                }
+                Update(row, column_PredictedYearBuilt, values.Item1, clear);
+                Update(row, column_UserYearBuilt, values.Item2, clear);
+                Update(row, column_CalculatedYearBuilt, values.Item3, clear);
 
                 table.AddRow(row, false);
-                result++;
+
+                if (values.Item1 is not null || values.Item2 is not null || values.Item3 is not null)
+                {
+                    result++;
+                }
             }
 
             return result;
+
+            static void Update(Row row, Column column, ushort? value, bool clear)
+            {
+                if (value is not null)
+                {
+                    SetValue(row, column, value);
+                }
+                else if (clear)
+                {
+                    row.RemoveValue(column.Index);
+                }
+            }
         }
     }
 }
