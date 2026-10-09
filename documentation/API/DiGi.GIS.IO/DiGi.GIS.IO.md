@@ -779,6 +779,43 @@ The yearly statistical double data containing municipality population counts\.
 
 The optional range of years for the population series, defaulting to 2008\.\.2025\.
 
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_string_)'></a>
+
+## Modify\.Update\_Building2D\_PredictedYearBuilt\(this Table, int, IEnumerable\<string\>\) Method
+
+Clears the `Predicted year built` column of each named building in a specific county, leaving the `User year built` and `Calculated year built` columns as they stood\.
+
+Only the predicted column is carried, so `TablePostgreSQLConverter.PushAsync` writes NULL for it on the named rows while the two other year built columns are untouched - a table pushed without a column does not touch the stored column. A value a matched row already held is removed from it, so a stale predicted year cannot survive into the push.
+
+This is the companion to [Update\_Building2D\_YearBuiltPredictions\(this Table, int, IEnumerable&lt;Building2DYearBuiltPredictions&gt;\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Modify.Update_Building2D_YearBuiltPredictions(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.Building2DYearBuiltPredictions_) 'DiGi\.GIS\.IO\.Modify\.Update\_Building2D\_YearBuiltPredictions\(this DiGi\.Core\.IO\.Table\.Classes\.Table, int, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.Building2DYearBuiltPredictions\>\)'): a building the current detector never fired on has its detection columns replaced (ZiolkowskiJakub/DiGi.GIS.YOLO.UI#21), and this removes the predicted year that was derived from the evidence that is now gone (ZiolkowskiJakub/DiGi.GIS.YOLO.UI#28). It is the selective counterpart of [Update\_Building2D\_YearBuilt\(this Table, int, IEnumerable&lt;YearBuiltData&gt;, IEnumerable&lt;string&gt;\)](DiGi.GIS.IO.md#DiGi.GIS.IO.Modify.Update_Building2D_YearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_,System.Collections.Generic.IEnumerable_string_) 'DiGi\.GIS\.IO\.Modify\.Update\_Building2D\_YearBuilt\(this DiGi\.Core\.IO\.Table\.Classes\.Table, int, System\.Collections\.Generic\.IEnumerable\<DiGi\.GIS\.Classes\.YearBuiltData\>, System\.Collections\.Generic\.IEnumerable\<string\>\)'), which clears all three year built columns together and would also remove a stored user year.
+
+```csharp
+public static int Update_Building2D_PredictedYearBuilt(this DiGi.Core.IO.Table.Classes.Table? table, int countyId, System.Collections.Generic.IEnumerable<string>? references);
+```
+#### Parameters
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_string_).table'></a>
+
+`table` [DiGi\.Core\.IO\.Table\.Classes\.Table](https://learn.microsoft.com/en-us/dotnet/api/digi.core.io.table.classes.table 'DiGi\.Core\.IO\.Table\.Classes\.Table')
+
+The table to update\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_string_).countyId'></a>
+
+`countyId` [System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')
+
+The unique identifier of the county\.
+
+<a name='DiGi.GIS.IO.Modify.Update_Building2D_PredictedYearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_string_).references'></a>
+
+`references` [System\.Collections\.Generic\.IEnumerable&lt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')[System\.String](https://learn.microsoft.com/en-us/dotnet/api/system.string 'System\.String')[&gt;](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1 'System\.Collections\.Generic\.IEnumerable\`1')
+
+The references of the buildings whose predicted year is cleared\.
+
+#### Returns
+[System\.Int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32 'System\.Int32')  
+The number of references emitted \- updated and appended alike\. Zero when nothing was written, so a run can tell a county without named buildings from one it never asked about\.
+
 <a name='DiGi.GIS.IO.Modify.Update_Building2D_YearBuilt(thisDiGi.Core.IO.Table.Classes.Table,int,System.Collections.Generic.IEnumerable_DiGi.GIS.Classes.YearBuiltData_,System.Collections.Generic.IEnumerable_string_)'></a>
 
 ## Modify\.Update\_Building2D\_YearBuilt\(this Table, int, IEnumerable\<YearBuiltData\>, IEnumerable\<string\>\) Method
